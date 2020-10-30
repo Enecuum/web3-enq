@@ -1,0 +1,21 @@
+{
+  "name": "enq-web",
+  "version": "1.0.0",
+  "description": "web for enq-extension",
+  "main": "./packages/web/src/index.js",
+  "private":true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Enecuum",
+    "JavaScript",
+    "API"
+  ],
+  "dependencies": {
+    "web-enq":"1.0.0",
+    "web-enq-utils":"1.0.0"
+  },
+  "author": "https://github.com/kamighost1",
+  "license": "ISC"
+}
