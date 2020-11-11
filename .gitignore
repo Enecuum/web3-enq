@@ -1,7 +1,4 @@
-packeges/web/node_modules/
-packeges/web-enq/node_modul*/
-packeges/web-enq/package-lock.json
-packeges/web-enq-utils/node_modul*/
-packeges/web-enq-utils/package-lock*
+packages/web-enq-utils/node_modules/
+packages/web-enq/node_modules/
 packages/web-enq/package-lock.json
-packages/web-enq-utils/package-lock*
+packages/web-enq-utils/package-lock.json
