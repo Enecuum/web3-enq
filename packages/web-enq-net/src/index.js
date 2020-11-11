@@ -30,6 +30,17 @@ var Net = function Net(){
         enumerable:true,
         configurable:true
     })
+    Object.defineProperty(this, 'ticker',{
+        get: function (){
+            return enq.ticker;
+        },
+        set: function (val){
+            enq.ticker = val;
+            return enq.ticker;
+        },
+        enumerable:true,
+        configurable:true
+    })
     Object.defineProperty(this, 'owner',{
         get: function (){
             return enq.owner;

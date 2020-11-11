@@ -35,6 +35,17 @@ var Enq = function Enq(){
         enumerable:true,
         configurable:true
     })
+    Object.defineProperty(this, 'ticker',{
+        get: function (){
+            return ticker;
+        },
+        set: function (val){
+            ticker = val;
+            return ticker;
+        },
+        enumerable:true,
+        configurable:true
+    })
     Object.defineProperty(this, 'owner',{
         get: function (){
             return owner;
