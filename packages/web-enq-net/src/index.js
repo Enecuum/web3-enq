@@ -26,6 +26,8 @@ var Net = function Net(){
             console.log(api);
         },
         getBalance: function (acc, token){
+            var api = `balance?id=${acc}&token=${token}`
+            console.log(api);
         },
         token_info: function (hash){
             var api = `token_info?hash=${hash}`
