@@ -1,5 +1,9 @@
 const DFO = require('./dataFromObject');
 
-module.exports = {
-    dataFromObject:DFO,
+var Utils = function Utils(){
+    this.dfo = function (obj){
+        return DFO(obj);
+    };
 }
+
+module.exports = Utils

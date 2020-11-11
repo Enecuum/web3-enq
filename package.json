@@ -3,19 +3,17 @@
   "version": "1.0.0",
   "description": "web for enq-extension",
   "main": "./packages/web/src/index.js",
-  "private":true,
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init": "cd packages/web-enq-utils/\nnpm i\ncd ../web-enq\nnpm i"
   },
   "keywords": [
     "Enecuum",
     "JavaScript",
     "API"
   ],
-  "dependencies": {
-    "web-enq":"1.0.0",
-    "web-enq-utils":"1.0.0"
-  },
+  "dependencies": {},
   "author": "https://github.com/kamighost1",
   "license": "ISC"
 }
