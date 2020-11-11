@@ -21,11 +21,12 @@ Web.modules ={
 // module.exports = Web;
 
 let a = new Web()
-a.Net.provider = 'http://95.216.207.173'
+
 
 let b = async function (){
-    console.log()
-    console.log(await a.Net.get.getMyBalance(a.Enq.token));
+    a.Net.provider = 'http://95.216.207.173'
+    let test = await a.Net
+    console.log(test);
 }
 
 b();

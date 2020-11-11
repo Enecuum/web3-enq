@@ -6,6 +6,7 @@ var Enq = function Enq(){
     var _this = this;
     var provider = 'https://pulse.enecuum.com';
     var token = '0000000000000000000000000000000000000000000000000000000000000000';
+    var ticker = '0000000000000000000000000000000000000000000000000000000000000000';
     var user ={
         pubkey:'',
         prvkey:'',

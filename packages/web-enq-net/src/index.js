@@ -19,48 +19,141 @@ var Net = function Net(){
         enumerable:true,
         configurable:true
     })
+    Object.defineProperty(this, 'token',{
+        get: function (){
+            return enq.token;
+        },
+        set: function (val){
+            enq.token = val;
+            return enq.token;
+        },
+        enumerable:true,
+        configurable:true
+    })
+    Object.defineProperty(this, 'owner',{
+        get: function (){
+            return enq.owner;
+        },
+        set: function (val){
+            enq.owner = val;
+            return enq.owner;
+        },
+        enumerable:true,
+        configurable:true
+    })
+    Object.defineProperty(this, 'User', {
+        get:function (){
+            return enq.user;
+        },
+        set:function (obj){
+            enq.user.pubkey = obj.pubkey;
+            enq.user.prvkey = obj.prvkey;
+        },
+        enumerable:true,
+        configurable:true
+    })
+
 
     this.get = {
-        getMyBalance: function (token){
+        getMyBalance:  async function (token){
             var api = `balance?id=${enq.User.pubkey}&token=${token}`
-            console.log(api);
-        },
-        getBalance: function (acc, token){
-            var api = `balance?id=${acc}&token=${token}`
-            console.log(api);
-        },
-        token_info: function (hash){
-            var api = `token_info?hash=${hash}`
             enq.sendAPI(api).then(data=>{
-                console.log(data[0].owner);
+                return data
             })
         },
-        height:function (){},
-        macroblock:function (hash){},
-        macroblockByHieht:function (height){},
-        tx:function(hash){}
+        getBalance:  async function (acc, token){
+            var api = `balance?id=${acc}&token=${token}`
+            enq.sendAPI(api).then(data=>{
+                return data
+            })
+        },
+        token_info:  async function (hash){
+            var api = `token_info?hash=${hash}`
+            return await enq.sendAPI(api)
+        },
+        height: async function (){
+            return await enq.sendAPI('height')
+        },
+        macroblock: async function (hash){
+            var api = `macroblock?hash=${hash}`
+            return await enq.sendAPI(api);
+        },
+        macroblockByHeight: async function (height){},
+        tx: async function(hash){
+            var api = `macroblock_by_height?hash=${hash}`
+            return await enq.sendAPI(api);
+        }
     }
     this.post = {
-        tx: function (to, ticker, amount){
+        tx:  async function (to, ticker, amount,data){
+            var tx = {
+                to:to,
+                from:enq.User.pubkey,
+                ticker:ticker,
+                amount:amount,
+                nonce:Math.floor(Math.random() * 1e10)
+            };
+            if(data){
+                tx.data = await utils.dfo(data)
+            }else{
+                tx.data = '';
+            }
+            tx.hash = utils.Utils.hash_tx_fields(tx)
+            tx.sign = utils.Utils.ecdsa_sign(enq.User.prvkey,tx.hash);
+            return await enq.sendTx(tx)
         },
-        delegate:function (pos_id,amount){},
-        undelegate: function (pos_id,amount){},
-        create_pos: function (fee,name){},
-        pos_reward: function (){},
-        create_token: function (){},
-        burn: function (){},
-        mint: function (){},
-        transfer: function (){
+        delegate: async function (pos_id,amount){
+            var tx_data = {
+                type:'delegate',
+                parameters:{
+                    pos_id:pos_id,
+                    amount: BigInt(amount)
+                }
+            }
+            var fee = await _this.get.token_info(enq.token);
+            return await _this.post.tx(enq.owner,enq.ticker,fee[0].value,tx_data);
+        },
+        undelegate:  async function (pos_id,amount){
+            var tx_data = {
+                type:'undelegate',
+                parameters:{
+                    pos_id:pos_id,
+                    amount: BigInt(amount)
+                }
+            }
+            var fee = await _this.get.token_info(enq.token);
+            return await _this.post.tx(enq.owner,enq.ticker,fee[0].value,tx_data);
+        },
+        create_pos:  async function (fee,name){},
+        pos_reward:  async function (){},
+        create_token:  async function (){},
+        burn:  async function (){},
+        mint:  async function (){},
+        transfer:  async function (){
             console.log('hello')
         }
     }
     this.pos = {
-        get_pos_total_stake:function (){},
-        get_pos_list_count:function (){},
-        get_pos_list:function (owner){},
-        get_pos_list_all:function (){},
-        get_delegators_list:function (pos_id){},
-        get_transfer_lock:function (){}
+        get_pos_total_stake: async function (){
+            return await enq.sendAPI('get_pos_total_stake')
+        },
+        get_pos_list_count: async function (){
+            return await enq.sendAPI('get_pos_list_count')
+        },
+        get_pos_list: async function (owner){
+            var api = `get_pos_list?owner=${owner}`
+            return await enq.sendAPI(api);
+        },
+        get_pos_list_all: async function (){
+            return await enq.sendAPI('get_pos_list_all')
+        },
+        get_delegators_list: async function (pos_id){
+            var api = `get_delegators_list?pos_id=${pos_id}`
+            return await enq.sendAPI(api)
+        },
+        get_transfer_lock: async function (){
+            return await enq.sendAPI('get_transfer_lock')
+        }
     }
 }
 
