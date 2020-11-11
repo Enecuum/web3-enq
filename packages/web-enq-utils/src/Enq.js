@@ -1,5 +1,5 @@
 //let addon = require('./src/Build/Release/addon');
-let addon = require('./node_modules/enecuum-crypto/addon');
+let addon = require('../node_modules/enecuum-crypto/addon');
 var crypto = require('crypto');
 
 module.exports = addon;

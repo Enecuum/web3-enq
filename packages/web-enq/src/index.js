@@ -3,13 +3,18 @@ const bp = require('body-parser')
 const request = require('request')
 
 var Enq = function Enq(){
-    var _this = this
-    var provider = 'https://pulse.enecuum.com'
-
+    var _this = this;
+    var provider = 'https://pulse.enecuum.com';
+    var token = '0000000000000000000000000000000000000000000000000000000000000000';
+    var user ={
+        pubkey:'',
+        prvkey:'',
+    };
+    var owner = '';
 
     Object.defineProperty(this,'provider',{
         get:function (){
-            return provider
+            return provider;
         },
         set: function (net){
           provider = net;
@@ -18,9 +23,42 @@ var Enq = function Enq(){
         enumerable:true,
         configurable:true
     })
+    Object.defineProperty(this, 'token',{
+        get: function (){
+            return token;
+        },
+        set: function (val){
+            token = val;
+            return token;
+        },
+        enumerable:true,
+        configurable:true
+    })
+    Object.defineProperty(this, 'owner',{
+        get: function (){
+            return owner;
+        },
+        set: function (val){
+            owner = val;
+            return owner;
+        },
+        enumerable:true,
+        configurable:true
+    })
+    Object.defineProperty(this, 'User', {
+        get:function (){
+            return user;
+        },
+        set:function (obj){
+            user.pubkey = obj.pubkey;
+            user.prvkey = obj.prvkey;
+        },
+        enumerable:true,
+        configurable:true
+    })
     Object.defineProperty(this,'hello',{
         get:function (){
-            return 'hello'
+            return 'hello';
         },
         set:function (val){
             return val;
@@ -29,13 +67,11 @@ var Enq = function Enq(){
         configurable:true
     })
     this.sendTx = function (tx){
-        this.sendTx.use(bp.urlencoded({extended:false}))
-        this.sendTx.use(bp.json())
         return new Promise(function(resolve, reject){
             request({url:`${provider}/api/v1/tx`, method:"POST", json:[tx]}, function(err, resp, body){
                 if (err){
                     console.error(`Failed to send transaction`);
-                    console.log(err)
+                    console.log(err);
                     reject();
                 } else {
                     if (body.err != 0){
@@ -46,7 +82,7 @@ var Enq = function Enq(){
                         if(body.result[0].hash){
                             resolve({hash:body.result[0].hash});
                         }else{
-                            resolve(body)
+                            resolve(body);
                         }
                     }
                 }
@@ -54,10 +90,8 @@ var Enq = function Enq(){
         });
     }
     this.sendAPI = function (api,fields){
-        this.sendAPI.use(bp.urlencoded({extended:false}))
-        this.sendAPI.use(bp.json())
         return new Promise((resolve,reject)=>{
-
+            // bp.urlencoded();
             request({url:`${provider}/api/v1/${api}`,method:'GET',json:[fields]},(err,resp,body)=>{
                 if(err){
                     console.log(`[ERROR] send get ${api}. ${err}`);
@@ -67,7 +101,7 @@ var Enq = function Enq(){
                         console.log(`[ERROR] node-trinity err. get '${api}' failed ${body}`)
                         reject();
                     }else{
-                        resolve(body)
+                        resolve(body);
                     }
                 }
             })
