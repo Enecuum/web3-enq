@@ -18,15 +18,4 @@ Web.modules ={
     Net:Net
 }
 
-// module.exports = Web;
-
-let a = new Web()
-
-
-let b = async function (){
-    a.Net.provider = 'http://95.216.207.173'
-    let test = await a.Net.ticker
-    console.log(test);
-}
-
-b();
+module.exports = Web;

@@ -64,9 +64,28 @@ var Enq = function Enq(){
         set:function (obj){
             user.pubkey = obj.pubkey;
             user.prvkey = obj.prvkey;
+            return user;
         },
         enumerable:true,
         configurable:true
+    })
+    Object.defineProperty(this,'userPub',{
+        get:function (){
+            return user.pubkey
+        },
+        set:function (value){
+            user.pubkey =value
+            return user;
+        }
+    })
+    Object.defineProperty(this,'userPvt',{
+        get:function (){
+            return user.prvkey
+        },
+        set:function (value){
+            user.prvkey =value
+            return user;
+        }
     })
     Object.defineProperty(this,'hello',{
         get:function (){
