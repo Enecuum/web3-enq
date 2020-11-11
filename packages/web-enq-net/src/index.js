@@ -109,9 +109,12 @@ var Net = function Net(){
             var api = `macroblock?hash=${hash}`
             return await enq.sendAPI(api);
         },
-        macroblockByHeight: async function (height){},
+        macroblockByHeight: async function (height){
+            var api = `macroblock_by_height?height=${height}`
+            return await enq.sendAPI(api);
+        },
         tx: async function(hash){
-            var api = `macroblock_by_height?hash=${hash}`
+            var api = `tx?hash=${hash}`
             return await enq.sendAPI(api);
         }
     }
