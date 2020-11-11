@@ -20,12 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8551e8a2-319a-46e5-89b8-c2b0cfe44bc7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq-utils/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-utils/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq-utils/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-utils/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +65,7 @@
       <updated>1604100248073</updated>
       <workItem from="1604100249871" duration="618000" />
       <workItem from="1604787937314" duration="604000" />
-      <workItem from="1605100047531" duration="6702000" />
+      <workItem from="1605100047531" duration="6838000" />
     </task>
     <servers />
   </component>
