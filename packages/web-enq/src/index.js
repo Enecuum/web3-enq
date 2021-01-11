@@ -1,6 +1,4 @@
-const jq = require('jquery')
-const bp = require('body-parser')
-const request = require('request')
+const request = require('../../../node_modules/request')
 
 var Enq = function Enq(){
     var _this = this;

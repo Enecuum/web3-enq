@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const enq = require('./Enq');
-const rsasign = require('jsrsasign');
-let rx = require('../node_modules/node-randomx/addon');
+const rsasign = require('../../../node_modules/jsrsasign');
+let rx = require('../../../node_modules/node-randomx/addon');
 const fs = require('fs');
 
 let KeyEncoder = require('key-encoder').default;
