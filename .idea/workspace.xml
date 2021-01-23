@@ -22,14 +22,15 @@
     <list default="true" id="8551e8a2-319a-46e5-89b8-c2b0cfe44bc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/enqweb3.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/run.min.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq-utils/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-utils/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq-utils/src/Enq.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-utils/src/Enq.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/web-enq-eth/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-eth/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/web-enq-net/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-net/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/web-enq-utils/src/Utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-utils/src/Utils.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/web-enq-utils/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-utils/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/web-enq/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +55,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -63,6 +65,10 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/packages/web-enq-utils/src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/dev" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -84,6 +90,20 @@
       <workItem from="1610328917789" duration="59000" />
       <workItem from="1610329376741" duration="231000" />
       <workItem from="1610329756836" duration="1620000" />
+      <workItem from="1610532048800" duration="75000" />
+      <workItem from="1610533260393" duration="14000" />
+      <workItem from="1610556830452" duration="1726000" />
+      <workItem from="1610558614710" duration="3746000" />
+      <workItem from="1610566882612" duration="2222000" />
+      <workItem from="1610570261732" duration="307000" />
+      <workItem from="1610572953288" duration="21000" />
+      <workItem from="1610573012610" duration="1954000" />
+      <workItem from="1610611247010" duration="1084000" />
+      <workItem from="1610838726600" duration="232000" />
+      <workItem from="1610887721427" duration="526000" />
+      <workItem from="1610962193798" duration="204000" />
+      <workItem from="1611308024294" duration="2523000" />
+      <workItem from="1611388149739" duration="7774000" />
     </task>
     <servers />
   </component>

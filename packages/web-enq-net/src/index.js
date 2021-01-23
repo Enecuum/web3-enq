@@ -1,85 +1,80 @@
-const Enq = require('../../web-enq')
-const Utils = require('../../web-enq-utils')
 
-var Net = function Net(){
-
-    enq = new Enq(this);
-    utils = new Utils(this);
+var Net = function Net(web){
 
     var _this = this;
 
     Object.defineProperty(this,'provider',{
         get:function (){
-            return enq.provider
+            return web.Enq.provider
         },
         set:function (val){
-            enq.provider = val
-            return enq.provider;
+            web.Enq.provider = val
+            return web.Enq.provider;
         },
         enumerable:true,
         configurable:true,
     })
     Object.defineProperty(this, 'token',{
         get: function (){
-            return enq.token;
+            return web.Enq.token;
         },
         set: function (val){
-            enq.token = val;
-            return enq.token;
+            web.Enq.token = val;
+            return web.Enq.token;
         },
         enumerable:true,
         configurable:true,
     })
     Object.defineProperty(this, 'ticker',{
         get: function (){
-            return enq.ticker;
+            return web.Enq.ticker;
         },
         set: function (val){
-            enq.ticker = val;
-            return enq.ticker;
+            web.Enq.ticker = val;
+            return web.Enq.ticker;
         },
         enumerable:true,
         configurable:true,
     })
     Object.defineProperty(this, 'owner',{
         get: function (){
-            return enq.owner;
+            return web.Enq.owner;
         },
         set: function (val){
-            enq.owner = val;
-            return enq.owner;
+            web.Enq.owner = val;
+            return web.Enq.owner;
         },
         enumerable:true,
         configurable:true,
     })
     Object.defineProperty(this, 'User', {
         get:function (){
-            return enq.User;
+            return web.Enq.User;
         },
         set:function (obj){
-            enq.User.pubkey = obj.pubkey;
-            enq.User.prvkey = obj.prvkey;
-            return enq.User;
+            web.Enq.User.pubkey = obj.pubkey;
+            web.Enq.User.prvkey = obj.prvkey;
+            return web.Enq.User;
         },
         enumerable:true,
         configurable:true
     })
     Object.defineProperty(this,'userPub',{
         get:function (){
-            return enq.User.pubkey
+            return web.Enq.User.pubkey
         },
         set:function (value){
-            enq.User.pubkey =value
-            return enq.User;
+            web.Enq.User.pubkey =value
+            return web.Enq.User;
         }
     })
     Object.defineProperty(this,'userPvt',{
         get:function (){
-            return enq.User.prvkey
+            return web.Enq.User.prvkey
         },
         set:function (value){
-            enq.User.prvkey =value
-            return enq.User;
+            web.Enq.User.prvkey =value
+            return web.Enq.User;
         }
     })
 
@@ -87,35 +82,31 @@ var Net = function Net(){
 
     this.get = {
         getMyBalance:  async function (token){
-            var api = `balance?id=${enq.User.pubkey}&token=${token}`
-            enq.sendAPI(api).then(data=>{
-                return data
-            })
+            var api = `balance?id=${web.Enq.User.pubkey}&token=${token}`
+            return await web.Enq.sendAPI(api)
         },
         getBalance:  async function (acc, token){
             var api = `balance?id=${acc}&token=${token}`
-            enq.sendAPI(api).then(data=>{
-                return data
-            })
+            return await web.Enq.sendAPI(api)
         },
         token_info:  async function (hash){
             var api = `token_info?hash=${hash}`
-            return await enq.sendAPI(api)
+            return await web.Enq.sendAPI(api)
         },
         height: async function (){
-            return await enq.sendAPI('height')
+            return await web.Enq.sendAPI('height')
         },
         macroblock: async function (hash){
             var api = `macroblock?hash=${hash}`
-            return await enq.sendAPI(api);
+            return await web.Enq.sendAPI(api);
         },
         macroblockByHeight: async function (height){
             var api = `macroblock_by_height?height=${height}`
-            return await enq.sendAPI(api);
+            return await web.Enq.sendAPI(api);
         },
         tx: async function(hash){
             var api = `tx?hash=${hash}`
-            return await enq.sendAPI(api);
+            return await web.Enq.sendAPI(api);
         }
     }
     this.post = {
@@ -123,19 +114,19 @@ var Net = function Net(){
             var fee = await _this.get.token_info(token)
             var tx = {
                 to:to,
-                from:enq.User.pubkey,
+                from:web.Enq.User.pubkey,
                 ticker:ticker,
                 amount:amount + fee[0].fee_value,
                 nonce:Math.floor(Math.random() * 1e10)
             };
             if(data){
-                tx.data = await utils.dfo(data)
+                tx.data = await web.Utils.dfo(data)
             }else{
                 tx.data = '';
             }
-            tx.hash = utils.Utils.hash_tx_fields(tx)
-            tx.sign = utils.Utils.ecdsa_sign(enq.User.prvkey,tx.hash);
-            return await enq.sendTx(tx)
+            tx.hash = await web.Utils.Sign.hash_tx_fields(tx)
+            tx.sign = await web.Utils.Sign.ecdsa_sign(web.Enq.User.prvkey,tx.hash);
+            return await web.Enq.sendTx(tx)
         },
         delegate: async function (pos_id,amount){
             var tx_data = {
@@ -145,7 +136,7 @@ var Net = function Net(){
                     amount: BigInt(amount)
                 }
             }
-            return await _this.post.tx(enq.owner,enq.ticker,0,tx_data,enq.token);
+            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
         undelegate:  async function (pos_id,amount){
             var tx_data = {
@@ -155,7 +146,7 @@ var Net = function Net(){
                     amount: BigInt(amount)
                 }
             }
-            return await _this.post.tx(enq.owner,enq.ticker,0,tx_data,enq.token);
+            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
         create_pos:  async function (fee,name){
             var tx_data ={
@@ -165,7 +156,7 @@ var Net = function Net(){
                     name:String(name)
                 }
             }
-            return await _this.post.tx(enq.owner,enq.ticker,0,tx_data,enq.token);
+            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
         pos_reward:  async function (pos_id){
             var tx_data = {
@@ -174,7 +165,7 @@ var Net = function Net(){
                     pos_id:pos_id,
                 }
             }
-            return await _this.post.tx(enq.owner,enq.ticker,0,tx_data,enq.token);
+            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
         create_token:  async function (obj){
             var tx_data = {
@@ -196,7 +187,7 @@ var Net = function Net(){
                     minable : Number(obj.minable)
                 }
             }
-            return await _this.post.tx(enq.owner,enq.ticker,0,tx_data,enq.token);
+            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
         burn:  async function (token_hash,amount){
             var tx_data = {
@@ -206,7 +197,7 @@ var Net = function Net(){
                     amount: BigInt(amount)
                 }
             }
-            return await _this.post.tx(enq.owner,enq.ticker,0,tx_data,enq.token);
+            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
         mint:  async function (token_hash,amount){
             var tx_data = {
@@ -216,7 +207,7 @@ var Net = function Net(){
                     amount: BigInt(amount)
                 }
             }
-            return await _this.post.tx(enq.owner,enq.ticker,0,tx_data,enq.token);
+            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
         transfer:  async function (pos_id){
             var tx_data = {
@@ -225,29 +216,29 @@ var Net = function Net(){
                     undelegate_id:pos_id,
                 }
             }
-            return await _this.post.tx(enq.owner,enq.ticker,0,tx_data,enq.token)
+            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token)
         }
     }
     this.pos = {
         get_pos_total_stake: async function (){
-            return await enq.sendAPI('get_pos_total_stake')
+            return await web.Enq.sendAPI('get_pos_total_stake')
         },
         get_pos_list_count: async function (){
-            return await enq.sendAPI('get_pos_list_count')
+            return await web.Enq.sendAPI('get_pos_list_count')
         },
         get_pos_list: async function (owner){
             var api = `get_pos_list?owner=${owner}`
-            return await enq.sendAPI(api);
+            return await web.Enq.sendAPI(api);
         },
         get_pos_list_all: async function (){
-            return await enq.sendAPI('get_pos_list_all')
+            return await web.Enq.sendAPI('get_pos_list_all')
         },
         get_delegators_list: async function (pos_id){
             var api = `get_delegators_list?pos_id=${pos_id}`
-            return await enq.sendAPI(api)
+            return await web.Enq.sendAPI(api)
         },
         get_transfer_lock: async function (){
-            return await enq.sendAPI('get_transfer_lock')
+            return await web.Enq.sendAPI('get_transfer_lock')
         }
     }
 }

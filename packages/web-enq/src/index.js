@@ -1,6 +1,6 @@
 const request = require('../../../node_modules/request')
 
-var Enq = function Enq(){
+var Enq = function Enq(web){
     var _this = this;
     var provider = 'https://pulse.enecuum.com';
     var token = '0000000000000000000000000000000000000000000000000000000000000000';
@@ -10,7 +10,7 @@ var Enq = function Enq(){
         prvkey:'',
     };
     var owner = '';
-
+    var cb = {}
     Object.defineProperty(this,'provider',{
         get:function (){
             return provider;
@@ -84,6 +84,17 @@ var Enq = function Enq(){
             user.prvkey =value
             return user;
         }
+    })
+    Object.defineProperty(this, 'cb',{
+        get: function (){
+            return cb;
+        },
+        set: function (val){
+            cb = val;
+            return cb;
+        },
+        enumerable:true,
+        configurable:true
     })
     Object.defineProperty(this,'hello',{
         get:function (){

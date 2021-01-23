@@ -3,8 +3,7 @@ const webpack = require("webpack");
 
 module.exports = {
     entry: {
-        enqweb3:'./packages/web/src/index.js',
-        run:'./run.js'
+        enqweb3:'./prebuild/enqweb3.min.js',
     },
     resolve: {
         //modules: ["node_modules"],

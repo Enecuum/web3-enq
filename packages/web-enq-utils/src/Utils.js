@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const enq = require('./Enq');
 const rsasign = require('../../../node_modules/jsrsasign');
 let rx = require('../../../node_modules/node-randomx/addon');
-const fs = require('fs');
+const fs = require('../../../node_modules/fs');
 
 let KeyEncoder = require('key-encoder').default;
 let keyEncoder = new KeyEncoder('secp256k1');
