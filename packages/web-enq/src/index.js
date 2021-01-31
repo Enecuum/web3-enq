@@ -10,7 +10,8 @@ var Enq = function Enq(web){
         prvkey:'',
     };
     var owner = '';
-    var cb = {}
+    var cb = {};
+    var ready = '';
     Object.defineProperty(this,'provider',{
         get:function (){
             return provider;
