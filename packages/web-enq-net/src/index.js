@@ -2,7 +2,6 @@
 var Net = function Net(web){
 
     var _this = this;
-
     Object.defineProperty(this,'provider',{
         get:function (){
             return web.Enq.provider
@@ -110,11 +109,11 @@ var Net = function Net(web){
         }
     }
     this.post = {
-        tx:  async function (to, ticker, amount,data, token){
+        tx:  async function (from,to, ticker, amount,data, token){
             var fee = await _this.get.token_info(token)
             var tx = {
                 to:to,
-                from:web.Enq.User.pubkey,
+                from:from.pubkey,
                 ticker:ticker,
                 amount:amount + fee[0].fee_value,
                 nonce:Math.floor(Math.random() * 1e10)
@@ -125,10 +124,10 @@ var Net = function Net(web){
                 tx.data = '';
             }
             tx.hash = await web.Utils.Sign.hash_tx_fields(tx)
-            tx.sign = await web.Utils.Sign.ecdsa_sign(web.Enq.User.prvkey,tx.hash);
+            tx.sign = await web.Utils.Sign.ecdsa_sign(from.prvkey,tx.hash);
             return await web.Enq.sendTx(tx)
         },
-        delegate: async function (pos_id,amount){
+        delegate: async function (from,pos_id,amount){
             var tx_data = {
                 type:'delegate',
                 parameters:{
@@ -136,9 +135,9 @@ var Net = function Net(web){
                     amount: BigInt(amount)
                 }
             }
-            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
+            return await _this.post.tx(from,web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
-        undelegate:  async function (pos_id,amount){
+        undelegate:  async function (from, pos_id,amount){
             var tx_data = {
                 type:'undelegate',
                 parameters:{
@@ -146,9 +145,9 @@ var Net = function Net(web){
                     amount: BigInt(amount)
                 }
             }
-            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
+            return await _this.post.tx(from, web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
-        create_pos:  async function (fee,name){
+        create_pos:  async function (from, fee,name){
             var tx_data ={
                 type:'create_pos',
                 parameters:{
@@ -156,18 +155,18 @@ var Net = function Net(web){
                     name:String(name)
                 }
             }
-            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
+            return await _this.post.tx(from, web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
-        pos_reward:  async function (pos_id){
+        pos_reward:  async function (from, pos_id){
             var tx_data = {
                 type:'pos_reward',
                 parameters:{
                     pos_id:pos_id,
                 }
             }
-            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
+            return await _this.post.tx(from, web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
-        create_token:  async function (obj){
+        create_token:  async function (from ,obj){
             var tx_data = {
                 type:'create_token',
                 parameters:{
@@ -187,9 +186,9 @@ var Net = function Net(web){
                     minable : Number(obj.minable)
                 }
             }
-            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
+            return await _this.post.tx(from, web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
-        burn:  async function (token_hash,amount){
+        burn:  async function (from, token_hash,amount){
             var tx_data = {
                 type:'burn',
                 parameters:{
@@ -197,9 +196,9 @@ var Net = function Net(web){
                     amount: BigInt(amount)
                 }
             }
-            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
+            return await _this.post.tx(from, web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
-        mint:  async function (token_hash,amount){
+        mint:  async function (from, token_hash,amount){
             var tx_data = {
                 type:'burn',
                 parameters:{
@@ -207,16 +206,16 @@ var Net = function Net(web){
                     amount: BigInt(amount)
                 }
             }
-            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
+            return await _this.post.tx(from, web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token);
         },
-        transfer:  async function (pos_id){
+        transfer:  async function (from, pos_id){
             var tx_data = {
                 type:'transfer',
                 parameters:{
                     undelegate_id:pos_id,
                 }
             }
-            return await _this.post.tx(web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token)
+            return await _this.post.tx(from, web.Enq.owner,web.Enq.ticker,0,tx_data,web.Enq.token)
         }
     }
     this.pos = {

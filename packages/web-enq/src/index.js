@@ -11,7 +11,7 @@ var Enq = function Enq(web){
     };
     var owner = '';
     var cb = {};
-    var ready = '';
+    var ready = {};
     Object.defineProperty(this,'provider',{
         get:function (){
             return provider;

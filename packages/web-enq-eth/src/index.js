@@ -1,21 +1,21 @@
 
 var Eth = function Eth(web){
     let time = 200
-    let _promise = function (){
+    let _promise = function (id){
         return new Promise( (resolve)=>{
             let a = setInterval(()=>{
-                if(web.Enq.ready){
+                if(web.Enq.ready[id]){
                     clearInterval(a)
                     resolve()
                 }
             }, time)
         })
     }
-    let _waitAnswer = async function (){
+    let _waitAnswer = async function (id){
         return new Promise(async (resolve, reject) => {
-            ENQWeb.Enq.ready = false
-            await _promise().then(el=>{
-                resolve(web.Enq.cb)
+            ENQWeb.Enq.ready[id] = false
+            await _promise(id).then(el=>{
+                resolve(web.Enq.cb[id])
             }).catch(err=>{
                 console.log('ERROR: ', err)
                 reject()
@@ -23,16 +23,24 @@ var Eth = function Eth(web){
         })
     }
     let lastResult = ''
+
+
+    this.connect = async function(){
+        let taskId = Math.random().toString(36)
+
+    }
+
     this.enable = async function (cb){
+        let taskId = Math.random().toString(36)
         if(ENQExt){
             let event = new CustomEvent('ENQContent',{
                 detail:{
                     type:'enable',
-                    cb:cb
+                    cb:{cb:cb, taskid:taskId}
                 }
             })
             document.dispatchEvent(event)
-            await _waitAnswer()
+            await _waitAnswer(taskId)
                 .then(result=>{
                     lastResult = result
                 })
@@ -47,6 +55,7 @@ var Eth = function Eth(web){
         }
     }
     this.balanceOf = async function(address, token, cb){
+        let taskId = Math.random().toString(36)
         if(ENQExt){
             let event = new CustomEvent('ENQContent',{
                 detail:{
@@ -55,11 +64,11 @@ var Eth = function Eth(web){
                         address:address,
                         token:token,
                     },
-                    cb:cb
+                    cb: {cb:cb, taskid:taskId}
                 }
             })
             document.dispatchEvent(event)
-            await _waitAnswer()
+            await _waitAnswer(taskId)
                 .then(result=>{
                     lastResult = result
                 })
@@ -75,21 +84,23 @@ var Eth = function Eth(web){
 
     }
 
-    this.sendTransaction = async function (address, amount, token, cb){
+    this.sendTransaction = async function (from, address, amount, token, cb){
+        let taskId = Math.random().toString(36)
         if(ENQExt){
             let event = new CustomEvent('ENQContent',{
                 detail:{
                     type:'tx',
                     data:{
+                        from:from,
                         address:address,
                         amount:amount,
                         token:token
                     },
-                    cb:cb
+                    cb:{cb:cb, taskid:taskId}
                 }
             })
             document.dispatchEvent(event)
-            await _waitAnswer()
+            await _waitAnswer(taskId)
                 .then(result=>{
                     lastResult = result
                 })

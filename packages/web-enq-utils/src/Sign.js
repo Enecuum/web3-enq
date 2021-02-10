@@ -1,5 +1,6 @@
 const rsasign = require('../../../node_modules/jsrsasign');
 const crypto = require('crypto')
+const EC = require('elliptic').ec;
 
 let Sign = {
     hash_tx_fields : function(tx){
@@ -30,6 +31,24 @@ let Sign = {
             return null;
         }
     },
+    getPublicKey:function (pvt, compact){
+        let ec = new EC('secp256k1');
+        let key = ec.keyFromPrivate(pvt, "hex")
+        return key.getPublic(compact, 'hex')
+    },
+    encode:function encode(arr, enc) {
+        if (enc === 'hex')
+            return this.toHex(arr);
+        else
+            return arr;
+    },
+    toHex:function (d) {
+        let hex = Number(d).toString(16);
+        while ((hex.length % 2) !== 0) {
+            hex = "0" + hex;
+        }
+        return hex;
+    }
 }
 
 module.exports = Sign;
