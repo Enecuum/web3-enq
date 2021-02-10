@@ -19,7 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8551e8a2-319a-46e5-89b8-c2b0cfe44bc7" name="Default Changelist" comment="" />
+    <list default="true" id="8551e8a2-319a-46e5-89b8-c2b0cfe44bc7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,6 +35,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1jcP8I0e1uHkeA0brI9VsW9N3AB" />
@@ -103,7 +111,33 @@
       <workItem from="1611960482598" duration="18000" />
       <workItem from="1612053037323" duration="6782000" />
       <workItem from="1612083226863" duration="2557000" />
+      <workItem from="1612106512822" duration="409000" />
+      <workItem from="1612264766465" duration="893000" />
+      <workItem from="1612460434569" duration="76000" />
+      <workItem from="1612502864518" duration="206000" />
     </task>
+    <task id="LOCAL-00001" summary="await answer from ext">
+      <created>1612106589692</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1612106589692</updated>
+    </task>
+    <task id="LOCAL-00002" summary="await answer from ext">
+      <created>1612106607768</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1612106607768</updated>
+    </task>
+    <task id="LOCAL-00003" summary="await answer from ext">
+      <created>1612106612501</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1612106612501</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,5 +154,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="await answer from ext" />
+    <option name="LAST_COMMIT_MESSAGE" value="await answer from ext" />
   </component>
 </project>
