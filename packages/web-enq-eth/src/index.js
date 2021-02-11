@@ -27,7 +27,26 @@ var Eth = function Eth(web){
 
     this.connect = async function(){
         let taskId = Math.random().toString(36)
-
+        let event = new CustomEvent('ENQConnect',{
+            detail:{
+                type:'connect',
+                data:{
+                    url:window.origin,
+                },
+                cb:{taskId:taskId}
+            }
+        })
+        document.dispatchEvent(event)
+        // await _waitAnswer(taskId)
+        //     .then(result =>{
+        //         console.log('Wallet connected')
+        //         lastResult = result
+        //     })
+        //     .catch(err=>{
+        //         console.log(err)
+        //         lastResult = null
+        //     })
+        // return lastResult
     }
 
     this.enable = async function (cb){
@@ -36,7 +55,7 @@ var Eth = function Eth(web){
             let event = new CustomEvent('ENQContent',{
                 detail:{
                     type:'enable',
-                    cb:{cb:cb, taskid:taskId}
+                    cb:{cb:cb, taskId:taskId}
                 }
             })
             document.dispatchEvent(event)
@@ -64,7 +83,7 @@ var Eth = function Eth(web){
                         address:address,
                         token:token,
                     },
-                    cb: {cb:cb, taskid:taskId}
+                    cb: {cb:cb, taskId:taskId}
                 }
             })
             document.dispatchEvent(event)
@@ -96,7 +115,7 @@ var Eth = function Eth(web){
                         amount:amount,
                         token:token
                     },
-                    cb:{cb:cb, taskid:taskId}
+                    cb:{cb:cb, taskId:taskId}
                 }
             })
             document.dispatchEvent(event)

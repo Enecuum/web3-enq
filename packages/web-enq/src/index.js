@@ -10,8 +10,8 @@ var Enq = function Enq(web){
         prvkey:'',
     };
     var owner = '';
-    var cb = {};
-    var ready = {};
+    var cb = [];
+    var ready = [];
     Object.defineProperty(this,'provider',{
         get:function (){
             return provider;
@@ -93,6 +93,17 @@ var Enq = function Enq(web){
         set: function (val){
             cb = val;
             return cb;
+        },
+        enumerable:true,
+        configurable:true
+    })
+    Object.defineProperty(this, 'ready',{
+        get: function (){
+            return ready;
+        },
+        set: function (val){
+            ready = val;
+            return ready;
         },
         enumerable:true,
         configurable:true
