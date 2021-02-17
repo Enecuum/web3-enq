@@ -73,15 +73,16 @@ var Eth = function Eth(web){
             return null
         }
     }
-    this.balanceOf = async function(address, token, cb){
+    this.balanceOf = async function(obj, cb){
+        //address, token, cb
         let taskId = Math.random().toString(36)
         if(ENQExt){
             let event = new CustomEvent('ENQContent',{
                 detail:{
                     type:'balanceOf',
                     data:{
-                        address:address,
-                        token:token,
+                        to:obj.to,
+                        tokenHash:obj.tokenHash,
                     },
                     cb: {cb:cb, taskId:taskId}
                 }
@@ -103,17 +104,20 @@ var Eth = function Eth(web){
 
     }
 
-    this.sendTransaction = async function (from, address, amount, token, cb){
+    this.sendTransaction = async function (obj, cb){
+        //from, to, value, tokenHash, cb
         let taskId = Math.random().toString(36)
         if(ENQExt){
             let event = new CustomEvent('ENQContent',{
                 detail:{
                     type:'tx',
                     data:{
-                        from:from,
-                        address:address,
-                        amount:amount,
-                        token:token
+                        from:obj.from,
+                        to:obj.to,
+                        value:obj.value,
+                        tokenHash:obj.tokenHash,
+                        nonce: obj.nonce || Math.floor(Math.random() * 1e10),
+                        data: obj.data || ''
                     },
                     cb:{cb:cb, taskId:taskId}
                 }

@@ -109,14 +109,31 @@ var Net = function Net(web){
         }
     }
     this.post = {
-        tx:  async function (from,to, ticker, amount,data, token){
-            var fee = await _this.get.token_info(token)
+        tx:  async function (from,to, tokenHash, amount,data, nonce){
+            var fee = await _this.get.token_info(tokenHash)
             var tx = {
                 to:to,
                 from:from.pubkey,
-                ticker:ticker,
+                ticker:tokenHash,
                 amount:amount + fee[0].fee_value,
-                nonce:Math.floor(Math.random() * 1e10)
+                nonce: nonce || Math.floor(Math.random() * 1e10)
+            };
+            if(data){
+                tx.data = await web.Utils.dfo(data)
+            }else{
+                tx.data = '';
+            }
+            tx.hash = await web.Utils.Sign.hash_tx_fields(tx)
+            tx.sign = await web.Utils.Sign.ecdsa_sign(from.prvkey,tx.hash);
+            return await web.Enq.sendTx(tx)
+        },
+        tx_fee_off:async function(from,to, tokenHash, amount,data, nonce){
+            var tx = {
+                to:to,
+                from:from.pubkey,
+                ticker:tokenHash,
+                amount:amount,
+                nonce: nonce || Math.floor(Math.random() * 1e10)
             };
             if(data){
                 tx.data = await web.Utils.dfo(data)
