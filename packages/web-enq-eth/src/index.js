@@ -55,7 +55,7 @@ var Eth = function Eth(web){
             let event = new CustomEvent('ENQContent',{
                 detail:{
                     type:'enable',
-                    cb:{cb:cb, taskId:taskId}
+                    cb:{cb:cb, url:window.origin, taskId:taskId}
                 }
             })
             document.dispatchEvent(event)
@@ -84,7 +84,7 @@ var Eth = function Eth(web){
                         to:obj.to,
                         tokenHash:obj.tokenHash,
                     },
-                    cb: {cb:cb, taskId:taskId}
+                    cb: {cb:cb, url:window.origin, taskId:taskId}
                 }
             })
             document.dispatchEvent(event)
@@ -119,7 +119,7 @@ var Eth = function Eth(web){
                         nonce: obj.nonce || Math.floor(Math.random() * 1e10),
                         data: obj.data || ''
                     },
-                    cb:{cb:cb, taskId:taskId}
+                    cb:{cb:cb, url:window.origin, taskId:taskId}
                 }
             })
             document.dispatchEvent(event)
