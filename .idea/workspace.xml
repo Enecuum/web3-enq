@@ -66,7 +66,7 @@
       <recent name="$PROJECT_DIR$/dev" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.buildEnq">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -77,8 +77,19 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="buildEnq" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="buildEnq" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.buildEnq" />
         <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
@@ -138,7 +149,8 @@
       <workItem from="1612972517731" duration="73000" />
       <workItem from="1612972713875" duration="176000" />
       <workItem from="1613569917009" duration="8327000" />
-      <workItem from="1613657391804" duration="1750000" />
+      <workItem from="1613657391804" duration="2961000" />
+      <workItem from="1613938578114" duration="55000" />
     </task>
     <task id="LOCAL-00001" summary="await answer from ext">
       <created>1612106589692</created>

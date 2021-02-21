@@ -9,7 +9,7 @@
     "dev": "webpack --mode development",
     "prod": "webpack --mode production",
     "build": "browserify dev/build.js -o prebuild/enqweb3.min.js",
-    "buildEnq": "browserify dev/build.js -o prebuild/ENQweb3lib.min.js"
+    "buildEnq": "browserify dev/buildEnq.js -o prebuild/ENQweb3lib.min.js"
   },
   "keywords": [
     "Enecuum",
