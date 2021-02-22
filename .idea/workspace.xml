@@ -19,7 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8551e8a2-319a-46e5-89b8-c2b0cfe44bc7" name="Default Changelist" comment="" />
+    <list default="true" id="8551e8a2-319a-46e5-89b8-c2b0cfe44bc7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/run.js" beforeDir="false" afterPath="$PROJECT_DIR$/dev/run.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/web-enq-net/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-net/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/web-enq-utils/src/dataFromObject.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-utils/src/dataFromObject.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/web-enq/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prebuild/enqweb3.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -153,7 +161,11 @@
       <workItem from="1613938578114" duration="55000" />
       <workItem from="1613938648981" duration="367000" />
       <workItem from="1614004678262" duration="2087000" />
-      <workItem from="1614007521431" duration="1023000" />
+      <workItem from="1614007521431" duration="5281000" />
+      <workItem from="1614020940818" duration="3188000" />
+      <workItem from="1614024712630" duration="91000" />
+      <workItem from="1614024812434" duration="29000" />
+      <workItem from="1614025303466" duration="6090000" />
     </task>
     <task id="LOCAL-00001" summary="await answer from ext">
       <created>1612106589692</created>

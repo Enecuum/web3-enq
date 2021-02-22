@@ -46,10 +46,62 @@ let start = async function(){
     console.log(answer)
 }
 
-let check = function (){
-    console.log(web.Eth.transaction(1,1,1));
+let check = async function (){
+    console.log(await web.Net.get.getOwner('0000000000000000000000000000000000000000000000000000000000000000'));
+}
+
+let check_dfo_swap= function(){
+    let data = {
+        type:'swap',
+        parameters:{
+            asset_in:'asset_in',
+            asset_out:'asset_out',
+            amount_in:'amount_in'
+        }
+    }
+    console.log(web.Utils.dfo(data))
+}
+let check_dfo_create_pool= function(){
+    let data = {
+        type:'create_pool',
+        parameters:{
+            asset_1:'asset_1',
+            amount_1:'asset_1',
+            asset_2:'asset_2',
+            amount_2:'amount_2'
+        }
+    }
+    console.log(web.Utils.dfo(data))
+}
+let check_dfo_add_liq= function(){
+    let data = {
+        type:'add_liquidity',
+        parameters:{
+            asset_1:'asset_1',
+            amount_1:'amount_1',
+            asset_2:'asset_2',
+            amount_2:'amount_2'
+        }
+    }
+    console.log(web.Utils.dfo(data))
+}
+let check_dfo_remove_liq= function(){
+    let data = {
+        type:'remove_liquidity',
+        parameters:{
+            asset_1:'asset_1',
+            asset_2:'asset_2',
+            It:'It'
+        }
+    }
+    console.log(web.Utils.dfo(data))
 }
 // start()
-// check()
+check()
+// check_dfo_swap()
+// check_dfo_create_pool()
+// check_dfo_add_liq()
+// check_dfo_remove_liq()
+
 
 // console.log(web.version);

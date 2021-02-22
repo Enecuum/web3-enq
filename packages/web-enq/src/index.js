@@ -1,139 +1,149 @@
 const request = require('../../../node_modules/request')
 
-var Enq = function Enq(web){
-    var _this = this;
-    var provider = 'https://pulse.enecuum.com';
-    var token = '0000000000000000000000000000000000000000000000000000000000000000';
-    var ticker = '0000000000000000000000000000000000000000000000000000000000000000';
-    var user ={
-        pubkey:'',
-        prvkey:'',
+var Enq = function Enq(web) {
+    let _this = this;
+    let provider = 'https://pulse.enecuum.com';
+    let token = {
+        'https://pulse.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000000',
+        'https://bit.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000001',
+        'http://95.216.207.173':'0000000000000000000000000000000000000000000000000000000000000000'
     };
-    var owner = '';
-    var cb = [];
-    var ready = [];
-    Object.defineProperty(this,'provider',{
-        get:function (){
+    let url = {
+        'pulse':'https://pulse.enecuum.com',
+        'bit':'https://bit.enecuum.com',
+        'f3':'http://95.216.207.173',
+    }
+    let ticker = '0000000000000000000000000000000000000000000000000000000000000000';
+    let user = {
+        pubkey: '',
+        prvkey: '',
+    };
+    let owner = '';
+    let cb = [];
+    let ready = [];
+
+    Object.defineProperty(this, 'provider', {
+        get: function () {
             return provider;
         },
-        set: function (net){
-          provider = net;
-          return provider;
+        set: function (net) {
+            provider = net;
+            return provider;
         },
-        enumerable:true,
-        configurable:true
+        enumerable: true,
+        configurable: true
     })
-    Object.defineProperty(this, 'token',{
-        get: function (){
+    Object.defineProperty(this, 'token', {
+        get: function () {
             return token;
         },
-        set: function (val){
+        set: function (val) {
             token = val;
             return token;
         },
-        enumerable:true,
-        configurable:true
+        enumerable: true,
+        configurable: true
     })
-    Object.defineProperty(this, 'ticker',{
-        get: function (){
+    Object.defineProperty(this, 'ticker', {
+        get: function () {
             return ticker;
         },
-        set: function (val){
+        set: function (val) {
             ticker = val;
             return ticker;
         },
-        enumerable:true,
-        configurable:true
+        enumerable: true,
+        configurable: true
     })
-    Object.defineProperty(this, 'owner',{
-        get: function (){
+    Object.defineProperty(this, 'owner', {
+        get: function () {
             return owner;
         },
-        set: function (val){
+        set: function (val) {
             owner = val;
             return owner;
         },
-        enumerable:true,
-        configurable:true
+        enumerable: true,
+        configurable: true
     })
     Object.defineProperty(this, 'User', {
-        get:function (){
+        get: function () {
             return user;
         },
-        set:function (obj){
+        set: function (obj) {
             user.pubkey = obj.pubkey;
             user.prvkey = obj.prvkey;
             return user;
         },
-        enumerable:true,
-        configurable:true
+        enumerable: true,
+        configurable: true
     })
-    Object.defineProperty(this,'userPub',{
-        get:function (){
+    Object.defineProperty(this, 'userPub', {
+        get: function () {
             return user.pubkey
         },
-        set:function (value){
-            user.pubkey =value
+        set: function (value) {
+            user.pubkey = value
             return user;
         }
     })
-    Object.defineProperty(this,'userPvt',{
-        get:function (){
+    Object.defineProperty(this, 'userPvt', {
+        get: function () {
             return user.prvkey
         },
-        set:function (value){
-            user.prvkey =value
+        set: function (value) {
+            user.prvkey = value
             return user;
         }
     })
-    Object.defineProperty(this, 'cb',{
-        get: function (){
+    Object.defineProperty(this, 'cb', {
+        get: function () {
             return cb;
         },
-        set: function (val){
+        set: function (val) {
             cb = val;
             return cb;
         },
-        enumerable:true,
-        configurable:true
+        enumerable: true,
+        configurable: true
     })
-    Object.defineProperty(this, 'ready',{
-        get: function (){
+    Object.defineProperty(this, 'ready', {
+        get: function () {
             return ready;
         },
-        set: function (val){
+        set: function (val) {
             ready = val;
             return ready;
         },
-        enumerable:true,
-        configurable:true
+        enumerable: true,
+        configurable: true
     })
-    Object.defineProperty(this,'hello',{
-        get:function (){
+    Object.defineProperty(this, 'hello', {
+        get: function () {
             return 'hello';
         },
-        set:function (val){
+        set: function (val) {
             return val;
         },
-        enumerable:true,
-        configurable:true
+        enumerable: true,
+        configurable: true
     })
-    this.sendTx = function (tx){
-        return new Promise(function(resolve, reject){
-            request({url:`${provider}/api/v1/tx`, method:"POST", json:[tx]}, function(err, resp, body){
-                if (err){
+    this.sendTx = function (tx) {
+        return new Promise(function (resolve, reject) {
+            request({url: `${provider}/api/v1/tx`, method: "POST", json: [tx]}, function (err, resp, body) {
+                if (err) {
                     console.error(`Failed to send transaction`);
                     console.log(err);
                     reject();
                 } else {
-                    if (body.err != 0){
+                    if (body.err != 0) {
                         console.error(`Transaction rejected by remote node. error code ${body.err}`);
                         reject(body.message);
                     } else {
                         // console.log(`Transaction sent, hash = ${body.result[0].hash}`);
-                        if(body.result[0].hash){
-                            resolve({hash:body.result[0].hash});
-                        }else{
+                        if (body.result[0].hash) {
+                            resolve({hash: body.result[0].hash});
+                        } else {
                             resolve(body);
                         }
                     }
@@ -141,18 +151,18 @@ var Enq = function Enq(web){
             });
         });
     }
-    this.sendAPI = function (api,fields){
-        return new Promise((resolve,reject)=>{
+    this.sendAPI = function (api, fields) {
+        return new Promise((resolve, reject) => {
             // bp.urlencoded();
-            request({url:`${provider}/api/v1/${api}`,method:'GET',json:[fields]},(err,resp,body)=>{
-                if(err){
+            request({url: `${provider}/api/v1/${api}`, method: 'GET', json: [fields]}, (err, resp, body) => {
+                if (err) {
                     console.log(`[ERROR] send get ${api}. ${err}`);
                     reject();
-                }else{
-                    if(body.err){
+                } else {
+                    if (body.err) {
                         console.log(`[ERROR] node-trinity err. get '${api}' failed ${body}`)
                         reject();
-                    }else{
+                    } else {
                         resolve(body);
                     }
                 }
