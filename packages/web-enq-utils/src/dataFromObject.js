@@ -18,7 +18,8 @@ let schema = {
     "pos_reward" :      "1100",
     "transfer" :        "1200",
     "mint" :            "1300",
-    "burn" :            "1400"
+    "burn" :            "1400",
+    "swap":             "1500"
 };
 function toHex(d) {
     let hex = Number(d).toString(16);
