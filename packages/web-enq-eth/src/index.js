@@ -22,7 +22,7 @@ var Eth = function Eth(web){
                 resolve(web.Enq.cb[id])
             }).catch(err=>{
                 console.log('ERROR: ', err)
-                reject()
+                reject({reject:true, err:err})
             })
         })
     }
@@ -126,7 +126,8 @@ var Eth = function Eth(web){
                             value:obj.value,
                             tokenHash:obj.tokenHash,
                             nonce: obj.nonce || Math.floor(Math.random() * 1e10),
-                            data: obj.data || ''
+                            data: obj.data || '',
+                            net: obj.net || ''
                         },
                         cb:{cb:cb, url:window.origin, taskId:taskId}
                     }

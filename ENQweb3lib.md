@@ -32,6 +32,7 @@
   value:BigInt, - количество монет 
   tokenHash:string, - токен монетки
   nonce:number,  - опционально( Math.floor(Math.random() * 1e10) )
-  data:string - опционально. данные ( можно передать привет )
+  data:JSON.stringify(obj), - опционально. данные ( можно передать привет )
+  net:string - опционально, для свопа. передавать url. без последнего слеша https://example.com
 }
 ```
