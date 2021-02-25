@@ -27,8 +27,13 @@ var Enq = function Enq(web) {
             return provider;
         },
         set: function (net) {
-            provider = net;
-            return provider;
+            if(url[net]!==undefined){
+                provider = url[net]
+                return net
+            }else{
+                provider = net;
+                return provider;
+            }
         },
         enumerable: true,
         configurable: true
