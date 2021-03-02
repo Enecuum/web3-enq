@@ -6,12 +6,12 @@ var Enq = function Enq(web) {
     let token = {
         'https://pulse.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000000',
         'https://bit.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000001',
-        'http://95.216.207.173':'0000000000000000000000000000000000000000000000000000000000000000'
+        'http://95.216.207.173': '0000000000000000000000000000000000000000000000000000000000000000'
     };
     let url = {
-        'pulse':'https://pulse.enecuum.com',
-        'bit':'https://bit.enecuum.com',
-        'f3':'http://95.216.207.173',
+        'pulse': 'https://pulse.enecuum.com',
+        'bit': 'https://bit.enecuum.com',
+        'f3': 'http://95.216.207.173',
     }
     let ticker = '0000000000000000000000000000000000000000000000000000000000000000';
     let user = {
@@ -27,10 +27,10 @@ var Enq = function Enq(web) {
             return provider;
         },
         set: function (net) {
-            if(url[net]!==undefined){
+            if (url[net] !== undefined) {
                 provider = url[net]
                 return net
-            }else{
+            } else {
                 provider = net;
                 return provider;
             }
@@ -170,6 +170,19 @@ var Enq = function Enq(web) {
                     } else {
                         resolve(body);
                     }
+                }
+            })
+        })
+    }
+    this.sendRequest = function (url, method, fields) {
+        return new Promise((resolve, reject) => {
+            // bp.urlencoded();
+            request({url: `${url}`, method: method || "GET", json: [fields]}, (err, resp, body) => {
+                if (err) {
+                    console.warn(err)
+                    reject()
+                } else {
+                    resolve(body)
                 }
             })
         })
