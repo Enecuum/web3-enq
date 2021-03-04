@@ -17,6 +17,8 @@
     "API"
   ],
   "dependencies": {
+    "webpack": "^5.12.3",
+    "webpack-cli": "^4.3.1",
     "elliptic": "^6.5.4",
     "enecuum-crypto": "https://github.com/prudanoff/enecuum-bin/raw/8075e5a8681e6048b5c573a24a6bc3e525aca1cf/bin/linux64/enecuum-crypto.tar.gz",
     "eventemitter3": "^4.0.7",
@@ -29,8 +31,5 @@
   },
   "author": "https://github.com/kamighost1",
   "license": "ISC",
-  "devDependencies": {
-    "webpack": "^5.12.3",
-    "webpack-cli": "^4.3.1"
-  }
+  "devDependencies": {}
 }
