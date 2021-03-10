@@ -28,6 +28,35 @@ var Eth = function Eth(web){
     }
     let lastResult = ''
 
+    function getProvider(){
+      return new Promise((async (resolve, reject)=>{
+        if(ENQExt){
+          let taskId = Math.random().toString(36)
+          let event = new CustomEvent('ENQContent',{
+              detail:{
+                  type:'getProvider',
+                  cb:{url:window.origin, taskId:taskId}
+              }
+          })
+          document.dispatchEvent(event)
+          await _waitAnswer(taskId)
+              .then(result=>{
+                  resolve(result)
+              })
+              .catch(err=>{
+                  console.log(err)
+                  reject(null)
+              })
+        }else{
+          console.error('Not enable!')
+          reject(null)
+        }
+
+      }))}
+
+    this.net = {
+      getProvider
+    }
 
     this.connect = async function(){
         let taskId = Math.random().toString(36)
