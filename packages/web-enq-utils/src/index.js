@@ -4,14 +4,14 @@ const OFD = require('./objectFromData')
 const Sign = require('./Sign')
 const generateKey = require('./keygen')
 
-let Utils = function Utils(){
+let Utils = function Utils(web){
     this.dfo = function (obj){
         return DFO(obj);
     };
     this.ofd = new OFD()
     //this.Utils = utils
     this.Sign = Sign
-    this.generateKey = generateKey
+    this.generateKey = new generateKey(this)
 }
 
 module.exports = Utils
