@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js'
+const CryptoJS = require('crypto-js')
 
 // Используется для осложнения подбора пароля перебором
 function strengthenPassword(pass, rounds = 5000) {
