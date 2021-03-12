@@ -3,6 +3,7 @@ const OFD = require('./objectFromData')
 //const utils = require('./Utils')
 const Sign = require('./Sign')
 const generateKey = require('./keygen')
+const crypto = require('./crypto')
 
 let Utils = function Utils(web){
     this.dfo = function (obj){
@@ -12,6 +13,7 @@ let Utils = function Utils(web){
     //this.Utils = utils
     this.Sign = Sign
     this.generateKey = new generateKey(this)
+    this.crypto = crypto
 }
 
 module.exports = Utils
