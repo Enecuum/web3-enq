@@ -12,6 +12,11 @@ var Net = function Net(web) {
         enumerable: true,
         configurable: true,
     })
+    Object.defineProperty(this, 'currentProvider', {
+        get: function (){
+            return web.Enq.currentProvider
+        }
+    })
     Object.defineProperty(this, 'token', {
         get: function () {
             return web.Enq.token;

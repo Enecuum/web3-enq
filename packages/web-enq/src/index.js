@@ -13,6 +13,11 @@ var Enq = function Enq(web) {
         'bit': 'https://bit.enecuum.com',
         'f3': 'http://95.216.207.173',
     }
+    let mnemonic = {
+        'https://pulse.enecuum.com': 'pulse',
+        'https://bit.enecuum.com': 'bit',
+        'http://95.216.207.173': 'f3',
+    }
     let ticker = '0000000000000000000000000000000000000000000000000000000000000000';
     let user = {
         pubkey: '',
@@ -37,6 +42,11 @@ var Enq = function Enq(web) {
         },
         enumerable: true,
         configurable: true
+    })
+    Object.defineProperty(this, 'currentProvider', {
+        get: function (){
+            return mnemonic[web.Enq.provider]
+        }
     })
     Object.defineProperty(this, 'token', {
         get: function () {
