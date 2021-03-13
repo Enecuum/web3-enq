@@ -26,7 +26,8 @@ function decrypt(str, pass) {
 let crypto = {
     encrypt,
     decrypt,
-    sha256
+    sha256,
+    strengthenPassword
 }
 
 module.exports = crypto
