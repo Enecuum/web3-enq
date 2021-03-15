@@ -21,11 +21,11 @@ function decrypt(str, pass) {
     return decrypted.toString(CryptoJS.enc.Utf8)
 }
 
-let crypto = {
+let cryptoEnqLib = {
     encrypt,
     decrypt,
     sha256,
     strengthenPassword
 }
 
-module.exports = crypto
+module.exports = cryptoEnqLib

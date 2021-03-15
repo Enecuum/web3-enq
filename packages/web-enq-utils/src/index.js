@@ -3,7 +3,7 @@ const OFD = require('./objectFromData')
 //const utils = require('./Utils')
 const Sign = require('./Sign')
 const generateKey = require('./keygen')
-const crypto = require('./crypto')
+const crypto = require('./cryptoEnqLib')
 
 let Utils = function Utils(web){
     this.dfo = function (obj){
