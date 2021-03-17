@@ -21,8 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8551e8a2-319a-46e5-89b8-c2b0cfe44bc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq-utils/src/crypto.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-utils/src/cryptoEnqLib.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq-utils/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-utils/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/web-enq-eth/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-eth/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prebuild/enqweb3.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/prebuild/enqweb3.min.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +55,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../crane-bit" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -180,6 +180,9 @@
       <workItem from="1615662837465" duration="157000" />
       <workItem from="1615741093587" duration="722000" />
       <workItem from="1615772292574" duration="104000" />
+      <workItem from="1615822899965" duration="3000" />
+      <workItem from="1615840474125" duration="29000" />
+      <workItem from="1615973340812" duration="463000" />
     </task>
     <task id="LOCAL-00001" summary="await answer from ext">
       <created>1612106589692</created>
