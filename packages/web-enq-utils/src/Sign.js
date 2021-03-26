@@ -31,7 +31,7 @@ let Sign = {
             return null;
         }
     },
-    getPublicKey:function (pvt, compact){
+    getPublicKey:function (pvt, compact = true){
         let ec = new EC('secp256k1');
         let key = ec.keyFromPrivate(pvt, "hex")
         return key.getPublic(compact, 'hex')
