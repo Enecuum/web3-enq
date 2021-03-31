@@ -103,6 +103,16 @@ var Net = function Net(web) {
                     .catch(()=>{reject(false)})
             })
         },
+        getBalanceAll: async function (acc) {
+            let api = `balance_all?id=${acc}`
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
+        },
         token_info: async function (hash) {
             let api = `token_info?hash=${hash}`
             return new Promise((resolve, reject) => {

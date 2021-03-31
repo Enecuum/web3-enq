@@ -21,7 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8551e8a2-319a-46e5-89b8-c2b0cfe44bc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq-utils/src/Sign.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-utils/src/Sign.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/web-enq-net/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-net/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prebuild/enqweb3.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/prebuild/enqweb3.min.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +55,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../crane-bit" />
+    <property name="last_opened_file_path" value="$USER_HOME$/repos/ppp" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -189,7 +190,10 @@
       <workItem from="1616496585079" duration="921000" />
       <workItem from="1616498230564" duration="252000" />
       <workItem from="1616600482256" duration="1331000" />
-      <workItem from="1616785575514" duration="1445000" />
+      <workItem from="1616785575514" duration="1741000" />
+      <workItem from="1616787400528" duration="1381000" />
+      <workItem from="1616797663392" duration="15000" />
+      <workItem from="1617217145523" duration="348000" />
     </task>
     <task id="LOCAL-00001" summary="await answer from ext">
       <created>1612106589692</created>
