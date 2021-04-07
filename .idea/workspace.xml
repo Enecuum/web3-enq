@@ -21,12 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8551e8a2-319a-46e5-89b8-c2b0cfe44bc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/build.js" beforeDir="false" afterPath="$PROJECT_DIR$/dev/build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/buildEnq.js" beforeDir="false" afterPath="$PROJECT_DIR$/dev/buildEnq.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq-eth/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-web/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web-enq-eth/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-web/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/web/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prebuild/ENQweb3lib.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/prebuild/ENQweb3lib.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/web-enq-web/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-web/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prebuild/enqweb3.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/prebuild/enqweb3.min.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -203,7 +198,7 @@
       <workItem from="1617633638325" duration="591000" />
       <workItem from="1617625648886" duration="711000" />
       <workItem from="1617633339022" duration="587000" />
-      <workItem from="1617806041378" duration="911000" />
+      <workItem from="1617806041378" duration="1800000" />
     </task>
     <task id="LOCAL-00001" summary="await answer from ext">
       <created>1612106589692</created>

@@ -178,20 +178,30 @@ var Eth = function Eth(web) {
             if(!obj.nonce){
                 obj.nonce = Math.floor(Math.random() * 1e10)
             }
-            taskId = window.origin + `/tx/${obj.nonce}`
+            let tx = {
+                from: obj.from,
+                to: obj.to,
+                amount: obj.value,
+                ticker: obj.tokenHash,
+                nonce: obj.nonce,
+                data: obj.data || '',
+            }
+            let txHash = await this.hash_tx_fields(tx)
+            taskId = window.origin + `/tx/${txHash}`
             if (ENQExt) {
                 let event = new CustomEvent('ENQContent', {
                     detail: {
                         type: 'tx',
-                        data: {
+                        tx: {
                             from: obj.from,
                             to: obj.to,
                             value: obj.value,
                             tokenHash: obj.tokenHash,
                             nonce: obj.nonce,
                             data: obj.data || '',
-                            net: obj.net || ''
                         },
+                        net: obj.net || '',
+                        txHash:txHash,
                         cb: {cb: cb, url: window.origin, taskId: taskId}
                     }
                 })
