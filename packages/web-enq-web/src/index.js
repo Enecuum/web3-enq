@@ -85,16 +85,6 @@ var Eth = function Eth(web) {
             }
         })
         document.dispatchEvent(event)
-        // await _waitAnswer(taskId)
-        //     .then(result =>{
-        //         console.log('Wallet connected')
-        //         lastResult = result
-        //     })
-        //     .catch(err=>{
-        //         console.log(err)
-        //         lastResult = null
-        //     })
-        // return lastResult
     }
 
     this.enable = async function (cb) {
@@ -230,6 +220,10 @@ var Eth = function Eth(web) {
                 reject(null)
             }
         })
+    }
+
+    this.hash_tx_fields = async function (tx){
+        return await web.Utils.Sign.hash_tx_fields(tx);
     }
 }
 
