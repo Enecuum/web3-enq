@@ -21,6 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8551e8a2-319a-46e5-89b8-c2b0cfe44bc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/web-enq-web/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/web-enq-web/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prebuild/enqweb3.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/prebuild/enqweb3.min.js" afterDir="false" />
     </list>
@@ -199,7 +200,7 @@
       <workItem from="1617625648886" duration="711000" />
       <workItem from="1617633339022" duration="587000" />
       <workItem from="1617806041378" duration="1800000" />
-      <workItem from="1618402345802" duration="1558000" />
+      <workItem from="1618402345802" duration="5077000" />
     </task>
     <task id="LOCAL-00001" summary="await answer from ext">
       <created>1612106589692</created>
