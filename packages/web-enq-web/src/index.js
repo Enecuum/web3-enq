@@ -189,6 +189,10 @@ var Eth = function Eth(web) {
             let txHash = await this.hash_tx_fields(tx)
             taskId = window.origin + `/tx/${txHash}`
             if (ENQExt) {
+                if(obj.fee_use !== undefined && obj.fee_use){
+                    let tokenInfo = await web.Net.get.token_info(obj.tokenHash);
+                    obj.value = obj.value + tokenInfo[0].fee_value
+                }
                 let event = new CustomEvent('ENQContent', {
                     detail: {
                         type: 'tx',
@@ -200,8 +204,11 @@ var Eth = function Eth(web) {
                             nonce: obj.nonce,
                             data: obj.data || '',
                         },
-                        net: obj.net || '',
-                        txHash:txHash,
+                        data:{
+                            net: obj.net || '',
+                            fee_use: obj.fee_use || false,
+                            txHash:txHash,
+                        },
                         cb: {cb: cb, url: window.origin, taskId: taskId}
                     }
                 })
