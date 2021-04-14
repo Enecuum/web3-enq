@@ -17,20 +17,41 @@
     "API"
   ],
   "dependencies": {
+    "@babel/core": "^7.13.15",
+    "@babel/plugin-transform-modules-commonjs": "^7.13.8",
+    "@babel/plugin-transform-runtime": "^7.12.15",
+    "@babel/preset-env": "^7.12.13",
+    "assert": "^2.0.0",
+    "babel-loader": "^8.2.2",
+    "browserify-zlib": "^0.2.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
     "crypto-js": "^4.0.0",
     "elliptic": "^6.5.4",
-    "enecuum-crypto": "https://github.com/prudanoff/enecuum-bin/raw/8075e5a8681e6048b5c573a24a6bc3e525aca1cf/bin/linux64/enecuum-crypto.tar.gz",
     "eventemitter3": "^4.0.7",
+    "forever-agent": "^0.6.1",
     "fs": "0.0.1-security",
+    "https-browserify": "^1.0.0",
     "jsrsasign": "^8.0.12",
     "key-encoder": "^2.0.3",
-    "node-randomx": "https://github.com/prudanoff/enecuum-bin/raw/master/rx/linux64/node-randomx.tar.gz",
+    "net": "^1.0.2",
     "path": "^0.12.7",
+    "process": "^0.11.10",
     "request": "^2.88.2",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.1.1",
+    "tls": "0.0.1",
+    "tunnel-agent": "^0.6.0",
+    "url": "^0.11.0",
     "webpack": "^5.12.3",
     "webpack-cli": "^4.3.1"
   },
   "author": "https://github.com/kamighost1",
   "license": "ISC",
-  "devDependencies": {}
+  "devDependencies": {},
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  }
 }
