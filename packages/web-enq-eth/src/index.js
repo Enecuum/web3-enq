@@ -31,38 +31,33 @@ var Eth = function Eth(web) {
 
     function getProvider(fullUrl = false) {
         return new Promise((async (resolve, reject) => {
-            if (ENQExt) {
-                // let taskId = Math.random().toString(36)
-                let taskId = window.origin + '/getProvider'
-                let event = new CustomEvent('ENQContent', {
-                    detail: {
-                        type: 'getProvider',
-                        cb: {url: window.origin, taskId: taskId, fullUrl:fullUrl}
-                    }
-                })
-                if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
-                    await _waitAnswer(taskId)
-                        .then(result => {
-                            resolve(result)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            reject(null)
-                        })
-                }else{
-                    document.dispatchEvent(event)
-                    await _waitAnswer(taskId)
-                        .then(result => {
-                            resolve(result)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            reject(null)
-                        })
+            // let taskId = Math.random().toString(36)
+            let taskId = window.origin + '/getProvider'
+            let event = new CustomEvent('ENQContent', {
+                detail: {
+                    type: 'getProvider',
+                    cb: {url: window.origin, taskId: taskId, fullUrl:fullUrl}
                 }
-            } else {
-                console.error('Not enable!')
-                reject(null)
+            })
+            if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
+                await _waitAnswer(taskId)
+                    .then(result => {
+                        resolve(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(null)
+                    })
+            }else{
+                document.dispatchEvent(event)
+                await _waitAnswer(taskId)
+                    .then(result => {
+                        resolve(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(null)
+                    })
             }
 
         }))
@@ -101,36 +96,31 @@ var Eth = function Eth(web) {
         return new Promise(async (resolve, reject) => {
             // let taskId = Math.random().toString(36)
             let taskId = window.origin + '/enable'
-            if (ENQExt) {
-                let event = new CustomEvent('ENQContent', {
-                    detail: {
-                        type: 'enable',
-                        cb: {cb: cb, url: window.origin, taskId: taskId}
-                    }
-                })
-                if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
-                    await _waitAnswer(taskId)
-                        .then(result => {
-                            resolve(result)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            reject(null)
-                        })
-                }else{
-                    document.dispatchEvent(event)
-                    await _waitAnswer(taskId)
-                        .then(result => {
-                            resolve(result)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            reject(null)
-                        })
+            let event = new CustomEvent('ENQContent', {
+                detail: {
+                    type: 'enable',
+                    cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
-            } else {
-                console.error('Not enable!')
-                reject(null)
+            })
+            if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
+                await _waitAnswer(taskId)
+                    .then(result => {
+                        resolve(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(null)
+                    })
+            }else{
+                document.dispatchEvent(event)
+                await _waitAnswer(taskId)
+                    .then(result => {
+                        resolve(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(null)
+                    })
             }
         })
 
@@ -140,40 +130,35 @@ var Eth = function Eth(web) {
         return new Promise(async (resolve, reject) => {
             // let taskId = Math.random().toString(36)
             let taskId = window.origin + '/balanceOf'
-            if (ENQExt) {
-                let event = new CustomEvent('ENQContent', {
-                    detail: {
-                        type: 'balanceOf',
-                        data: {
-                            to: obj.to,
-                            tokenHash: obj.tokenHash,
-                        },
-                        cb: {cb: cb, url: window.origin, taskId: taskId}
-                    }
-                })
-                if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
-                    await _waitAnswer(taskId)
-                        .then(result => {
-                            resolve(result)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            reject(null)
-                        })
-                }else{
-                    document.dispatchEvent(event)
-                    await _waitAnswer(taskId)
-                        .then(result => {
-                            resolve(result)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            reject(null)
-                        })
+            let event = new CustomEvent('ENQContent', {
+                detail: {
+                    type: 'balanceOf',
+                    data: {
+                        to: obj.to,
+                        tokenHash: obj.tokenHash,
+                    },
+                    cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
-            } else {
-                console.error('Not enable!')
-                reject(null)
+            })
+            if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
+                await _waitAnswer(taskId)
+                    .then(result => {
+                        resolve(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(null)
+                    })
+            }else{
+                document.dispatchEvent(event)
+                await _waitAnswer(taskId)
+                    .then(result => {
+                        resolve(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(null)
+                    })
             }
         })
 
