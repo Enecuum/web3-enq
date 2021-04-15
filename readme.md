@@ -1,64 +1,63 @@
-# О библиотеке
-библиотека предназначена для работы с блокчейном
+# About the library
+The library is designed to work with Enecuum blockchain
 
-# начало работы
+# Beginning of work
+You can use the compiled file `enqweb3.min.js`
+so that you can use it without resetting by specifying the path to the root of the installed repository, but before using it you need to install the dependencies `npm i`
 
-можно воспользоваться собранным файлом `enqweb3.min.js`
-чтобы можно пользоваться без сброки указав путь к корню установленному репозиторию, но перед использованием необходимо установить зависимости
-```
-npm i
-```
-# Важно
-- перед началом работы необходимо проверить сеть с которой Вы собираетесь работать. если сеть `pulse`, тогда ничего менять не нужно. если сеть отличается, тогда:
-```
-web.Enq.provider = "https://example.com" - встатьте адрес вашей сети. ВАЖНО! без слеша '/' в конце
-```
-- проверьте хеш нативной монеты. если сеть `pulse` или `bit`, тогда ничего делать не нужно, иначе:
-```
-web.Enq.token["https://example.com"] = "000000000000" - вставьте адрес своей сети и присвойте хеш нативного токена 
-```
+# Important
+- Before starting work, you need to check the network with which you are going to work. If the network is `pulse` then nothing needs to be changed. If the network is different:
+  
+
+`web.Enq.provider = "https://example.com"` - enter your network address. Without a slash '/' at the end (TODO)
+
+- Check the hash of the native coin. If the network is `pulse` or `bit` then nothing needs to be done, otherwise: 
+  
+`web.Enq.token ["https://example.com"] = "0000...0000"` - insert your network address and assign the hash of the native token
+
 ____
-- `web.Enq.provider`  - отвечает за сеть в которую будут отправляться запросы и транзакции
-- `web.Enq.token` - сопоставляет сеть с токеном. необходимо в смарт-контрактах (`web.Net.post`)
 
-# методы для работы с сетью Enecuum
-все методы находятся в `web.Net`
+- `web.Enq.provider` - is responsible for the network to which requests and transactions will be sent
+- `web.Enq.token` - maps the network to the token. required in smart contracts `web.Net.post`
+
+# Methods for working with the Enecuum network
+All methods are in `web.Net`
 - `web.Net.get`
-    - getBalance(acc, token) - возвращает баланс аккаунта по токену 
-    - token_info(hash) - возвращает информацию о токене 
-    - height() - возвращает номер последнего блока
-    - macroblock(hash) - возвращает информацию о макроблоке по его хешу
-    - macroblockByHeight(height) - возвращает информацию о макроблоке по его номеру
-    - tx(hash) - возвращает информацию о транзакции по ее хешу
-    - getOwner(hash) - возвращает публичный ключ держателя токена по хешу токена
-    
+    - getBalance (acc, token) - returns the account balance by token
+    - token_info (hash) - returns information about the token
+    - height () - returns the number of the last block
+    - macroblock (hash) - returns information about a macroblock by its hash
+    - macroblockByHeight (height) - returns information about a macroblock by its number
+    - tx (hash) - returns information about a transaction by its hash
+    - getOwner (hash) - returns the public key of the token holder based on the token hash
+
 - `web.Net.post`
-    - tx(obj) - поля объекта: `from, to, tokenHash, amount, data(опционально), nonce(опционально)`
-    - tx_fee_off(obj) - поля объекта: `from, to, tokenHash, amount, data(опционально), nonce(опционально)`
-    - delegate(obj) - поля объекта: `from, pos_id, amount`
-    - undelegate(obj) - поля объекта: `from, pos_id, amount`
-    - create_pos(obj) - поля объекта: `from, fee, name`
-    - pos_reward(obj) - поля объекта: `from, pos_id`
-    - create_token(obj) - смотри документацию создания токенов.
-    - burn(obj) - поля объекта: `from, token_hash, amount`
-    - mint(obj) - поля объекта: `from, token_hash, amount`
-    - transfer(obj) - поля объекта: `from, pos_id`
-    
+    - tx (obj) - object fields: `from, to, tokenHash, amount, data (optional), nonce (optional)`
+    - tx_fee_off (obj) - object fields: `from, to, tokenHash, amount, data (optional), nonce (optional)`
+    - delegate (obj) - object fields: `from, pos_id, amount`
+    - undelegate (obj) - object fields: `from, pos_id, amount`
+    - create_pos (obj) - object fields: `from, fee, name`
+    - pos_reward (obj) - object fields: `from, pos_id`
+    - create_token (obj) - see token creation documentation.
+    - burn (obj) - object fields: `from, token_hash, amount`
+    - mint (obj) - object fields: `from, token_hash, amount`
+    - transfer (obj) - object fields: `from, pos_id`
+
 ____
-- поле `from` - это объект с полями `pubkey` и `prvkey`
+- the `from` field is an object with the` pubkey` and `prvkey` fields
 ----
-для всех методов кроме `tx` и  `tx_fee_off` можно задать поле `to`, которое будет указывать держателя нативного токена.
-это поле опционально, его можно указать явно передав параметр `to`. можно присвоить его в `web.Enq.owner`:
-```
-web.Enq.owner = await web.Net.get.getOwner(<ваш хеш токена>)
-```
-после этой операции можно не указывать параметр `to`. 
-так же, автоматически может подставиться значение, если вы все правильно сделали из раздела `Важно`
+For all methods except `tx` and` tx_fee_off` you can specify the `to` field, which will indicate the holder of the native token.
+This field is optional, you can specify it explicitly by passing the `to` parameter. You can assign it to 
+
+`web.Enq.owner = await web.Net.get.getOwner (<your token hash>)`
+
+After this operation, you can omit the `to` parameter.
+Also, the value can be automatically substituted if you did everything correctly from the `Important` section
 ____
-  - `web.Net.pos`
-    - get_pos_total_stake()
-    - get_pos_list_count()
-    - get_pos_list()
-    - get_pos_list_all()
-    - get_delegators_list()
-    - get_transfer_lock()
+- `web.Net.pos`
+    - get_pos_total_stake ()
+    - get_pos_list_count ()
+    - get_pos_list ()
+    - get_pos_list_all ()
+    - get_delegators_list ()
+    - get_transfer_lock ()

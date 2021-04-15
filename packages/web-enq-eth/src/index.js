@@ -40,7 +40,7 @@ var Eth = function Eth(web) {
                         cb: {url: window.origin, taskId: taskId}
                     }
                 })
-                if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
+                if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
                     await _waitAnswer(taskId)
                         .then(result => {
                             resolve(result)
@@ -49,7 +49,7 @@ var Eth = function Eth(web) {
                             console.log(err)
                             reject(null)
                         })
-                }else{
+                } else {
                     document.dispatchEvent(event)
                     await _waitAnswer(taskId)
                         .then(result => {
@@ -108,7 +108,7 @@ var Eth = function Eth(web) {
                         cb: {cb: cb, url: window.origin, taskId: taskId}
                     }
                 })
-                if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
+                if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
                     await _waitAnswer(taskId)
                         .then(result => {
                             resolve(result)
@@ -117,7 +117,7 @@ var Eth = function Eth(web) {
                             console.log(err)
                             reject(null)
                         })
-                }else{
+                } else {
                     document.dispatchEvent(event)
                     await _waitAnswer(taskId)
                         .then(result => {
@@ -151,7 +151,7 @@ var Eth = function Eth(web) {
                         cb: {cb: cb, url: window.origin, taskId: taskId}
                     }
                 })
-                if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
+                if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
                     await _waitAnswer(taskId)
                         .then(result => {
                             resolve(result)
@@ -160,7 +160,7 @@ var Eth = function Eth(web) {
                             console.log(err)
                             reject(null)
                         })
-                }else{
+                } else {
                     document.dispatchEvent(event)
                     await _waitAnswer(taskId)
                         .then(result => {
@@ -201,7 +201,7 @@ var Eth = function Eth(web) {
                         cb: {cb: cb, url: window.origin, taskId: taskId}
                     }
                 })
-                if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
+                if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
                     await _waitAnswer(taskId)
                         .then(result => {
                             resolve(result)
@@ -210,7 +210,7 @@ var Eth = function Eth(web) {
                             console.log(err)
                             reject(null)
                         })
-                }else{
+                } else {
                     document.dispatchEvent(event)
                     await _waitAnswer(taskId)
                         .then(result => {

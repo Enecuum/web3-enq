@@ -13,7 +13,7 @@ var Net = function Net(web) {
         configurable: true,
     })
     Object.defineProperty(this, 'currentProvider', {
-        get: function (){
+        get: function () {
             return web.Enq.currentProvider
         }
     })
@@ -110,9 +110,9 @@ var Net = function Net(web) {
             let api = `tx?hash=${hash}`
             return await web.Enq.sendAPI(api);
         },
-        getOwner: async function(hash){
+        getOwner: async function (hash) {
             let api = `token_info?hash=${hash}`
-            let answer =  await web.Enq.sendAPI(api)
+            let answer = await web.Enq.sendAPI(api)
             return answer[0].owner
         }
     }
@@ -164,11 +164,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from:obj.from,
-                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount:0,
-                data:tx_data
+                from: obj.from,
+                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount: 0,
+                data: tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -182,11 +182,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from:obj.from,
-                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount:0,
-                data:tx_data
+                from: obj.from,
+                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount: 0,
+                data: tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -200,11 +200,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from:obj.from,
-                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount:0,
-                data:tx_data
+                from: obj.from,
+                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount: 0,
+                data: tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -217,11 +217,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from:obj.from,
-                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount:0,
-                data:tx_data
+                from: obj.from,
+                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount: 0,
+                data: tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -245,12 +245,12 @@ var Net = function Net(web) {
                     minable: Number(obj.minable)
                 }
             }
-            let tx ={
-                from:obj.from,
-                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount:0,
-                data:tx_data
+            let tx = {
+                from: obj.from,
+                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount: 0,
+                data: tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -263,12 +263,12 @@ var Net = function Net(web) {
                     amount: BigInt(obj.amount)
                 }
             }
-            let tx={
-                from:obj.from,
-                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount:0,
-                data:tx_data
+            let tx = {
+                from: obj.from,
+                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount: 0,
+                data: tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -282,11 +282,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from:obj.from,
-                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount:0,
-                data:tx_data
+                from: obj.from,
+                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount: 0,
+                data: tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -299,11 +299,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from:obj.from,
-                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount:0,
-                data:tx_data
+                from: obj.from,
+                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount: 0,
+                data: tx_data
             }
             return await _this.post.tx(tx)
         }

@@ -30,12 +30,12 @@ var EventEmitter = require('eventemitter3');
  * @method eventifiedPromise
  */
 var PromiEvent = function PromiEvent(justPromise) {
-    var resolve, reject, eventEmitter = new Promise(function() {
-            resolve = arguments[0];
-            reject = arguments[1];
-        });
+    var resolve, reject, eventEmitter = new Promise(function () {
+        resolve = arguments[0];
+        reject = arguments[1];
+    });
 
-    if(justPromise) {
+    if (justPromise) {
         return {
             resolve: resolve,
             reject: reject,
@@ -64,7 +64,7 @@ var PromiEvent = function PromiEvent(justPromise) {
     };
 };
 
-PromiEvent.resolve = function(value) {
+PromiEvent.resolve = function (value) {
     var promise = PromiEvent(true);
     promise.resolve(value);
     return promise.eventEmitter;

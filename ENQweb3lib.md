@@ -1,38 +1,35 @@
-# о библиотеке
-она необходима для взаимодействия с расширением. рабочие библиотеки временно в папке ```./prebuild```
+# About the library
+It is required to interact with the extension. Working libraries temporarily in the `./prebuild` folder
 
-# начало работы 
- - подключи библиотеку к странице как скрипт, можно как ```cdn``` 
- - в консоли появится объект ```ENQweb3lib``` с методами:
-   - .connect()
-   - .enable( obj ) 
-   - .balanceOf( obj )
-   - .sendTransaction( obj )
-    
-# методы 
-### connect()
-необходим, чтобы начать работы с расширением. хочешь спросить что-то у расширения - вызови connect() в начале работы страницы, вызывается 1 раз
-### async enable()
-возвращает публичный ключ, функция асинхронная! используй await
-### async balanceOf( obj ) 
-функция возвращает баланс аккаунта по токену. в ```obj``` входит:
- ``` 
- {
-   to:string,  - публичный ключ аккаунта
-   tokenHash:string    - токен
- } 
- ```
+# Beginning of work
+- Connect the library to the page as a script  `cdn`
+- The `ENQweb3lib` object with methods will appear in the console:
+   - .connect ()
+   - .enable (obj)
+   - .balanceOf (obj)
+   - .sendTransaction (obj)
 
-### async sendTransaction( obj ) 
-отправляет запрос на отправку транзакции. в obj входит:
-```
-{
-  from:string, - публичный адрес отправителя
-  to:string,  - публичный адрес получателя
-  value:BigInt, - количество монет 
-  tokenHash:string, - токен монетки
-  nonce:number,  - опционально( Math.floor(Math.random() * 1e10) )
-  data:JSON.stringify(obj), - опционально. данные ( можно передать привет )
-  net:string - опционально, для свопа. передавать url. без последнего слеша https://example.com
-}
-```
+# Methods
+
+### connect ()
+Is required to get started with the extension. if you want to ask the extension something - call connect () at the beginning of the page, it is called 1 time
+
+### async enable ()
+Returns a public key, the function is asynchronous! Use await.
+
+### async balanceOf (obj)
+The function returns the account balance by token:
+
+`{ to: string, - public key of the account`
+`tokenHash: string - token }`
+
+### async sendTransaction (obj)
+Send request to send a transaction:
+
+`{ from: string, - public address of the sender`
+`to: string, - public address of the recipient`
+`value: BigInt, - the number of coins`
+`tokenHash: string, - token of the coin`
+`nonce: number, - optional (Math.floor (Math.random () * 1e10))`
+`data: JSON.stringify (obj), optional. data (you can say hello)`
+`net: string - optional, for swap. pass url. without the last slash https://example.com }`

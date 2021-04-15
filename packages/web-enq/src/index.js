@@ -44,7 +44,7 @@ var Enq = function Enq(web) {
         configurable: true
     })
     Object.defineProperty(this, 'currentProvider', {
-        get: function (){
+        get: function () {
             return mnemonic[web.Enq.provider]
         }
     })

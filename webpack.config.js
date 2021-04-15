@@ -8,8 +8,8 @@ module.exports = {
     resolve: {
         //modules: ["node_modules"],
         alias: {
-            '@':__dirname,
-            '@packs':path.resolve(__dirname,"packages")
+            '@': __dirname,
+            '@packs': path.resolve(__dirname, "packages")
         }
     },
     module: {
@@ -46,5 +46,5 @@ module.exports = {
         library: "Web3",
         libraryTarget: "umd"
     },
-    mode:'production'
+    mode: 'production'
 }

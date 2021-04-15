@@ -1,35 +1,35 @@
 {
-  "name": "enq-web",
-  "version": "1.0.0",
-  "description": "web for enq-extension",
-  "main": "./packages/web/src/index.js",
-  "private": true,
-  "scripts": {
-    "init": "cd packages/web-enq-utils/\nnpm i\ncd ../web-enq\nnpm i",
-    "dev": "webpack --mode development",
-    "prod": "webpack --mode production",
-    "build": "browserify dev/build.js -o prebuild/enqweb3.min.js",
-    "buildEnq": "browserify dev/buildEnq.js -o prebuild/ENQweb3lib.min.js"
-  },
-  "keywords": [
-    "Enecuum",
-    "JavaScript",
-    "API"
-  ],
-  "dependencies": {
-    "webpack": "^5.12.3",
-    "webpack-cli": "^4.3.1",
-    "elliptic": "^6.5.4",
-    "enecuum-crypto": "https://github.com/prudanoff/enecuum-bin/raw/8075e5a8681e6048b5c573a24a6bc3e525aca1cf/bin/linux64/enecuum-crypto.tar.gz",
-    "eventemitter3": "^4.0.7",
-    "fs": "0.0.1-security",
-    "jsrsasign": "^8.0.12",
-    "key-encoder": "^2.0.3",
-    "node-randomx": "https://github.com/prudanoff/enecuum-bin/raw/master/rx/linux64/node-randomx.tar.gz",
-    "path": "^0.12.7",
-    "request": "^2.88.2"
-  },
-  "author": "https://github.com/kamighost1",
-  "license": "ISC",
-  "devDependencies": {}
+    "name": "enq-web",
+    "version": "1.0.0",
+    "description": "web for enq-extension",
+    "main": "./packages/web/src/index.js",
+    "private": true,
+    "scripts": {
+        "init": "cd packages/web-enq-utils/\nnpm i\ncd ../web-enq\nnpm i",
+        "dev": "webpack --mode development",
+        "prod": "webpack --mode production",
+        "build": "browserify dev/build.js -o prebuild/enqweb3.min.js",
+        "buildEnq": "browserify dev/buildEnq.js -o prebuild/ENQweb3lib.min.js"
+    },
+    "keywords": [
+        "Enecuum",
+        "JavaScript",
+        "API"
+    ],
+    "dependencies": {
+        "webpack": "^5.12.3",
+        "webpack-cli": "^4.3.1",
+        "elliptic": "^6.5.4",
+        "enecuum-crypto": "https://github.com/prudanoff/enecuum-bin/raw/8075e5a8681e6048b5c573a24a6bc3e525aca1cf/bin/linux64/enecuum-crypto.tar.gz",
+        "eventemitter3": "^4.0.7",
+        "fs": "0.0.1-security",
+        "jsrsasign": "^8.0.12",
+        "key-encoder": "^2.0.3",
+        "node-randomx": "https://github.com/prudanoff/enecuum-bin/raw/master/rx/linux64/node-randomx.tar.gz",
+        "path": "^0.12.7",
+        "request": "^2.88.2"
+    },
+    "author": "https://github.com/kamighost1",
+    "license": "ISC",
+    "devDependencies": {}
 }
