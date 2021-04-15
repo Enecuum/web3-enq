@@ -1,4 +1,4 @@
-var Eth = function Eth(web) {
+const Eth = function Eth(web) {
     let time = 200
     let _promise = function (id) {
         return new Promise((resolve) => {

@@ -1,6 +1,6 @@
 const request = require('../../../node_modules/request')
 
-var Enq = function Enq(web) {
+const Enq = function Enq(web) {
     let _this = this;
     let provider = 'https://pulse.enecuum.com';
     let token = {
