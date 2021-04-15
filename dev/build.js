@@ -2,5 +2,5 @@ let web = require('../packages/web')
 
 web = new web()
 
-global.Enecuum = web.Eth
+global.Enecuum = web.Web
 global.ENQWeb = web

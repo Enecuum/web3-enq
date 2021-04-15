@@ -85,35 +85,102 @@ var Net = function Net(web) {
     this.get = {
         getMyBalance: async function (token) {
             let api = `balance?id=${web.Enq.User.pubkey}&token=${token}`
-            return await web.Enq.sendAPI(api)
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
         },
         getBalance: async function (acc, token) {
             let api = `balance?id=${acc}&token=${token}`
-            return await web.Enq.sendAPI(api)
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
+        },
+        getBalanceAll: async function (acc) {
+            let api = `balance_all?id=${acc}`
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
         },
         token_info: async function (hash) {
             let api = `token_info?hash=${hash}`
-            return await web.Enq.sendAPI(api)
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
         },
         height: async function () {
-            return await web.Enq.sendAPI('height')
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI('height')
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
         },
         macroblock: async function (hash) {
             let api = `macroblock?hash=${hash}`
-            return await web.Enq.sendAPI(api);
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
         },
         macroblockByHeight: async function (height) {
             let api = `macroblock_by_height?height=${height}`
-            return await web.Enq.sendAPI(api);
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
         },
         tx: async function (hash) {
             let api = `tx?hash=${hash}`
-            return await web.Enq.sendAPI(api);
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
         },
-        getOwner: async function (hash) {
+        getOwner: async function(hash){
             let api = `token_info?hash=${hash}`
-            let answer = await web.Enq.sendAPI(api)
-            return answer[0].owner
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer=>{
+                        resolve(answer[0].owner)
+                    })
+                    .catch(()=>{reject(false)})
+            })
+        },
+        accountTransactions: async function(id, page=0){
+            let api = `account_transactions?id=${id}&page=${page}`
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
         }
     }
     this.post = {
@@ -134,7 +201,14 @@ var Net = function Net(web) {
             }
             tx.hash = await web.Utils.Sign.hash_tx_fields(tx)
             tx.sign = await web.Utils.Sign.ecdsa_sign(obj.from.prvkey, tx.hash);
-            return await web.Enq.sendTx(tx)
+            // return await web.Enq.sendTx(tx)
+            return new Promise((resolve, reject) => {
+                web.Enq.sendTx(tx)
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
         },
         tx_fee_off: async function (obj) {
             // from, to, tokenHash, amount, data, nonce
@@ -152,7 +226,14 @@ var Net = function Net(web) {
             }
             tx.hash = await web.Utils.Sign.hash_tx_fields(tx)
             tx.sign = await web.Utils.Sign.ecdsa_sign(obj.from.prvkey, tx.hash);
-            return await web.Enq.sendTx(tx)
+            // return await web.Enq.sendTx(tx)
+            return new Promise((resolve, reject) => {
+                web.Enq.sendTx(tx)
+                    .then(answer=>{
+                        resolve(answer)
+                    })
+                    .catch(()=>{reject(false)})
+            })
         },
         delegate: async function (obj) {
             // from, pos_id, amount
@@ -164,11 +245,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
+                from:obj.from,
+                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount:0,
+                data:tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -182,11 +263,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
+                from:obj.from,
+                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount:0,
+                data:tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -200,11 +281,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
+                from:obj.from,
+                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount:0,
+                data:tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -217,11 +298,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
+                from:obj.from,
+                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount:0,
+                data:tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -245,12 +326,12 @@ var Net = function Net(web) {
                     minable: Number(obj.minable)
                 }
             }
-            let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
+            let tx ={
+                from:obj.from,
+                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount:0,
+                data:tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -263,12 +344,12 @@ var Net = function Net(web) {
                     amount: BigInt(obj.amount)
                 }
             }
-            let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
+            let tx={
+                from:obj.from,
+                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount:0,
+                data:tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -282,11 +363,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
+                from:obj.from,
+                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount:0,
+                data:tx_data
             }
             return await _this.post.tx(tx);
         },
@@ -299,11 +380,11 @@ var Net = function Net(web) {
                 }
             }
             let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
+                from:obj.from,
+                to:obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
+                tokenHash:obj.tokenHash || web.Enq.token[web.Enq.provider],
+                amount:0,
+                data:tx_data
             }
             return await _this.post.tx(tx)
         }

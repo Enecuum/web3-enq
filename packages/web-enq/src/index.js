@@ -6,16 +6,19 @@ var Enq = function Enq(web) {
     let token = {
         'https://pulse.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000000',
         'https://bit.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000001',
-        'http://95.216.207.173': '0000000000000000000000000000000000000000000000000000000000000000'
+        'http://bit-dev.enecuum.com': '1111111111111111111111111111111111111111111111111111111111111111',
+        'http://95.216.207.173': '0000000000000000000000000000000000000000000000000000000000000000',
     };
     let url = {
         'pulse': 'https://pulse.enecuum.com',
         'bit': 'https://bit.enecuum.com',
+        'bit-dev': 'http://bit-dev.enecuum.com',
         'f3': 'http://95.216.207.173',
     }
     let mnemonic = {
         'https://pulse.enecuum.com': 'pulse',
         'https://bit.enecuum.com': 'bit',
+        'http://bit-dev.enecuum.com':'bit-dev',
         'http://95.216.207.173': 'f3',
     }
     let ticker = '0000000000000000000000000000000000000000000000000000000000000000';
@@ -44,6 +47,11 @@ var Enq = function Enq(web) {
         configurable: true
     })
     Object.defineProperty(this, 'currentProvider', {
+        get: function (){
+            if(mnemonic[web.Enq.provider])
+                return mnemonic[web.Enq.provider]
+            else
+                return web.Enq.provider
         get: function () {
             return mnemonic[web.Enq.provider]
         }
