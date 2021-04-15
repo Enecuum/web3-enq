@@ -1,4 +1,4 @@
-let objectFromData = function objectFromData(){
+let objectFromData = function objectFromData() {
 
     let schema = {
         'root': '0000',

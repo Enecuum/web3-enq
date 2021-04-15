@@ -8,7 +8,7 @@ function strengthenPassword(pass, rounds = 5000) {
     return pass
 }
 
-function sha256(str){
+function sha256(str) {
     return CryptoJS.SHA256(str).toString()
 }
 

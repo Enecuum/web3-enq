@@ -1,29 +1,36 @@
 # About the library
+
 It is required to interact with the extension. Working libraries temporarily in the `./prebuild` folder
 
 # Beginning of work
+
 - Connect the library to the page as a script  `cdn`
 - The `ENQweb3lib` object with methods will appear in the console:
-   - .connect ()
-   - .enable (obj)
-   - .balanceOf (obj)
-   - .sendTransaction (obj)
+    - .connect ()
+    - .enable (obj)
+    - .balanceOf (obj)
+    - .sendTransaction (obj)
 
 # Methods
 
 ### connect ()
-Is required to get started with the extension. if you want to ask the extension something - call connect () at the beginning of the page, it is called 1 time
+
+Is required to get started with the extension. if you want to ask the extension something - call connect () at the
+beginning of the page, it is called 1 time
 
 ### async enable ()
+
 Returns a public key, the function is asynchronous! Use await.
 
 ### async balanceOf (obj)
+
 The function returns the account balance by token:
 
 `{ to: string, - public key of the account`
 `tokenHash: string - token }`
 
 ### async sendTransaction (obj)
+
 Send request to send a transaction:
 
 `{ from: string, - public address of the sender`

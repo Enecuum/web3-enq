@@ -36,10 +36,10 @@ var Eth = function Eth(web) {
             let event = new CustomEvent('ENQContent', {
                 detail: {
                     type: 'getProvider',
-                    cb: {url: window.origin, taskId: taskId, fullUrl:fullUrl}
+                    cb: {url: window.origin, taskId: taskId, fullUrl: fullUrl}
                 }
             })
-            if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
+            if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
                 await _waitAnswer(taskId)
                     .then(result => {
                         resolve(result)
@@ -48,7 +48,7 @@ var Eth = function Eth(web) {
                         console.log(err)
                         reject(null)
                     })
-            }else{
+            } else {
                 document.dispatchEvent(event)
                 await _waitAnswer(taskId)
                     .then(result => {
@@ -91,7 +91,7 @@ var Eth = function Eth(web) {
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
             })
-            if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
+            if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
                 await _waitAnswer(taskId)
                     .then(result => {
                         resolve(result)
@@ -100,7 +100,7 @@ var Eth = function Eth(web) {
                         console.log(err)
                         reject(null)
                     })
-            }else{
+            } else {
                 document.dispatchEvent(event)
                 await _waitAnswer(taskId)
                     .then(result => {
@@ -129,7 +129,7 @@ var Eth = function Eth(web) {
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
             })
-            if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
+            if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
                 await _waitAnswer(taskId)
                     .then(result => {
                         resolve(result)
@@ -138,7 +138,7 @@ var Eth = function Eth(web) {
                         console.log(err)
                         reject(null)
                     })
-            }else{
+            } else {
                 document.dispatchEvent(event)
                 await _waitAnswer(taskId)
                     .then(result => {
@@ -159,7 +159,7 @@ var Eth = function Eth(web) {
         return new Promise(async (resolve, reject) => {
             // let taskId = Math.random().toString(36)
             let taskId = ''
-            if(!obj.nonce){
+            if (!obj.nonce) {
                 obj.nonce = Math.floor(Math.random() * 1e10)
             }
             let tx = {
@@ -172,7 +172,7 @@ var Eth = function Eth(web) {
             }
             let txHash = await this.hash_tx_fields(tx)
             taskId = window.origin + `/tx/${txHash}`
-            if(obj.fee_use !== undefined && obj.fee_use){
+            if (obj.fee_use !== undefined && obj.fee_use) {
                 let tokenInfo = await web.Net.get.token_info(obj.tokenHash);
                 obj.value = obj.value + tokenInfo[0].fee_value
             }
@@ -187,15 +187,15 @@ var Eth = function Eth(web) {
                         nonce: obj.nonce,
                         data: obj.data || '',
                     },
-                    data:{
+                    data: {
                         net: obj.net || '',
                         fee_use: obj.fee_use || false,
-                        txHash:txHash,
+                        txHash: txHash,
                     },
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
             })
-            if(typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false){
+            if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
                 await _waitAnswer(taskId)
                     .then(result => {
                         resolve(result)
@@ -204,7 +204,7 @@ var Eth = function Eth(web) {
                         console.log(err)
                         reject(null)
                     })
-            }else{
+            } else {
                 document.dispatchEvent(event)
                 await _waitAnswer(taskId)
                     .then(result => {
@@ -218,7 +218,7 @@ var Eth = function Eth(web) {
         })
     }
 
-    this.hash_tx_fields = async function (tx){
+    this.hash_tx_fields = async function (tx) {
         return await web.Utils.Sign.hash_tx_fields(tx);
     }
 }

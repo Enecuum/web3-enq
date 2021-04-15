@@ -85,7 +85,7 @@ function serializeObject(obj) {
     } else {
         for (let key in obj) {
             let code = schema[key];
-            if(code === undefined){
+            if (code === undefined) {
                 return false //TODO ошибка тут. что возвращать?
             }
             let res;

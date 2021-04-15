@@ -3,8 +3,8 @@ const webpack = require("webpack");
 
 module.exports = {
     entry: {
-        enqweb3:'./dev/build.js',
-        ENQweb3lib:'./dev/buildEnq.js'
+        enqweb3: './dev/build.js',
+        ENQweb3lib: './dev/buildEnq.js'
     },
     resolve: {
         modules: ["node_modules"],
@@ -20,7 +20,7 @@ module.exports = {
             "buffer": require.resolve("buffer/"),
             "stream": require.resolve("stream-browserify"),
             "zlib": require.resolve("browserify-zlib"),
-            fs:false
+            fs: false
         }
     },
     module: {

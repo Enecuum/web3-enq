@@ -5,8 +5,8 @@ const Sign = require('./Sign')
 const generateKey = require('./keygen')
 const crypto = require('./cryptoEnqLib')
 
-let Utils = function Utils(){
-    this.dfo = function (obj){
+let Utils = function Utils() {
+    this.dfo = function (obj) {
         return DFO(obj);
     };
     this.ofd = new OFD()
