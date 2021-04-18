@@ -2,7 +2,6 @@ const Utils = require('../../web-enq-utils')
 const Enq = require('../../web-enq')
 const Net = require('../../web-enq-net')
 const web = require('../../web-enq-web')
-const Eth = require("../../web-enq-web");
 const version = require('../package.json').version
 
 const Web = function Web() {
@@ -10,7 +9,7 @@ const Web = function Web() {
     this.Enq = new Enq(this);
     this.Utils = new Utils(this);
     this.Net = new Net(this);
-    this.Eth = new Eth(this);
+    this.Web = new web(this);
 }
 
 Web.version = version;
@@ -18,7 +17,7 @@ Web.modules = {
     Utils,
     Enq,
     Net,
-    Eth,
+    web,
 }
 
 module.exports = Web;

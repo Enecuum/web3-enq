@@ -119,6 +119,9 @@ const Eth = function Eth(web) {
         return new Promise(async (resolve, reject) => {
             // let taskId = Math.random().toString(36)
             let taskId = window.origin + '/balanceOf'
+            if(obj.tokenHash){
+                taskId+=`/${obj.tokenHash}`
+            }
             let event = new CustomEvent('ENQContent', {
                 detail: {
                     type: 'balanceOf',
