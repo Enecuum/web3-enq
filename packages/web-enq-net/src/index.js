@@ -1,6 +1,6 @@
-var Net = function Net(web) {
-
+const Net = function Net(web) {
     let _this = this;
+
     Object.defineProperty(this, 'provider', {
         get: function () {
             return web.Enq.provider
@@ -261,13 +261,13 @@ var Net = function Net(web) {
         },
         delegate: async function (obj) {
             // from, pos_id, amount
-            var tx_data = {
+            const tx_data = {
                 type: 'delegate',
                 parameters: {
                     pos_id: obj.pos_id,
                     amount: BigInt(obj.amount)
                 }
-            }
+            };
             let tx = {
                 from: obj.from,
                 to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),

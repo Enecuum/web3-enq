@@ -2,5 +2,5 @@ const Web = require('../packages/web')
 
 const web = new Web()
 
-global.Enecuum = web.Eth
+global.ENQweb3lib = web.Eth
 global.ENQWeb = web

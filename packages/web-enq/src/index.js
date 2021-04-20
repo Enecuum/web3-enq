@@ -52,10 +52,8 @@ const Enq = function Enq(web) {
                 return mnemonic[web.Enq.provider]
             else
                 return web.Enq.provider
-            get: function () {
-                return mnemonic[web.Enq.provider]
-            }
-        })
+        }
+    })
     Object.defineProperty(this, 'token', {
         get: function () {
             return token;

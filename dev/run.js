@@ -1,3 +1,3 @@
-let web = require('../packages/web')
+const Web = require('../packages/web')
 
-web = new web()
+const web = new Web()

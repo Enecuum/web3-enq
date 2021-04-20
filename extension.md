@@ -1,11 +1,11 @@
-# About the library
+# Extension library
 
 It is required to interact with the extension. Working libraries temporarily in the `./prebuild` folder
 
 # Beginning of work
 
 - Connect the library to the page as a script  `cdn`
-- The `ENQweb3lib` object with methods will appear in the console:
+- The `enqweb3lib` object with methods will appear in the console:
     - .connect ()
     - .enable (obj)
     - .balanceOf (obj)
