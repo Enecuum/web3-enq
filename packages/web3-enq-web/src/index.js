@@ -12,17 +12,17 @@ const Eth = function Eth(web) {
     }
     let _waitAnswer = async function (id) {
         return new Promise(async (resolve, reject) => {
-            ENQWeb.Enq.ready[id] = false
+            web.Enq.ready[id] = false
             await _promise(id).then(el => {
                 if (web.Enq.cb[id].reject) {
                     web.Enq.ready[id] = true
                     reject()
                 }
-                delete ENQWeb.Enq.ready[id]
+                delete web.Enq.ready[id]
                 resolve(web.Enq.cb[id])
             }).catch(err => {
                 console.log('ERROR: ', err)
-                delete ENQWeb.Enq.ready[id]
+                delete web.Enq.ready[id]
                 reject({reject: true, err: err})
             })
         })
@@ -39,7 +39,7 @@ const Eth = function Eth(web) {
                     cb: {url: window.origin, taskId: taskId, fullUrl: fullUrl}
                 }
             })
-            if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
+            if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
                 await _waitAnswer(taskId)
                     .then(result => {
                         resolve(result)
@@ -91,7 +91,7 @@ const Eth = function Eth(web) {
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
             })
-            if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
+            if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
                 await _waitAnswer(taskId)
                     .then(result => {
                         resolve(result)
@@ -132,7 +132,7 @@ const Eth = function Eth(web) {
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
             })
-            if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
+            if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
                 await _waitAnswer(taskId)
                     .then(result => {
                         resolve(result)
@@ -198,7 +198,7 @@ const Eth = function Eth(web) {
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
             })
-            if (typeof ENQWeb.Enq.ready === typeof (Boolean) && ENQWeb.Enq.ready === false) {
+            if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
                 await _waitAnswer(taskId)
                     .then(result => {
                         resolve(result)

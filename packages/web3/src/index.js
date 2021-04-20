@@ -20,4 +20,4 @@ Web3.modules = {
     Web,
 }
 
-module.exports = Web;
+module.exports = Web3;
