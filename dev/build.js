@@ -1,6 +1,6 @@
-const Web = require('../packages/web')
+const Web = require('../packages/web3')
 
-const web = new Web()
+const web3 = new Web3()
 
-global.Enecuum = web.Eth
-global.ENQWeb = web
+global.Enecuum = web3.Web
+global.ENQWeb = web3
