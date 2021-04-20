@@ -3,8 +3,7 @@ const webpack = require("webpack");
 
 module.exports = {
     entry: {
-        enqweb3: './dev/buildNodeLib.js',
-        enqweb3lib: './dev/buildExtensionLib.js'
+        enqweb3lib: './dev/buildNodeLib.js'
     },
     resolve: {
         modules: ["node_modules"],

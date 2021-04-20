@@ -8,8 +8,7 @@
         "init": "cd packages/web3-enq-utils\nnpm i\ncd ../web3-enq\nnpm i",
         "dev": "webpack --mode development",
         "prod": "webpack --mode production",
-        "build": "browserify dev/buildNodeLib.js -o prebuild/enqweb3.min.js",
-        "buildEnq": "browserify dev/buildExtensionLib.js -o prebuild/enqweb3lib.min.js"
+        "buildEnq": "browserify dev/buildNodeLib.js -o prebuild/enqweb3lib.min.js"
     },
     "keywords": [
         "Enecuum",
