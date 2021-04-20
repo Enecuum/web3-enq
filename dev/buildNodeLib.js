@@ -1,4 +1,4 @@
-const Web = require('../packages/web3')
+const Web3 = require('../packages/web3')
 
 const web3 = new Web3()
 

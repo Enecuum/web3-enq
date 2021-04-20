@@ -1,6 +1,6 @@
 {
     "name": "enq-web3",
-    "version": "1.0.0",
+    "version": "0.1.2",
     "description": "Web3 for enq-extension",
     "main": "packages/web3/src/index.js",
     "private": true,
@@ -8,7 +8,7 @@
         "init": "cd packages/web3-enq-utils\nnpm i\ncd ../web3-enq\nnpm i",
         "dev": "webpack --mode development",
         "prod": "webpack --mode production",
-        "build": "browserify dev/build.js -o prebuild/enqweb3.min.js",
+        "build": "browserify dev/buildNodeLib.js -o prebuild/enqweb3.min.js",
         "buildEnq": "browserify dev/buildExtensionLib.js -o prebuild/enqweb3lib.min.js"
     },
     "keywords": [
