@@ -1,15 +1,14 @@
 {
-    "name": "enq-web",
-    "version": "1.0.0",
-    "description": "web for enq-extension",
-    "main": "./packages/web/src/index.js",
+    "name": "enq-web3",
+    "version": "0.1.2",
+    "description": "Web3 for enq-extension",
+    "main": "packages/web3/src/index.js",
     "private": true,
     "scripts": {
-        "init": "cd packages/web-enq-utils/\nnpm i\ncd ../web-enq\nnpm i",
+        "init": "cd packages/web3-enq-utils\nnpm i\ncd ../web3-enq\nnpm i",
         "dev": "webpack --mode development",
         "prod": "webpack --mode production",
-        "build": "browserify dev/build.js -o prebuild/enqweb3.min.js",
-        "buildEnq": "browserify dev/buildEnq.js -o prebuild/ENQweb3lib.min.js"
+        "buildEnq": "browserify dev/buildNodeLib.js -o prebuild/enqweb3lib.min.js"
     },
     "keywords": [
         "Enecuum",
