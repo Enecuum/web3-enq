@@ -3,3 +3,4 @@ node_modules
 .idea
 .idea/*
 package-lock.json
+dist/enqweb3lib.min.js.LICENSE.txt
