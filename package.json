@@ -5,7 +5,6 @@
     "main": "packages/web3/src/index.js",
     "private": true,
     "scripts": {
-        "init": "cd packages/web3-enq-utils\nnpm i\ncd ../web3-enq\nnpm i",
         "dev": "webpack --mode development",
         "prod": "webpack --mode production"
     },

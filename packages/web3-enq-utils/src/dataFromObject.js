@@ -19,10 +19,10 @@ let schema = {
     'transfer': '1200',
     'mint': '1300',
     'burn': '1400',
-    'swap': '1500',
-    'create_pool': '1600',
-    'add_liquidity': '1700',
-    'remove_liquidity': '1800'
+    'create_pool': '1500',
+    'add_liquidity': '1600',
+    'remove_liquidity': '1700',
+    'swap': '1800'
 };
 
 function toHex(d) {
