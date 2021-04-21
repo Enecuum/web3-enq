@@ -62,6 +62,38 @@ const Eth = function Eth(web) {
         }))
     }
 
+    function getVersion() {
+        return new Promise((async (resolve, reject) => {
+            let taskId = window.origin + '/getVersion'
+            let event = new CustomEvent('ENQContent', {
+                detail: {
+                    type: 'getVersion',
+                    cb: {url: window.origin, taskId: taskId}
+                }
+            })
+            if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
+                await _waitAnswer(taskId)
+                    .then(result => {
+                        resolve(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(null)
+                    })
+            } else {
+                document.dispatchEvent(event)
+                await _waitAnswer(taskId)
+                    .then(result => {
+                        resolve(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(null)
+                    })
+            }
+        }))
+    }
+
     this.net = {
         getProvider
     }
@@ -88,7 +120,7 @@ const Eth = function Eth(web) {
             let event = new CustomEvent('ENQContent', {
                 detail: {
                     type: 'enable',
-                    data:{date:Date.now(), version:web.version},
+                    data: {date: Date.now(), version: web.version},
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
             })
@@ -120,8 +152,8 @@ const Eth = function Eth(web) {
         return new Promise(async (resolve, reject) => {
             // let taskId = Math.random().toString(36)
             let taskId = window.origin + '/balanceOf'
-            if(obj.tokenHash!==undefined){
-                taskId+='/'+obj.tokenHash;
+            if (obj.tokenHash !== undefined) {
+                taskId += '/' + obj.tokenHash;
             }
             let event = new CustomEvent('ENQContent', {
                 detail: {
@@ -129,7 +161,7 @@ const Eth = function Eth(web) {
                     data: {
                         to: obj.to,
                         tokenHash: obj.tokenHash,
-                        date:Date.now()
+                        date: Date.now()
                     },
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
@@ -175,7 +207,7 @@ const Eth = function Eth(web) {
                 nonce: obj.nonce,
                 data: obj.data || '',
             }
-            if(obj.log !== undefined){
+            if (obj.log !== undefined) {
                 console.log(tx);
             }
             let txHash = await this.hash_tx_fields(tx)
@@ -199,7 +231,7 @@ const Eth = function Eth(web) {
                         net: obj.net || '',
                         fee_use: obj.fee_use || false,
                         txHash: txHash,
-                        date:Date.now(),
+                        date: Date.now(),
                     },
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
@@ -226,6 +258,8 @@ const Eth = function Eth(web) {
             }
         })
     }
+
+    this.getVersion = getVersion
 
     this.hash_tx_fields = async function (tx) {
         return await web.Utils.Sign.hash_tx_fields(tx);
