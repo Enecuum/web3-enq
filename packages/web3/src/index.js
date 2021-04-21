@@ -2,7 +2,7 @@ const Utils = require('../../web3-enq-utils')
 const Enq = require('../../web3-enq')
 const Net = require('../../web3-enq-net')
 const Web = require('../../web3-enq-web')
-const version = require('../package.json').version
+const version = require('../../../package.json').version
 
 const Web3 = function Web3() {
     this.version = version;

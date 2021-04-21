@@ -88,6 +88,7 @@ const Eth = function Eth(web) {
             let event = new CustomEvent('ENQContent', {
                 detail: {
                     type: 'enable',
+                    data:{date:Date.now(), version:web.version},
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
             })
@@ -128,6 +129,7 @@ const Eth = function Eth(web) {
                     data: {
                         to: obj.to,
                         tokenHash: obj.tokenHash,
+                        date:Date.now()
                     },
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
@@ -173,6 +175,9 @@ const Eth = function Eth(web) {
                 nonce: obj.nonce,
                 data: obj.data || '',
             }
+            if(obj.log !== undefined){
+                console.log(tx);
+            }
             let txHash = await this.hash_tx_fields(tx)
             taskId = window.origin + `/tx/${txHash}`
             if (obj.fee_use !== undefined && obj.fee_use) {
@@ -194,6 +199,7 @@ const Eth = function Eth(web) {
                         net: obj.net || '',
                         fee_use: obj.fee_use || false,
                         txHash: txHash,
+                        date:Date.now(),
                     },
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
