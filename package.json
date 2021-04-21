@@ -7,8 +7,7 @@
     "scripts": {
         "init": "cd packages/web3-enq-utils\nnpm i\ncd ../web3-enq\nnpm i",
         "dev": "webpack --mode development",
-        "prod": "webpack --mode production",
-        "buildEnq": "browserify dev/buildNodeLib.js -o prebuild/enqweb3lib.min.js"
+        "prod": "webpack --mode production"
     },
     "keywords": [
         "Enecuum",

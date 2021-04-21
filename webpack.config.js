@@ -15,8 +15,8 @@ module.exports = {
             "assert": require.resolve("assert"),
             "https": require.resolve("https-browserify"),
             "http": require.resolve("stream-http"),
-            "url": require.resolve("url/"),
-            "buffer": require.resolve("buffer/"),
+            "url": require.resolve("url"),
+            "buffer": require.resolve("buffer"),
             "stream": require.resolve("stream-browserify"),
             "zlib": require.resolve("browserify-zlib"),
             fs: false
