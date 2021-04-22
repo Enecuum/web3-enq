@@ -51,11 +51,9 @@ module.exports = {
             Buffer: ["buffer", "Buffer"],
         })
     ],
-    target: "web",
-    devtool: "inline-source-map",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "[name].min.js",
+        filename: "[name].node.min.js",
         library: "Web3",
         libraryTarget: "umd"
     },
