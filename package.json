@@ -5,6 +5,7 @@
     "main": "packages/web3/src/index.js",
     "private": true,
     "scripts": {
+        "build": "browserify dev/build.js > dist/enqweb3lib.ext.min.js",
         "dev": "webpack --mode development",
         "prod": "webpack --mode production"
     },

@@ -1,9 +1,9 @@
-const path = require('path')
+const path = require("path")
 const webpack = require("webpack");
 
 module.exports = {
     entry: {
-        enqweb3lib: './dev/buildNodeLib.js'
+        enqweb3lib: "./dev/build.js"
     },
     resolve: {
         modules: ["node_modules"],
@@ -45,17 +45,17 @@ module.exports = {
     },
     plugins: [
         new webpack.ProvidePlugin({
-            process: 'process/browser',
+            process: "process/browser",
         }),
         new webpack.ProvidePlugin({
-            Buffer: ['buffer', 'Buffer'],
+            Buffer: ["buffer", "Buffer"],
         })
     ],
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].min.js',
+        path: path.resolve(__dirname, "dist"),
+        filename: "[name].node.min.js",
         library: "Web3",
         libraryTarget: "umd"
     },
-    mode: 'production'
+    mode: "production"
 }
