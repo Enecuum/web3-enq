@@ -1,12 +1,11 @@
 {
     "name": "enq-web3",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "description": "Web3 for enq-extension",
     "main": "packages/web3/src/index.js",
     "private": true,
     "scripts": {
-        "dev": "webpack --mode development",
-        "prod": "webpack --mode production"
+        "build": "browserify dev/build.js > dist/enqweb3lib.min.js"
     },
     "keywords": [
         "Enecuum",
