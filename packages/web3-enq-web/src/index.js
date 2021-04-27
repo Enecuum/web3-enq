@@ -191,6 +191,10 @@ const Eth = function Eth(web) {
 
     }
 
+    this.serialize = function (data){
+        return ENQWeb.Utils.dfo(data);
+    }
+
     this.sendTransaction = async function (obj, cb) {
         //from, to, value, tokenHash, cb
         return new Promise(async (resolve, reject) => {
@@ -205,7 +209,7 @@ const Eth = function Eth(web) {
                 amount: obj.value,
                 ticker: obj.tokenHash,
                 nonce: obj.nonce,
-                data: obj.data ? web.Utils.dfo(obj.data):'',
+                data: obj.data ||'',
             }
             if (obj.log !== undefined) {
                 console.log(tx);
@@ -225,7 +229,7 @@ const Eth = function Eth(web) {
                         value: obj.value,
                         tokenHash: obj.tokenHash,
                         nonce: obj.nonce,
-                        data: tx.data,
+                        data: tx.data || '',
                     },
                     data: {
                         net: obj.net || '',
