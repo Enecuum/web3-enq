@@ -205,7 +205,7 @@ const Eth = function Eth(web) {
                 amount: obj.value,
                 ticker: obj.tokenHash,
                 nonce: obj.nonce,
-                data: obj.data || '',
+                data: obj.data ? web.Utils.dfo(obj.data):'',
             }
             if (obj.log !== undefined) {
                 console.log(tx);
@@ -225,7 +225,7 @@ const Eth = function Eth(web) {
                         value: obj.value,
                         tokenHash: obj.tokenHash,
                         nonce: obj.nonce,
-                        data: obj.data || '',
+                        data: tx.data,
                     },
                     data: {
                         net: obj.net || '',
