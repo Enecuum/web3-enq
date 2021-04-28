@@ -159,6 +159,7 @@ const Enq = function Enq(web) {
                 } else {
                     if (body.err != 0) {
                         console.error(`Transaction rejected by remote node. error code ${body.err}`);
+                        console.error(body);
                         reject(body.message);
                     } else {
                         // console.log(`Transaction sent, hash = ${body.result[0].hash}`);
