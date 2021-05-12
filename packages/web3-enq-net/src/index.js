@@ -201,6 +201,18 @@ const Net = function Net(web) {
                         reject(false)
                     })
             })
+        },
+        get_tickers_all: async function(){
+            let api = `get_tickers_all`
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer => {
+                        resolve(answer)
+                    })
+                    .catch(() => {
+                        reject(false)
+                    })
+            })
         }
     }
     this.post = {
