@@ -195,6 +195,27 @@ const Eth = function Eth(web) {
         return ENQWeb.Utils.dfo(data);
     }
 
+    this.fee_counter = async function (tokenHash, amount){
+        let tokenInfo = await web.Net.get.token_info(tokenHash);
+        if(tokenInfo.length ===0){
+            return amount
+        }
+        else{
+            if(tokenInfo[0].fee_type === 0){
+                return amount + tokenInfo[0].fee_value
+            }
+            if(tokenInfo[0].fee_type === 1){
+                let checkAmount = (amount*tokenInfo[0].fee)/1e4
+                if(checkAmount > tokenInfo[0].fee_min){
+                    return  checkAmount
+                }else{
+                    return tokenInfo[0].fee_min
+                }
+            }
+            return amount
+        }
+    }
+
     this.sendTransaction = async function (obj, cb) {
         //from, to, value, tokenHash, cb
         return new Promise(async (resolve, reject) => {
@@ -202,6 +223,9 @@ const Eth = function Eth(web) {
             let taskId = ''
             if (!obj.nonce) {
                 obj.nonce = Math.floor(Math.random() * 1e10)
+            }
+            if (obj.fee_use !== undefined && obj.fee_use) {
+                obj.value = await this.fee_counter(obj.tokenHash, obj.value)
             }
             let tx = {
                 from: obj.from,
@@ -216,10 +240,6 @@ const Eth = function Eth(web) {
             }
             let txHash = await this.hash_tx_fields(tx)
             taskId = window.origin + `/tx/${txHash}`
-            if (obj.fee_use !== undefined && obj.fee_use) {
-                let tokenInfo = await web.Net.get.token_info(obj.tokenHash);
-                obj.value = obj.value + tokenInfo[0].fee_value
-            }
             let event = new CustomEvent('ENQContent', {
                 detail: {
                     type: 'tx',
