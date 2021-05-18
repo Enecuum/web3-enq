@@ -202,7 +202,7 @@ const Eth = function Eth(web) {
         }
         else{
             if(tokenInfo[0].fee_type === 0){
-                return amount + tokenInfo[0].fee_value
+                return tokenInfo[0].fee_value
             }
             if(tokenInfo[0].fee_type === 1){
                 let checkAmount = (amount*tokenInfo[0].fee)/1e4
