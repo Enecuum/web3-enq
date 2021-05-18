@@ -198,7 +198,7 @@ const Eth = function Eth(web) {
     this.fee_counter = async function (tokenHash, amount){
         let tokenInfo = await web.Net.get.token_info(tokenHash);
         if(tokenInfo.length ===0){
-            return amount
+            return false
         }
         else{
             if(tokenInfo[0].fee_type === 0){
@@ -212,7 +212,7 @@ const Eth = function Eth(web) {
                     return tokenInfo[0].fee_min
                 }
             }
-            return amount
+            return false
         }
     }
 
