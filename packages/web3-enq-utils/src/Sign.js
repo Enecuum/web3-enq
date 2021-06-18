@@ -1,4 +1,4 @@
-const rsasign = require('../../../node_modules/jsrsasign');
+const rsasign = require('jsrsasign');
 const crypto = require('crypto')
 const EC = require('elliptic').ec;
 

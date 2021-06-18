@@ -1,4 +1,4 @@
-const request = require('../../../node_modules/request')
+const request = require('request')
 
 const Enq = function Enq(web) {
     let _this = this;
