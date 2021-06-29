@@ -1,46 +1,9 @@
+let schemas = require('./schema')
+
 let objectFromData = function objectFromData() {
 
-    let schema = {
-        'root': '0000',
-        'custom': '0100',
-        'create_token': '0200',
-        'delegate': '0300',
-        'undelegate': '0400',
-        'signature': '0500',
-        'hash': '0600',
-        'string': '0700',
-        'int': '0800',
-        'bigint': '0900',
-        'float': '0a00',
-        'object': '0c00',
-        'key': '0d00',
-        'procedure_name': '0e00',
-        'parameters': '0f00',
-        'create_pos': '1000',
-        'pos_reward': '1100',
-        'transfer': '1200',
-        'mint': '1300',
-        'burn': '1400',
-        'create_pool': '1500',
-        'add_liquidity': '1600',
-        'remove_liquidity': '1700',
-        'swap': '1800'
-    };
-    let contract_pricelist = {
-        'create_token': 10000000000000,
-        'create_pos': 5000000000000,
-        'delegate': 0,
-        'undelegate': 0,
-        'transfer': 0,
-        'pos_reward': 0,
-        'mint': 0,
-        'burn': 0,
-        'custom': 20000000000,
-        'swap': 0,
-        'create_pool': 0,
-        'add_liquidity': 0,
-        'remove_liquidity': 0
-    }
+    let schema = schemas.schema
+    let contract_pricelist = schemas.contract_pricelist
 
     function isContract(raw) {
         if (raw === undefined || raw === null)
