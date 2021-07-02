@@ -227,6 +227,9 @@ const Eth = function Eth(web) {
             if (obj.fee_use !== undefined && obj.fee_use) {
                 obj.value = await this.fee_counter(obj.tokenHash, obj.value)
             }
+            if(typeof obj.value === 'number' || typeof obj.value === 'bigint' ){
+                obj.value = obj.value.toString()
+            }
             let tx = {
                 from: obj.from,
                 to: obj.to,
