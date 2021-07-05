@@ -1,6 +1,8 @@
 const rsasign = require('jsrsasign');
 const crypto = require('crypto')
 const EC = require('elliptic').ec;
+let KeyEncoder = require('key-encoder').default;
+let keyEncoder = new KeyEncoder('secp256k1');
 
 let Sign = {
     hash_tx_fields: function (tx) {
@@ -29,10 +31,30 @@ let Sign = {
             return null;
         }
     },
+    ecdsa_verify : function(cpkey, sign, msg){
+        let ecdh = crypto.createECDH('secp256k1')
+        ecdh.computeSecret(cpkey,'hex','hex')
+        console.log(crypto)
+        try{
+            let sign_buf = Buffer.from(sign, 'hex');
+            let pkey = crypto.ECDH.convertKey(cpkey, 'secp256k1', 'hex', 'hex', 'uncompressed');
+            let pemPublicKey = keyEncoder.encodePublic(pkey, 'raw', 'pem');
+            console.log(pemPublicKey)
+            const verify = crypto.createVerify('SHA256');
+            verify.update(msg);
+            verify.end();
+            return verify.verify(pemPublicKey, sign_buf);
+        }
+        catch(err){
+            console.error("Verification error: ", err);
+            console.error({sign});
+            return false;
+        }
+    },
     getPublicKey: function (pvt, compact) {
         let ec = new EC('secp256k1');
-        let key = ec.keyFromPrivate(pvt, 'hex')
-        return key.getPublic(compact, 'hex')
+        let key = ec.keyFromPrivate(pvt, 'hex');
+        return key.getPublic(compact, 'hex');
     },
     encode: function encode(arr, enc) {
         if (enc === 'hex')

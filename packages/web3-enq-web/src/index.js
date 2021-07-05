@@ -191,24 +191,26 @@ const Eth = function Eth(web) {
 
     }
 
-    this.serialize = function (data){
+    this.serialize = function (data) {
         return ENQWeb.Utils.dfo(data);
     }
 
-    this.fee_counter = async function (tokenHash, amount){
+    this.fee_counter = async function (tokenHash, amount) {
         let tokenInfo = await web.Net.get.token_info(tokenHash);
-        if(tokenInfo.length ===0){
+        if (tokenInfo.length === 0) {
             return false
-        }
-        else{
-            if(tokenInfo[0].fee_type === 0){
+        } else {
+            if (tokenInfo[0].fee_type === 0) {
                 return tokenInfo[0].fee_value
             }
-            if(tokenInfo[0].fee_type === 1){
-                let checkAmount = (amount*tokenInfo[0].fee)/1e4
-                if(checkAmount > tokenInfo[0].fee_min){
-                    return  checkAmount
-                }else{
+            if (tokenInfo[0].fee_type === 1) {
+                console.log(tokenInfo[0])
+                let checkAmount = (amount * tokenInfo[0].fee_value) / 1e4
+                let fee_min = tokenInfo[0].fee_min
+                console.log({amount, checkAmount, fee_min})
+                if (checkAmount > tokenInfo[0].fee_min) {
+                    return checkAmount
+                } else {
                     return tokenInfo[0].fee_min
                 }
             }
@@ -225,12 +227,12 @@ const Eth = function Eth(web) {
                 obj.nonce = Math.floor(Math.random() * 1e10)
             }
             if (obj.fee_use !== undefined && obj.fee_use) {
-                if(typeof obj.value == 'number' || typeof obj.value == 'string'){
+                if (typeof obj.value == 'number' || typeof obj.value == 'string') {
                     obj.value = BigInt(obj.value)
                 }
-                obj.value  += BigInt(await this.fee_counter(obj.tokenHash, obj.value))
+                obj.value += BigInt(await this.fee_counter(obj.tokenHash, obj.value))
             }
-            if(typeof obj.value === 'number' || typeof obj.value === 'bigint' ){
+            if (typeof obj.value === 'number' || typeof obj.value === 'bigint') {
                 obj.value = obj.value.toString()
             }
             let tx = {
@@ -239,7 +241,7 @@ const Eth = function Eth(web) {
                 amount: obj.value,
                 ticker: obj.tokenHash,
                 nonce: obj.nonce,
-                data: obj.data ||'',
+                data: obj.data || '',
             }
             if (obj.log !== undefined) {
                 console.log(tx);
