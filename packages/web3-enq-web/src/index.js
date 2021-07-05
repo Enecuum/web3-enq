@@ -223,6 +223,7 @@ const Eth = function Eth(web) {
         return new Promise(async (resolve, reject) => {
             // let taskId = Math.random().toString(36)
             let taskId = ''
+            let fee = ''
             if (!obj.nonce) {
                 obj.nonce = Math.floor(Math.random() * 1e10)
             }
@@ -230,11 +231,12 @@ const Eth = function Eth(web) {
                 if (typeof obj.value == 'number' || typeof obj.value == 'string') {
                     obj.value = BigInt(obj.value)
                 }
-                let fee = await this.fee_counter(obj.tokenHash, obj.value)
+                fee = await this.fee_counter(obj.tokenHash, obj.value)
                 if(!fee){
                     console.warn('fee_counter error...')
                 }else{
                     obj.value += BigInt(fee)
+                    fee = fee.toString()
                 }
             }
             if (typeof obj.value === 'number' || typeof obj.value === 'bigint') {
@@ -267,6 +269,7 @@ const Eth = function Eth(web) {
                     data: {
                         net: obj.net || '',
                         fee_use: obj.fee_use || false,
+                        fee_value: this.fee_use !== false ? fee : false,
                         txHash: txHash,
                         date: Date.now(),
                     },
