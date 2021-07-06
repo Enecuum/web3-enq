@@ -299,6 +299,15 @@ const Eth = function Eth(web) {
         })
     }
 
+    this.typeOfFee = async function (tokenHash){
+        let tokenInfo = await web.Net.get.token_info(tokenHash);
+        if (tokenInfo.length === 0) {
+            return false
+        }else{
+            return {type:tokenInfo[0].fee_type}
+        }
+    }
+
     this.getVersion = getVersion
 
     this.hash_tx_fields = async function (tx) {
