@@ -7,7 +7,8 @@
     "scripts": {
         "build": "browserify dev/build.js > dist/enqweb3lib.ext.min.js",
         "dev": "webpack --mode development",
-        "prod": "webpack --mode production"
+        "prod": "webpack --mode production",
+        "buildAll": "browserify dev/build.js > dist/enqweb3lib.ext.min.js \n webpack --mode production "
     },
     "keywords": [
         "Enecuum",
@@ -21,6 +22,7 @@
         "@babel/preset-env": "^7.12.13",
         "assert": "^2.0.0",
         "babel-loader": "^8.2.2",
+        "browserify": "^17.0.0",
         "browserify-zlib": "^0.2.0",
         "buffer": "^6.0.3",
         "crypto-browserify": "^3.12.0",
@@ -46,7 +48,6 @@
     },
     "author": "https://github.com/kamighost1",
     "license": "ISC",
-    "devDependencies": {},
     "browser": {
         "fs": false,
         "path": false,
