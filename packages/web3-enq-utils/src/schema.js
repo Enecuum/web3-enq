@@ -26,7 +26,7 @@ let schema = {
     "farm_create" :             "1900",
     "farm_get_reward" :         "1a00",
     "farm_increase_stake" :     "1b00",
-    "farm_close_stake" :        "1c00",
+    // "farm_close_stake" :        "1c00",
     "farm_decrease_stake" :     "1d00"
 };
 
@@ -47,7 +47,7 @@ let contract_pricelist = {
     "farm_create" : 0,
     "farm_get_reward" : 0,
     "farm_increase_stake" : 0,
-    "farm_close_stake" : 0,
+    // "farm_close_stake" : 0,
     "farm_decrease_stake" : 0
 }
 
