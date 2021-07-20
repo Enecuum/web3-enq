@@ -1,4 +1,8 @@
-const Eth = function Eth(web) {
+const Errors = require('./errorCases')
+
+
+const Web = function Web(web) {
+    this.errs = Errors;
     let time = 200
     let _promise = function (id) {
         return new Promise((resolve) => {
@@ -27,11 +31,9 @@ const Eth = function Eth(web) {
             })
         })
     }
-    let lastResult = ''
 
     function getProvider(fullUrl = false) {
         return new Promise((async (resolve, reject) => {
-            // let taskId = Math.random().toString(36)
             let taskId = window.origin + '/getProvider'
             let event = new CustomEvent('ENQContent', {
                 detail: {
@@ -99,7 +101,6 @@ const Eth = function Eth(web) {
     }
 
     this.connect = async function () {
-        // let taskId = Math.random().toString(36)
         let taskId = window.origin + '/connect'
         let event = new CustomEvent('ENQConnect', {
             detail: {
@@ -115,7 +116,6 @@ const Eth = function Eth(web) {
 
     this.enable = async function (cb) {
         return new Promise(async (resolve, reject) => {
-            // let taskId = Math.random().toString(36)
             let taskId = window.origin + '/enable'
             let event = new CustomEvent('ENQContent', {
                 detail: {
@@ -150,7 +150,6 @@ const Eth = function Eth(web) {
     this.balanceOf = async function (obj, cb) {
         //address, token, cb
         return new Promise(async (resolve, reject) => {
-            // let taskId = Math.random().toString(36)
             let taskId = window.origin + '/balanceOf'
             if (obj.tokenHash !== undefined) {
                 taskId += '/' + obj.tokenHash;
@@ -204,10 +203,8 @@ const Eth = function Eth(web) {
                 return tokenInfo[0].fee_value
             }
             if (tokenInfo[0].fee_type === 1) {
-                // console.log(tokenInfo[0])
                 let checkAmount = (BigInt(amount) * BigInt(tokenInfo[0].fee_value)) / BigInt(1e4)
                 let fee_min = BigInt(tokenInfo[0].fee_min)
-                // console.log({amount, checkAmount, fee_min})
                 if (checkAmount > tokenInfo[0].fee_min) {
                     return checkAmount
                 } else {
@@ -221,26 +218,26 @@ const Eth = function Eth(web) {
     this.sendTransaction = async function (obj, cb) {
         //from, to, value, tokenHash, cb
         return new Promise(async (resolve, reject) => {
-            // let taskId = Math.random().toString(36)
-            let taskId = ''
-            let fee = ''
+            let taskId = '';
+            let fee = '';
+            let test;
             if (!obj.nonce) {
-                obj.nonce = Math.floor(Math.random() * 1e10)
+                obj.nonce = Math.floor(Math.random() * 1e10);
             }
             if (obj.fee_use !== undefined && obj.fee_use) {
                 if (typeof obj.value == 'number' || typeof obj.value == 'string') {
-                    obj.value = BigInt(obj.value)
+                    obj.value = BigInt(obj.value);
                 }
-                fee = await this.fee_counter(obj.tokenHash, obj.value)
+                fee = await this.fee_counter(obj.tokenHash, obj.value);
                 if(!fee){
-                    console.warn('fee_counter error...')
+                    console.warn('fee_counter error...');
                 }else{
-                    obj.value += BigInt(fee)
-                    fee = fee.toString()
+                    obj.value += BigInt(fee);
+                    fee = fee.toString();
                 }
             }
             if (typeof obj.value === 'number' || typeof obj.value === 'bigint') {
-                obj.value = obj.value.toString()
+                obj.value = obj.value.toString();
             }
             let tx = {
                 from: obj.from,
@@ -253,48 +250,60 @@ const Eth = function Eth(web) {
             if (obj.log !== undefined) {
                 console.log(tx);
             }
-            let txHash = await this.hash_tx_fields(tx)
-            taskId = window.origin + `/tx/${txHash}`
-            let event = new CustomEvent('ENQContent', {
-                detail: {
-                    type: 'tx',
-                    tx: {
-                        from: obj.from,
-                        to: obj.to,
-                        value: obj.value,
-                        tokenHash: obj.tokenHash,
-                        nonce: obj.nonce,
-                        data: tx.data || '',
-                    },
-                    data: {
-                        net: obj.net || '',
-                        fee_use: obj.fee_use || false,
-                        fee_value: this.fee_use !== false ? fee : false,
-                        txHash: txHash,
-                        date: Date.now(),
-                    },
-                    cb: {cb: cb, url: window.origin, taskId: taskId}
-                }
+            test = await this.errs.inspectTx(tx)
+            .then(()=>{
+                return false;
             })
-            if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
-                await _waitAnswer(taskId)
-                    .then(result => {
-                        resolve(result)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        reject(null)
-                    })
-            } else {
-                document.dispatchEvent(event)
-                await _waitAnswer(taskId)
-                    .then(result => {
-                        resolve(result)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        reject(null)
-                    })
+            .catch(err=>{
+                return(err);
+            })
+            if(!test){
+                let txHash = await this.hash_tx_fields(tx)
+                taskId = window.origin + `/tx/${txHash}`
+                let event = new CustomEvent('ENQContent', {
+                    detail: {
+                        type: 'tx',
+                        tx: {
+                            from: obj.from,
+                            to: obj.to,
+                            value: obj.value,
+                            tokenHash: obj.tokenHash,
+                            nonce: obj.nonce,
+                            data: tx.data || '',
+                        },
+                        data: {
+                            net: obj.net || '',
+                            fee_use: obj.fee_use || false,
+                            fee_value: this.fee_use !== false ? fee : false,
+                            txHash: txHash,
+                            date: Date.now(),
+                        },
+                        cb: {cb: cb, url: window.origin, taskId: taskId}
+                    }
+                })
+                if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
+                    await _waitAnswer(taskId)
+                        .then(result => {
+                            resolve(result)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            reject(null)
+                        })
+                } else {
+                    document.dispatchEvent(event)
+                    await _waitAnswer(taskId)
+                        .then(result => {
+                            resolve(result)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            reject(null)
+                        })
+                }
+            }else{
+                console.warn(test);
+                reject('null')
             }
         })
     }
@@ -315,4 +324,4 @@ const Eth = function Eth(web) {
     }
 }
 
-module.exports = Eth;
+module.exports = Web;
