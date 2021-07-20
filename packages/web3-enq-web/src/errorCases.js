@@ -3,6 +3,9 @@
 const Errors = function Errors(){
 
     this.caseAmountCorrect = (amount)=>{
+        if(amount === undefined){
+            return{err:'Amount not found'}
+        }
         if(!/^[0-9]+$/.test(amount)){
             return {err:'need 0-9 string im amount'};
         }
@@ -17,6 +20,9 @@ const Errors = function Errors(){
     }
 
     this.caseAddressCorrect = (address, type)=>{
+        if(address === undefined){
+            return {err:`address ${type} not found`}
+        }
         if(address.length < 66){
             return {err:`${type} address is short`}
         }
