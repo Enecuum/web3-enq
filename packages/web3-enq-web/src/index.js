@@ -303,7 +303,7 @@ const Web = function Web(web) {
                 }
             }else{
                 console.warn(test);
-                reject('null')
+                reject(test)
             }
         })
     }
