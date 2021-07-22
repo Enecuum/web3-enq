@@ -1,4 +1,5 @@
-const request = require('request')
+const request = require('request');
+const { format } = require('url');
 
 const Enq = function Enq(web) {
     let _this = this;
@@ -149,6 +150,11 @@ const Enq = function Enq(web) {
         },
         enumerable: true,
         configurable: true
+    })
+    Object.defineProperty(this, 'urls', {
+        get: function(){
+            return Object.keys(token)
+        }
     })
     this.sendTx = function (tx) {
         return new Promise(function (resolve, reject) {
