@@ -4,6 +4,7 @@ const { format } = require('url');
 const Enq = function Enq(web) {
     let _this = this;
     let provider = 'https://pulse.enecuum.com';
+    let ticker = '0000000000000000000000000000000000000000000000000000000000000000';
     let token = {
         'https://pulse.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000000',
         'https://bit.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000001',
@@ -19,7 +20,6 @@ const Enq = function Enq(web) {
         'https://bit.enecuum.com': 'bit',
         'https://bit-dev.enecuum.com': 'bit-dev',
     }
-    let ticker = '0000000000000000000000000000000000000000000000000000000000000000';
     let user = {
         pubkey: '',
         prvkey: '',
@@ -141,21 +141,12 @@ const Enq = function Enq(web) {
         enumerable: true,
         configurable: true
     })
-    Object.defineProperty(this, 'hello', {
-        get: function () {
-            return 'hello';
-        },
-        set: function (val) {
-            return val;
-        },
-        enumerable: true,
-        configurable: true
-    })
     Object.defineProperty(this, 'urls', {
         get: function(){
             return Object.keys(token)
         }
     })
+    
     this.sendTx = function (tx) {
         return new Promise(function (resolve, reject) {
             request({url: `${provider}/api/v1/tx`, method: "POST", json: [tx]}, function (err, resp, body) {
