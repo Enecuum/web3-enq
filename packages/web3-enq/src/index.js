@@ -31,11 +31,15 @@ const Enq = function Enq(web) {
         set: function (net) {
             if (url[net] !== undefined) {
                 provider = url[net]
-                return net
             } else {
                 provider = net;
-                return provider;
             }
+            if(token[provider] !== undefined){
+                ticker = token[provider]
+            }else{
+                console.warn(`not found main token to ${provider}\nset the token manually: ENQWeb.token[ '${provider}' ] = '< token >'`);
+            }
+            return provider;
         },
         enumerable: true,
         configurable: true
