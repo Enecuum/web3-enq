@@ -3,8 +3,13 @@ const crypto = require('crypto')
 const EC = require('elliptic').ec;
 let KeyEncoder = require('key-encoder').default;
 let keyEncoder = new KeyEncoder('secp256k1');
+let sqrt = require('bigint-isqrt');
 
 let Sign = {
+    dc:rsasign,
+    key:keyEncoder,
+    sqrt:sqrt, 
+    // ec:rsasign.ECDSA({curve:'secp256k1'}), 
     hash_tx_fields: function (tx) {
         if (!tx)
             return undefined;
@@ -32,24 +37,29 @@ let Sign = {
         }
     },
     ecdsa_verify : function(cpkey, sign, msg){
-        let ecdh = crypto.createECDH('secp256k1')
-        ecdh.computeSecret(cpkey,'hex','hex')
-        console.log(crypto)
-        try{
-            let sign_buf = Buffer.from(sign, 'hex');
-            let pkey = crypto.ECDH.convertKey(cpkey, 'secp256k1', 'hex', 'hex', 'uncompressed');
-            let pemPublicKey = keyEncoder.encodePublic(pkey, 'raw', 'pem');
-            console.log(pemPublicKey)
-            const verify = crypto.createVerify('SHA256');
-            verify.update(msg);
-            verify.end();
-            return verify.verify(pemPublicKey, sign_buf);
-        }
-        catch(err){
-            console.error("Verification error: ", err);
-            console.error({sign});
-            return false;
-        }
+		try{
+			let sign_buf = Buffer.from(sign, 'hex');
+			let pkey = crypto.ECDH.convertKey(cpkey, 'secp256k1', 'hex', 'hex', 'uncompressed');
+			let pemPublicKey = keyEncoder.encodePublic(pkey, 'raw', 'pem');
+
+			const verify = crypto.createVerify('SHA256');
+			verify.update(msg);
+			verify.end();
+			return verify.verify(pemPublicKey, sign_buf);
+		}
+		catch(err){
+			console.error("Verification error: ", err);
+			console.error({sign});
+			return false;
+		}
+	},
+
+    ecdsa_verify2: function(cpkey, sign, msg){
+        let sign_buf = Buffer.from(sign, 'hex');
+        let msg_buf = Buffer.from(msg, 'hex');
+        let cpkey_buf = Buffer.from(cpkey, 'hex');
+        let ec = new rsasign.KJUR.crypto.ECDSA({curve:'secp256k1'})
+        return ec.verifyHex(msg_buf, sign_buf, cpkey_buf)
     },
     getPublicKey: function (pvt, compact) {
         let ec = new EC('secp256k1');
@@ -65,7 +75,7 @@ let Sign = {
     toHex: function (d) {
         let hex = Number(d).toString(16);
         while ((hex.length % 2) !== 0) {
-            hex = '0' + hex;
+            hex = '0x' + hex;
         }
         return hex;
     }

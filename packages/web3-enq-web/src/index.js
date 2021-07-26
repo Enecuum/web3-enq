@@ -32,6 +32,31 @@ const Web = function Web(web) {
         })
     }
 
+    let waitingFunc =  function(taskId, event){
+        return new Promise(async (resolve, reject) => {
+            if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
+                await _waitAnswer(taskId)
+                    .then(result => {
+                        resolve(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(null)
+                    })
+            } else {
+                document.dispatchEvent(event)
+                await _waitAnswer(taskId)
+                    .then(result => {
+                        resolve(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(null)
+                    })
+            }
+        })
+    }
+
     function getProvider(fullUrl = false) {
         return new Promise((async (resolve, reject) => {
             let taskId = window.origin + '/getProvider'
@@ -124,26 +149,13 @@ const Web = function Web(web) {
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
             })
-            if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
-                await _waitAnswer(taskId)
-                    .then(result => {
-                        resolve(result)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        reject(null)
-                    })
-            } else {
-                document.dispatchEvent(event)
-                await _waitAnswer(taskId)
-                    .then(result => {
-                        resolve(result)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        reject(null)
-                    })
-            }
+            await waitingFunc(taskId, event)
+                .then(result=>{
+                    resolve(result);
+                })
+                .catch(err=>{
+                    reject(err);
+                })
         })
 
     }
@@ -165,26 +177,13 @@ const Web = function Web(web) {
                     cb: {cb: cb, url: window.origin, taskId: taskId}
                 }
             })
-            if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
-                await _waitAnswer(taskId)
-                    .then(result => {
-                        resolve(result)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        reject(null)
-                    })
-            } else {
-                document.dispatchEvent(event)
-                await _waitAnswer(taskId)
-                    .then(result => {
-                        resolve(result)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        reject(null)
-                    })
-            }
+            await waitingFunc(taskId, event)
+                .then(result=>{
+                    resolve(result);
+                })
+                .catch(err=>{
+                    reject(err);
+                })
         })
 
 
@@ -281,26 +280,13 @@ const Web = function Web(web) {
                         cb: {cb: cb, url: window.origin, taskId: taskId}
                     }
                 })
-                if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
-                    await _waitAnswer(taskId)
-                        .then(result => {
-                            resolve(result)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            reject(null)
-                        })
-                } else {
-                    document.dispatchEvent(event)
-                    await _waitAnswer(taskId)
-                        .then(result => {
-                            resolve(result)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            reject(null)
-                        })
-                }
+                await waitingFunc(taskId, event)
+                    .then(result=>{
+                        resolve(result);
+                    })
+                    .catch(err=>{
+                        reject(err);
+                    })
             }else{
                 console.warn(test);
                 reject(test)
@@ -321,6 +307,32 @@ const Web = function Web(web) {
 
     this.hash_tx_fields = async function (tx) {
         return await web.Utils.Sign.hash_tx_fields(tx);
+    }
+
+    this.hashMessage = function (msg){
+        return web.Utils.crypto.sha256(msg)
+    }
+
+    this.sign = function (msg){
+        return new Promise(async (resolve, reject) => {
+            msg = msg.toString()
+            let hash = this.hashMessage(msg)
+            let taskId = window.origin + '/sign/'+hash
+            let event = new CustomEvent('ENQContent', {
+                detail: {
+                    type: 'sign',
+                    data: {date: Date.now(), version: web.version, msg:msg, hash:hash},
+                    cb: {url: window.origin, taskId: taskId}
+                }
+            })
+            await waitingFunc(taskId, event)
+                .then(result=>{
+                    resolve(result);
+                })
+                .catch(err=>{
+                    reject(err);
+                })
+        })
     }
 }
 
