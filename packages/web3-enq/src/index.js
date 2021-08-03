@@ -11,7 +11,7 @@ const Enq = function Enq(web) {
     let url = {
         'pulse': 'https://pulse.enecuum.com',
         'bit': 'https://bit.enecuum.com',
-        // 'bit-dev': 'https://bit-dev.enecuum.com',
+        'bit-dev': 'https://bit-dev.enecuum.com',
     }
     let mnemonic = {
         'https://pulse.enecuum.com': 'pulse',
