@@ -1,6 +1,6 @@
 {
     "name": "enq-web3",
-    "version": "0.2.3",
+    "version": "0.2.5",
     "description": "Web3 for enq-extension",
     "main": "packages/web3/src/index.js",
     "private": true,
