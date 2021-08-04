@@ -250,7 +250,18 @@ const Web = function Web(web) {
                 console.log(tx);
             }
             test = await this.errs.inspectTx(tx)
-            .then(()=>{
+            .then(async (data)=>{
+                data = data.success
+                for(let i in data){
+                    if(data[i].edit !== undefined){
+                        if(data[i].edit === 'e'){
+                            obj.value = Number(obj.value).toString()
+                        }
+                        if(data[i].edit === 'BigInt'){
+                            obj.value = obj.value.substr(0, obj.value.length-1)
+                        }
+                    }
+                }
                 return false;
             })
             .catch(err=>{

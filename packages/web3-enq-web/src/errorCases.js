@@ -1,55 +1,83 @@
+const Errors = function Errors() {
 
-
-const Errors = function Errors(){
-
-    this.caseAmountCorrect = (amount)=>{
-        if(amount === undefined){
-            return{err:'Amount not found'}
+    this.caseAmountCorrect = (amount) => {
+        let charErrMsg = 'need 0-9 string in amount. check the amount field. it should only contain numbers.';
+        let positiveErrMsg = 'the amount field is less than 0'
+        if (amount === undefined) {
+            return {err: {test: 'Amount', msg: 'Amount not found. Enter amount'}}
         }
-        if(!/^[0-9]+$/.test(amount)){
-            return {err:'need 0-9 string im amount'};
+        let test;
+        if (/^\d+?n$/.test(amount)) {
+            amount = amount.substr(0, amount.length - 1)
+            try {
+                test = Number(amount);
+            } catch (err) {
+                return {err: {msg:charErrMsg, amount:amount}};
+            }
+            if (test > 0) {
+                return {success: {test: 'Amount', edit: 'BigInt'}}
+            }else{
+                return {err: {msg:positiveErrMsg, amount:amount}};
+            }
         }
-        return {success:true}
+        if (/^\d+e\d+$/.test(amount) || /^\d+e-\d+$/.test(amount) ) {
+            try {
+                test = Number(amount);
+            } catch (err) {
+                return {err: {test: 'Amount', msg:charErrMsg, amount:amount}};
+            }
+            if (test > 0) {
+                return {success: {test: 'Amount', edit: 'e'}}
+            }else{
+                return {err: {test: 'Amount', msg:positiveErrMsg, amount:amount}};
+            }
+        }
+        if (!/^[0-9]+$/.test(amount)) {
+            return {err: {test: 'Amount', msg:charErrMsg, amount:amount}};
+        }
+        if(Number(amount) < 0){
+            return {err: {test: 'Amount', msg:positiveErrMsg, amount:amount}};
+        }
+        return {success: {test: 'Amount'}}
     }
 
-    this.caseDataCorrect = (data)=>{
-        if(typeof data === 'object'){
-            return {err:'not serialised data'}
+    this.caseDataCorrect = (data) => {
+        if (typeof data === 'object') {
+            return {err: {test: 'Data',msg:'not serialised data'}}
         }
-        return {success:true}
+        return {success: {test: 'Data'}}
     }
 
-    this.caseAddressCorrect = (address, type)=>{
-        if(address === undefined){
-            return {err:`address ${type} not found`}
+    this.caseAddressCorrect = (address, type) => {
+        if (address === undefined) {
+            return {err: {test: 'Address', type: type,msg:`address ${type} not found`}}
         }
-        if(address.length < 66){
-            return {err:`${type} address is short`}
+        if (address.length < 66) {
+            return {err: {test: 'Address', type: type,msg:`${type} address is short`}}
         }
-        if(address.length > 66){
-            return {err:`${type} address is long`}
+        if (address.length > 66) {
+            return {err: {test: 'Address', type: type,msg:`${type} address is long`}}
         }
-        return {success:true}
+        return {success: {test: 'Address', type: type}}
     }
 
-    
 
-    this.inspectTx = function(tx){
-        return new Promise((resolve, reject)=>{
+    this.inspectTx = function (tx) {
+        return new Promise((resolve, reject) => {
             let errors = [];
             let success = []
             let ptr;
             ptr = this.caseAddressCorrect(tx.from, 'From');
-            ptr.success === true ? success.push({test:'Address', type:'From'}):errors.push(ptr.err);
+            ptr.success !== undefined ? success.push(ptr.success) : errors.push(ptr.err);
             ptr = this.caseAddressCorrect(tx.to, 'To');
-            ptr.success === true ? success.push({test:'Address', type:'To'}):errors.push(ptr.err);
+            ptr.success !== undefined ? success.push(ptr.success) : errors.push(ptr.err);
             ptr = tx.amount ? this.caseAmountCorrect(tx.amount) : this.caseAmountCorrect(tx.value);
-            ptr.success === true ? success.push({test:'Amount'}):errors.push(ptr.err);
+            ptr.success !== undefined ? success.push(ptr.success) : errors.push(ptr.err);
             ptr = this.caseDataCorrect(tx.data);
-            ptr.success === true ? success.push({test:'Data'}):errors.push(ptr.err);
-            if( errors.length > 0 ){
-                reject({err:errors, success});
-            }else{
+            ptr.success !== undefined ? success.push(ptr.success) : errors.push(ptr.err);
+            if (errors.length > 0) {
+                reject({errors, success});
+            } else {
                 resolve({success})
             }
         })
