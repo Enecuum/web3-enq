@@ -255,10 +255,10 @@ const Web = function Web(web) {
                 for(let i in data){
                     if(data[i].edit !== undefined){
                         if(data[i].edit === 'e'){
-                            obj.value = Number(obj.value).toString()
+                            tx.amount = Number(tx.amount).toString()
                         }
                         if(data[i].edit === 'BigInt'){
-                            obj.value = obj.value.substr(0, obj.value.length-1)
+                            tx.amount = tx.amount.substr(0, tx.amount.length-1)
                         }
                     }
                 }
@@ -273,14 +273,7 @@ const Web = function Web(web) {
                 let event = new CustomEvent('ENQContent', {
                     detail: {
                         type: 'tx',
-                        tx: {
-                            from: obj.from,
-                            to: obj.to,
-                            value: obj.value,
-                            tokenHash: obj.tokenHash,
-                            nonce: obj.nonce,
-                            data: tx.data || '',
-                        },
+                        tx: tx,
                         data: {
                             net: obj.net || '',
                             fee_use: obj.fee_use || false,
