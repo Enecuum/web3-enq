@@ -20,10 +20,7 @@ const Enq = function Enq(web) {
         'https://bit.enecuum.com': 'bit',
         'https://bit-dev.enecuum.com': 'bit-dev',
     }
-    let user = {
-        pubkey: '',
-        prvkey: '',
-    };
+    let user = {};
     let owner = '';
     let cb = [];
     let ready = [];
@@ -94,30 +91,11 @@ const Enq = function Enq(web) {
             return user;
         },
         set: function (obj) {
-            user.pubkey = obj.pubkey;
-            user.prvkey = obj.prvkey;
+            user = obj
             return user;
         },
         enumerable: true,
         configurable: true
-    })
-    Object.defineProperty(this, 'userPub', {
-        get: function () {
-            return user.pubkey
-        },
-        set: function (value) {
-            user.pubkey = value
-            return user;
-        }
-    })
-    Object.defineProperty(this, 'userPvt', {
-        get: function () {
-            return user.prvkey
-        },
-        set: function (value) {
-            user.prvkey = value
-            return user;
-        }
     })
     Object.defineProperty(this, 'cb', {
         get: function () {
@@ -146,7 +124,7 @@ const Enq = function Enq(web) {
             return Object.keys(token)
         }
     })
-    
+
     this.sendTx = function (tx) {
         return new Promise(function (resolve, reject) {
             request({url: `${provider}/api/v1/tx`, method: "POST", json: [tx]}, function (err, resp, body) {
