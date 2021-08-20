@@ -3,13 +3,9 @@ const crypto = require('crypto')
 const EC = require('elliptic').ec;
 let KeyEncoder = require('key-encoder').default;
 let keyEncoder = new KeyEncoder('secp256k1');
-let sqrt = require('bigint-isqrt');
 
 let Sign = {
-    dc:rsasign,
-    key:keyEncoder,
-    sqrt:sqrt, 
-    // ec:rsasign.ECDSA({curve:'secp256k1'}), 
+    rsasign:rsasign,
     hash_tx_fields: function (tx) {
         if (!tx)
             return undefined;
@@ -36,25 +32,7 @@ let Sign = {
             return null;
         }
     },
-    ecdsa_verify : function(cpkey, sign, msg){
-		try{
-			let sign_buf = Buffer.from(sign, 'hex');
-			let pkey = crypto.ECDH.convertKey(cpkey, 'secp256k1', 'hex', 'hex', 'uncompressed');
-			let pemPublicKey = keyEncoder.encodePublic(pkey, 'raw', 'pem');
-
-			const verify = crypto.createVerify('SHA256');
-			verify.update(msg);
-			verify.end();
-			return verify.verify(pemPublicKey, sign_buf);
-		}
-		catch(err){
-			console.error("Verification error: ", err);
-			console.error({sign});
-			return false;
-		}
-	},
-
-    ecdsa_verify2: function(cpkey, sign, msg){
+    ecdsa_verify: function(cpkey, sign, msg){
         let sign_buf = Buffer.from(sign, 'hex');
         let msg_buf = Buffer.from(msg, 'hex');
         let cpkey_buf = Buffer.from(cpkey, 'hex');

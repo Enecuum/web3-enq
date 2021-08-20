@@ -1,5 +1,4 @@
 let schemas = require('./schema')
-
 let schema = schemas.schema
 
 function toHex(d) {

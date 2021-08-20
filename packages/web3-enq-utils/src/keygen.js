@@ -1,12 +1,9 @@
-const crypto = require('crypto')
+const rsasign = require('jsrsasign');
 let keygen = function keygen(utils) {
     function genKeys() {
-        const user = crypto.createECDH('secp256k1');
-        user.generateKeys();
-        let keypair = {
-            prvkey: user.getPrivateKey().toString('hex'),
-        }
-        return keypair;
+        let ec = new rsasign.KJUR.crypto.ECDSA({'curve': 'secp256k1'})
+        let keypair = ec.generateKeyPairHex()
+        return keypair.ecprvhex;
     }
 
     function getByNumber(amount) {

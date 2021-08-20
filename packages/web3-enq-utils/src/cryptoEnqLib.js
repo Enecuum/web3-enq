@@ -1,4 +1,4 @@
-const CryptoJS = require('crypto-js')
+const {CryptoJS} = require("jsrsasign");
 
 // Используется для осложнения подбора пароля перебором
 function strengthenPassword(pass, rounds = 5000) {
