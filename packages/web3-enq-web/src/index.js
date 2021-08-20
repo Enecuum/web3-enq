@@ -151,6 +151,9 @@ const Web = function Web(web) {
             })
             await waitingFunc(taskId, event)
                 .then(result=>{
+                    if(result.pubkey){
+                        ENQWeb.Enq.Connect = true;
+                    }
                     resolve(result);
                 })
                 .catch(err=>{
@@ -306,6 +309,35 @@ const Web = function Web(web) {
             return {type:tokenInfo[0].fee_type}
         }
     }
+
+    this.reconnect = async function(){
+        return new Promise(async (resolve, reject) => {
+            let taskId = window.origin + '/reconnect'
+            let event = new CustomEvent('ENQContent', {
+                detail: {
+                    type: 'reconnect',
+                    data: {date: Date.now(), version: web.version},
+                    cb: {url: window.origin, taskId: taskId}
+                }
+            })
+            await waitingFunc(taskId, event)
+                .then(result=>{
+                    if(result.status === true){
+                        ENQWeb.Enq.Connect = true
+                    }
+                    resolve(result);
+                })
+                .catch(err=>{
+                    reject(err);
+                })
+        })
+    }
+
+    Object.defineProperty(this, 'connection', {
+        get:()=>{
+            return ENQWeb.Enq.Connect
+        }
+    })
 
     this.getVersion = getVersion
 

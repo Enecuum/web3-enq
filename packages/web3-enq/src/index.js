@@ -24,6 +24,7 @@ const Enq = function Enq(web) {
     let owner = '';
     let cb = [];
     let ready = [];
+    let connect = false
 
     Object.defineProperty(this, 'provider', {
         get: function () {
@@ -123,6 +124,18 @@ const Enq = function Enq(web) {
         get: function(){
             return Object.keys(token)
         }
+    })
+
+    Object.defineProperty(this, 'Connect', {
+        get: function(){
+            return connect
+        },
+        set: function (val) {
+            connect = val;
+            return connect;
+        },
+        enumerable: true,
+        configurable: true
     })
 
     this.sendTx = function (tx) {
