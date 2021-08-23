@@ -32,7 +32,7 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@master
 
       - name: build bundle
-        run: npm run bro
+        run: npm run buildAll
         env:
           CI: true
         
