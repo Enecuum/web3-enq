@@ -1,8 +1,8 @@
 {
     "name": "enq-web3",
-    "version": "0.2.8",
+    "version": "0.3.0",
     "description": "Web3 for enq-extension",
-    "main": "packages/web3/src/index.js",
+    "main": "packages/web3-enq/src/index.js",
     "scripts": {
         "build": "browserify dev/build.js > dist/enqweb3lib.ext.min.js",
         "dev": "webpack --mode development",

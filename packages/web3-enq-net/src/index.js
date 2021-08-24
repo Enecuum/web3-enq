@@ -233,7 +233,7 @@ const Net = function Net(web) {
             }
             tx.hash = await web.Utils.Sign.hash_tx_fields(tx)
             tx.sign = await web.Utils.Sign.ecdsa_sign(obj.from.prvkey, tx.hash);
-            // return await web3.Enq.sendTx(tx)
+            // return await web3-enq.Enq.sendTx(tx)
             return new Promise((resolve, reject) => {
                 web.Enq.sendTx(tx)
                     .then(answer => {
@@ -260,7 +260,7 @@ const Net = function Net(web) {
             }
             tx.hash = await web.Utils.Sign.hash_tx_fields(tx)
             tx.sign = await web.Utils.Sign.ecdsa_sign(obj.from.prvkey, tx.hash);
-            // return await web3.Enq.sendTx(tx)
+            // return await web3-enq.Enq.sendTx(tx)
             return new Promise((resolve, reject) => {
                 web.Enq.sendTx(tx)
                     .then(answer => {
