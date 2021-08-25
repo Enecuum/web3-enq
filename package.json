@@ -1,6 +1,6 @@
 {
     "name": "enq-web3",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "Web3 for enq-extension",
     "main": "packages/web3-enq/src/index.js",
     "scripts": {
@@ -14,6 +14,7 @@
         "JavaScript",
         "API"
     ],
+    "files": ["/dist"],
     "dependencies": {
         "@babel/core": "^7.13.15",
         "@babel/plugin-transform-modules-commonjs": "^7.13.8",
