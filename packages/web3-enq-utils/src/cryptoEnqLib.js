@@ -1,4 +1,5 @@
 const CryptoJS = require("crypto-js")
+
 // Используется для осложнения подбора пароля перебором
 function strengthenPassword(pass, rounds = 5000) {
     while (rounds-- > 0) {

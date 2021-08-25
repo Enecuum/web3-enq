@@ -32,7 +32,7 @@ const Web = function Web(web) {
         })
     }
 
-    let waitingFunc =  function(taskId, event){
+    let waitingFunc = function (taskId, event) {
         return new Promise(async (resolve, reject) => {
             if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
                 await _waitAnswer(taskId)
@@ -150,13 +150,13 @@ const Web = function Web(web) {
                 }
             })
             await waitingFunc(taskId, event)
-                .then(result=>{
-                    if(result.pubkey){
+                .then(result => {
+                    if (result.pubkey) {
                         ENQWeb.Enq.Connect = true;
                     }
                     resolve(result);
                 })
-                .catch(err=>{
+                .catch(err => {
                     reject(err);
                 })
         })
@@ -181,10 +181,10 @@ const Web = function Web(web) {
                 }
             })
             await waitingFunc(taskId, event)
-                .then(result=>{
+                .then(result => {
                     resolve(result);
                 })
-                .catch(err=>{
+                .catch(err => {
                     reject(err);
                 })
         })
@@ -231,9 +231,9 @@ const Web = function Web(web) {
                     obj.value = BigInt(obj.value);
                 }
                 fee = await this.fee_counter(obj.tokenHash, obj.value);
-                if(!fee){
+                if (!fee) {
                     console.warn('fee_counter error...');
-                }else{
+                } else {
                     obj.value += BigInt(fee);
                     fee = fee.toString();
                 }
@@ -253,24 +253,24 @@ const Web = function Web(web) {
                 console.log(tx);
             }
             test = await this.errs.inspectTx(tx)
-            .then(async (data)=>{
-                data = data.success
-                for(let i in data){
-                    if(data[i].edit !== undefined){
-                        if(data[i].edit === 'e'){
-                            tx.amount = Number(tx.amount).toString()
-                        }
-                        if(data[i].edit === 'BigInt'){
-                            tx.amount = tx.amount.substr(0, tx.amount.length-1)
+                .then(async (data) => {
+                    data = data.success
+                    for (let i in data) {
+                        if (data[i].edit !== undefined) {
+                            if (data[i].edit === 'e') {
+                                tx.amount = Number(tx.amount).toString()
+                            }
+                            if (data[i].edit === 'BigInt') {
+                                tx.amount = tx.amount.substr(0, tx.amount.length - 1)
+                            }
                         }
                     }
-                }
-                return false;
-            })
-            .catch(err=>{
-                return(err);
-            })
-            if(!test){
+                    return false;
+                })
+                .catch(err => {
+                    return (err);
+                })
+            if (!test) {
                 let txHash = await this.hash_tx_fields(tx)
                 taskId = window.origin + `/tx/${txHash}`
                 let event = new CustomEvent('ENQContent', {
@@ -288,29 +288,29 @@ const Web = function Web(web) {
                     }
                 })
                 await waitingFunc(taskId, event)
-                    .then(result=>{
+                    .then(result => {
                         resolve(result);
                     })
-                    .catch(err=>{
+                    .catch(err => {
                         reject(err);
                     })
-            }else{
+            } else {
                 console.warn(test);
                 reject(test)
             }
         })
     }
 
-    this.typeOfFee = async function (tokenHash){
+    this.typeOfFee = async function (tokenHash) {
         let tokenInfo = await web.Net.get.token_info(tokenHash);
         if (tokenInfo.length === 0) {
             return false
-        }else{
-            return {type:tokenInfo[0].fee_type}
+        } else {
+            return {type: tokenInfo[0].fee_type}
         }
     }
 
-    this.reconnect = async function(){
+    this.reconnect = async function () {
         return new Promise(async (resolve, reject) => {
             let taskId = window.origin + '/reconnect'
             let event = new CustomEvent('ENQContent', {
@@ -321,20 +321,20 @@ const Web = function Web(web) {
                 }
             })
             await waitingFunc(taskId, event)
-                .then(result=>{
-                    if(result.status === true){
+                .then(result => {
+                    if (result.status === true) {
                         ENQWeb.Enq.Connect = true
                     }
                     resolve(result);
                 })
-                .catch(err=>{
+                .catch(err => {
                     reject(err);
                 })
         })
     }
 
     Object.defineProperty(this, 'connection', {
-        get:()=>{
+        get: () => {
             return ENQWeb.Enq.Connect
         }
     })
@@ -345,27 +345,27 @@ const Web = function Web(web) {
         return await web.Utils.Sign.hash_tx_fields(tx);
     }
 
-    this.hashMessage = function (msg){
+    this.hashMessage = function (msg) {
         return web.Utils.crypto.sha256(msg)
     }
 
-    this.sign = function (msg){
+    this.sign = function (msg) {
         return new Promise(async (resolve, reject) => {
             msg = msg.toString()
             let hash = this.hashMessage(msg)
-            let taskId = window.origin + '/sign/'+hash
+            let taskId = window.origin + '/sign/' + hash
             let event = new CustomEvent('ENQContent', {
                 detail: {
                     type: 'sign',
-                    data: {date: Date.now(), version: web.version, msg:msg, hash:hash},
+                    data: {date: Date.now(), version: web.version, msg: msg, hash: hash},
                     cb: {url: window.origin, taskId: taskId}
                 }
             })
             await waitingFunc(taskId, event)
-                .then(result=>{
+                .then(result => {
                     resolve(result);
                 })
-                .catch(err=>{
+                .catch(err => {
                     reject(err);
                 })
         })

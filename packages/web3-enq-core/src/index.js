@@ -1,5 +1,5 @@
 const request = require('request');
-const { format } = require('url');
+const {format} = require('url');
 
 const Enq = function Enq(web) {
     let _this = this;
@@ -36,9 +36,9 @@ const Enq = function Enq(web) {
             } else {
                 provider = net;
             }
-            if(token[provider] !== undefined){
+            if (token[provider] !== undefined) {
                 ticker = token[provider]
-            }else{
+            } else {
                 console.warn(`not found main token to ${provider}\nset the token manually: ENQWeb.token[ '${provider}' ] = '< token >'`);
             }
             return provider;
@@ -52,8 +52,8 @@ const Enq = function Enq(web) {
                 return mnemonic[web.Enq.provider]
             else
                 return web.Enq.provider
-            }
-        })
+        }
+    })
     Object.defineProperty(this, 'token', {
         get: function () {
             return token;
@@ -121,13 +121,13 @@ const Enq = function Enq(web) {
         configurable: true
     })
     Object.defineProperty(this, 'urls', {
-        get: function(){
+        get: function () {
             return Object.keys(token)
         }
     })
 
     Object.defineProperty(this, 'Connect', {
-        get: function(){
+        get: function () {
             return connect
         },
         set: function (val) {

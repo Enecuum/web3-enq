@@ -1,4 +1,5 @@
 [![Node.js CI](https://github.com/Enecuum/web3-enq/actions/workflows/node.js.yml/badge.svg)](https://github.com/Enecuum/web3-enq/actions/workflows/node.js.yml)
+
 # About the library
 
 The library is designed to work with Enecuum blockchain

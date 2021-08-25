@@ -3,7 +3,7 @@ let keygen = function keygen(utils) {
     function genKeys() {
         let ec = new rsasign.KJUR.crypto.ECDSA({'curve': 'secp256k1'})
         let keypair = ec.generateKeyPairHex()
-        return {prvkey:keypair.ecprvhex};
+        return {prvkey: keypair.ecprvhex};
     }
 
     function getByNumber(amount) {
