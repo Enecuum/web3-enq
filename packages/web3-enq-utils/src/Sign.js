@@ -5,7 +5,7 @@ let KeyEncoder = require('key-encoder').default;
 let keyEncoder = new KeyEncoder('secp256k1');
 
 let Sign = {
-    rsasign:rsasign,
+    rsasign: rsasign,
     hash_tx_fields: function (tx) {
         if (!tx)
             return undefined;
@@ -32,11 +32,11 @@ let Sign = {
             return null;
         }
     },
-    ecdsa_verify: function(cpkey, sign, msg){
+    ecdsa_verify: function (cpkey, sign, msg) {
         let sign_buf = Buffer.from(sign, 'hex');
         let msg_buf = Buffer.from(msg, 'hex');
         let cpkey_buf = Buffer.from(cpkey, 'hex');
-        let ec = new rsasign.KJUR.crypto.ECDSA({curve:'secp256k1'})
+        let ec = new rsasign.KJUR.crypto.ECDSA({curve: 'secp256k1'})
         return ec.verifyHex(msg_buf, sign_buf, cpkey_buf)
     },
     getPublicKey: function (pvt, compact) {
