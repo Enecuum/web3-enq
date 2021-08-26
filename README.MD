@@ -1,4 +1,4 @@
-[![Node.js CI](https://github.com/Enecuum/web3-enq/actions/workflows/node.js.yml/badge.svg)](https://github.com/Enecuum/web3-enq/actions/workflows/node.js.yml)
+[![Node.js CI](https://github.com/Enecuum/web3-enq/actions/workflows/node.js.yml/badge.svg?branch=release)](https://github.com/Enecuum/web3-enq/actions/workflows/node.js.yml)
 
 # About the library
 
