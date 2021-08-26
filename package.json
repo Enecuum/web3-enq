@@ -1,6 +1,6 @@
 {
   "name": "enq-web3",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Web3 for enq-extension",
   "main": "packages/web3-enq/src/index.js",
   "scripts": {
@@ -15,7 +15,8 @@
     "API"
   ],
   "files": [
-    "/dist"
+    "/dist",
+    "/packages"
   ],
   "dependencies": {
     "assert": "^2.0.0",
