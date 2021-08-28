@@ -19,8 +19,8 @@ const Web = function Web(web) {
             web.Enq.ready[id] = false
             await _promise(id).then(el => {
                 if (web.Enq.cb[id].reject) {
-                    web.Enq.ready[id] = true
-                    reject()
+                    delete web.Enq.ready[id]
+                    reject(web.Enq.cb[id].data)
                 }
                 delete web.Enq.ready[id]
                 resolve(web.Enq.cb[id])
@@ -51,7 +51,7 @@ const Web = function Web(web) {
                     })
                     .catch(err => {
                         console.log(err)
-                        reject(null)
+                        reject(err)
                     })
             }
         })
