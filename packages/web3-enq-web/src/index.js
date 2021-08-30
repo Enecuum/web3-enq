@@ -50,7 +50,6 @@ const Web = function Web(web) {
                         resolve(result)
                     })
                     .catch(err => {
-                        console.log(err)
                         reject(err)
                     })
             }
