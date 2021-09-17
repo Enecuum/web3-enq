@@ -46,7 +46,7 @@ const Enq = function Enq(web) {
                                 provider = net
                             })
                             .catch(e => {
-                                console.warn('Not valid for this network')
+                                console.warn('Not valid network')
                             })
                     })
             }
