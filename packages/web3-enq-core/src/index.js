@@ -35,9 +35,15 @@ const Enq = function Enq(web) {
             } else {
                 native_token(net)
                     .then(data => {
-                        token[net] = data
                         provider = net
-                        ticker = data
+                        if (data) {
+                            token[net] = data
+                            ticker = data
+                        } else {
+                            ticker = ""
+                            console.warn(`not found main token to ${net}\nset the token manually: ENQWeb.token[ '${net}' ] = '< token >'`);
+                        }
+
                     })
                     .catch(() => {
                         console.warn(`not found main token to ${net}\nset the token manually: ENQWeb.token[ '${net}' ] = '< token >'`);
@@ -149,13 +155,20 @@ const Enq = function Enq(web) {
                     if (data.hash !== undefined) {
                         resolve(data.hash)
                     } else {
-                        console.warn("Network is not valid")
+                        console.warn('Not valid for this network')
                         reject()
                     }
                 })
-                .catch(err => {
-                    console.error(err)
-                    reject()
+                .catch(e => {
+                    fetch(net + '/api/v1/stats')
+                        .then(response => response.json())
+                        .then(data => {
+                            resolve(false)
+                        })
+                        .catch(e => {
+                            console.warn('Not valid for this network')
+                            reject()
+                        })
                 })
         })
 
