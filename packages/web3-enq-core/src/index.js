@@ -4,7 +4,7 @@ const {format} = require('url');
 const Enq = function Enq(web) {
     let _this = this;
     let provider = 'https://bit.enecuum.com';
-    let ticker = '0000000000000000000000000000000000000000000000000000000000000000';
+    let ticker = '0000000000000000000000000000000000000000000000000000000000000001';
     let token = {
         'https://bit.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000001'
     };
@@ -25,17 +25,25 @@ const Enq = function Enq(web) {
             return provider;
         },
         set: function (net) {
-            if (url[net] !== undefined) {
-                provider = url[net]
-            } else {
-                provider = net;
+            net = net[net.length-1] === "/" ? net.substr(0,net.length-1):net;
+            if(token[net] !== undefined){
+                provider = net
+            }else {
+                fetch(net + "/api/v1/native_token")
+                    .then(response => response.json())
+                    .then(data=>{
+                        if(data.hash !== undefined){
+                            token[net] = data.hash
+                            provider = net
+                        }else{
+                            console.warn("Network is not valid")
+                        }
+                    })
+                    .catch(err=>{
+                        console.error(err)
+                    })
             }
-            if (token[provider] !== undefined) {
-                ticker = token[provider]
-            } else {
-                console.warn(`not found main token to ${provider}\nset the token manually: ENQWeb.token[ '${provider}' ] = '< token >'`);
-            }
-            return provider;
+            return provider
         },
         enumerable: true,
         configurable: true
