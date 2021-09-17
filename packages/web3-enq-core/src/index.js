@@ -35,15 +35,13 @@ const Enq = function Enq(web) {
             } else {
                 native_token(net)
                     .then(data => {
-                        if (data) {
-                            token[net] = token
-                            provider = net
-                            ticker = token
-                        } else {
-                            console.warn(`not found main token to ${provider}\nset the token manually: ENQWeb.token[ '${provider}' ] = '< token >'`);
-                        }
-                    }).catch(e => {
-                })
+                        token[net] = data
+                        provider = net
+                        ticker = data
+                    })
+                    .catch(() => {
+                        console.warn(`not found main token to ${net}\nset the token manually: ENQWeb.token[ '${net}' ] = '< token >'`);
+                    })
             }
             return provider;
         },
@@ -143,21 +141,24 @@ const Enq = function Enq(web) {
     })
 
     let native_token = function (net) {
-        net = net[net.length - 1] === "/" ? net.substr(0, net.length - 1) : net;
-        fetch(net + "/api/v1/native_token")
-            .then(response => response.json())
-            .then(data => {
-                if (data.hash !== undefined) {
-                    return data.hash
-                } else {
-                    console.warn("Network is not valid")
-                    return false
-                }
-            })
-            .catch(err => {
-                console.error(err)
-                return false
-            })
+        return new Promise((resolve, reject) => {
+            net = net[net.length - 1] === "/" ? net.substr(0, net.length - 1) : net;
+            fetch(net + "/api/v1/native_token")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.hash !== undefined) {
+                        resolve(data.hash)
+                    } else {
+                        console.warn("Network is not valid")
+                        reject()
+                    }
+                })
+                .catch(err => {
+                    console.error(err)
+                    reject()
+                })
+        })
+
     }
 
     this.sendTx = function (tx) {
