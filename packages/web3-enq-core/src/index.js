@@ -41,13 +41,10 @@ const Enq = function Enq(web) {
                             ticker = data
                         } else {
                             ticker = ""
-                            console.warn(`not found main token to ${net}\nset the token manually: ENQWeb.token[ '${net}' ] = '< token >'`);
                         }
 
                     })
-                    .catch(() => {
-                        console.warn(`not found main token to ${net}\nset the token manually: ENQWeb.token[ '${net}' ] = '< token >'`);
-                    })
+                    .catch(() => {})
             }
             return provider;
         },
