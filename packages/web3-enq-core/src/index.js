@@ -20,37 +20,42 @@ const Enq = function Enq(web) {
     let ready = [];
     let connect = false
 
+    if (window.location.protocol === "chrome-extension:") {
+        let networks = JSON.parse(localStorage.getItem('networks'))
+        for (let i in networks) {
+            console.log()
+            token[networks[i].host] = networks[i].token
+        }
+    }
+
     Object.defineProperty(this, 'provider', {
         get: function () {
             return provider;
         },
         set: function (net) {
-            net = net[net.length - 1] === '/' ? net.substr(0, net.length - 1) : net;
-            if (token[net] !== undefined) {
-                provider = net
+            if (url[net] !== undefined) {
+                provider = url[net]
             } else {
-                fetch(net + '/api/v1/native_token')
-                    .then(response => response.json())
+                provider = net;
+            }
+            if (token[provider] !== undefined) {
+                ticker = token[provider]
+            } else {
+                native_token(net)
                     .then(data => {
-                        if (data.hash !== undefined) {
-                            token[net] = data.hash
-                            provider = net
+                        provider = net
+                        if (data) {
+                            token[net] = data
+                            ticker = data
                         } else {
-                            console.warn('Native token is not valid for this network')
+                            ticker = ""
                         }
+
                     })
-                    .catch(e => {
-                        fetch(net + '/api/v1/stats')
-                            .then(response => response.json())
-                            .then(data => {
-                                provider = net
-                            })
-                            .catch(e => {
-                                console.warn('Not valid network')
-                            })
+                    .catch(() => {
                     })
             }
-            return provider
+            return provider;
         },
         enumerable: true,
         configurable: true
@@ -147,9 +152,37 @@ const Enq = function Enq(web) {
         configurable: true
     })
 
+    let native_token = function (net) {
+        return new Promise((resolve, reject) => {
+            net = net[net.length - 1] === "/" ? net.substr(0, net.length - 1) : net;
+            fetch(net + "/api/v1/native_token")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.hash !== undefined) {
+                        resolve(data.hash)
+                    } else {
+                        console.warn('Not valid for this network')
+                        reject()
+                    }
+                })
+                .catch(e => {
+                    fetch(net + '/api/v1/stats')
+                        .then(response => response.json())
+                        .then(data => {
+                            resolve(false)
+                        })
+                        .catch(e => {
+                            console.warn('Not valid for this network')
+                            reject()
+                        })
+                })
+        })
+
+    }
+
     this.sendTx = function (tx) {
         return new Promise(function (resolve, reject) {
-            request({url: `${provider}/api/v1/tx`, method: 'POST', json: [tx]}, function (err, resp, body) {
+            request({url: `${provider}/api/v1/tx`, method: "POST", json: [tx]}, function (err, resp, body) {
                 if (err) {
                     console.error(`Failed to send transaction`);
                     console.log(err);
@@ -192,7 +225,7 @@ const Enq = function Enq(web) {
     this.sendRequest = function (url, method, fields) {
         return new Promise((resolve, reject) => {
             // bp.urlencoded();
-            request({url: `${url}`, method: method || 'GET', json: [fields]}, (err, resp, body) => {
+            request({url: `${url}`, method: method || "GET", json: [fields]}, (err, resp, body) => {
                 if (err) {
                     console.warn(err)
                     reject()
