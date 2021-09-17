@@ -25,25 +25,27 @@ const Enq = function Enq(web) {
             return provider;
         },
         set: function (net) {
-            net = net[net.length-1] === "/" ? net.substr(0,net.length-1):net;
-            if(token[net] !== undefined){
-                provider = net
-            }else {
-                fetch(net + "/api/v1/native_token")
-                    .then(response => response.json())
-                    .then(data=>{
-                        if(data.hash !== undefined){
-                            token[net] = data.hash
-                            provider = net
-                        }else{
-                            console.warn("Network is not valid")
-                        }
-                    })
-                    .catch(err=>{
-                        console.error(err)
-                    })
+            if (url[net] !== undefined) {
+                provider = url[net]
+            } else {
+                provider = net;
             }
-            return provider
+            if (token[provider] !== undefined) {
+                ticker = token[provider]
+            } else {
+                native_token(net)
+                    .then(data => {
+                        if (data) {
+                            token[net] = token
+                            provider = net
+                            ticker = token
+                        } else {
+                            console.warn(`not found main token to ${provider}\nset the token manually: ENQWeb.token[ '${provider}' ] = '< token >'`);
+                        }
+                    }).catch(e => {
+                })
+            }
+            return provider;
         },
         enumerable: true,
         configurable: true
@@ -139,6 +141,24 @@ const Enq = function Enq(web) {
         enumerable: true,
         configurable: true
     })
+
+    let native_token = function (net) {
+        net = net[net.length - 1] === "/" ? net.substr(0, net.length - 1) : net;
+        fetch(net + "/api/v1/native_token")
+            .then(response => response.json())
+            .then(data => {
+                if (data.hash !== undefined) {
+                    return data.hash
+                } else {
+                    console.warn("Network is not valid")
+                    return false
+                }
+            })
+            .catch(err => {
+                console.error(err)
+                return false
+            })
+    }
 
     this.sendTx = function (tx) {
         return new Promise(function (resolve, reject) {
