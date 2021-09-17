@@ -3,22 +3,16 @@ const {format} = require('url');
 
 const Enq = function Enq(web) {
     let _this = this;
-    let provider = 'https://pulse.enecuum.com';
+    let provider = 'https://bit.enecuum.com';
     let ticker = '0000000000000000000000000000000000000000000000000000000000000000';
     let token = {
-        'https://pulse.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000000',
-        'https://bit.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000001',
-        'https://bit-dev.enecuum.com': '1111111111111111111111111111111111111111111111111111111111111111',
+        'https://bit.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000001'
     };
     let url = {
-        'pulse': 'https://pulse.enecuum.com',
         'bit': 'https://bit.enecuum.com',
-        'bit-dev': 'https://bit-dev.enecuum.com',
     }
     let mnemonic = {
-        'https://pulse.enecuum.com': 'pulse',
         'https://bit.enecuum.com': 'bit',
-        'https://bit-dev.enecuum.com': 'bit-dev',
     }
     let user = {};
     let owner = '';
