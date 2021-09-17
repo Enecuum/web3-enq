@@ -1,11 +1,12 @@
-[![Node.js CI](https://github.com/Enecuum/web3-enq/actions/workflows/node.js.yml/badge.svg)](https://github.com/Enecuum/web3-enq/actions/workflows/node.js.yml)
+[![Node.js CI](https://github.com/Enecuum/web3-enq/actions/workflows/node.js.yml/badge.svg?branch=release)](https://github.com/Enecuum/web3-enq/actions/workflows/node.js.yml)
+
 # About the library
 
 The library is designed to work with Enecuum blockchain
 
 # Beginning of work
 
-You can use the compiled file `enqweb3.min.js`
+You can use the compiled file `enqweb3.*.min.js`
 so that you can use it without resetting by specifying the path to the root of the installed repository, but before
 using it you need to install the dependencies `npm i`
 

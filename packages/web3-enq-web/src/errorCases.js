@@ -12,51 +12,51 @@ const Errors = function Errors() {
             try {
                 test = Number(amount);
             } catch (err) {
-                return {err: {msg:charErrMsg, amount:amount}};
+                return {err: {msg: charErrMsg, amount: amount}};
             }
             if (test > 0) {
                 return {success: {test: 'Amount', edit: 'BigInt'}}
-            }else{
-                return {err: {msg:positiveErrMsg, amount:amount}};
+            } else {
+                return {err: {msg: positiveErrMsg, amount: amount}};
             }
         }
-        if (/^\d+e\d+$/.test(amount) || /^\d+e-\d+$/.test(amount) ) {
+        if (/^\d+e\d+$/.test(amount) || /^\d+e-\d+$/.test(amount)) {
             try {
                 test = Number(amount);
             } catch (err) {
-                return {err: {test: 'Amount', msg:charErrMsg, amount:amount}};
+                return {err: {test: 'Amount', msg: charErrMsg, amount: amount}};
             }
             if (test > 0) {
                 return {success: {test: 'Amount', edit: 'e'}}
-            }else{
-                return {err: {test: 'Amount', msg:positiveErrMsg, amount:amount}};
+            } else {
+                return {err: {test: 'Amount', msg: positiveErrMsg, amount: amount}};
             }
         }
         if (!/^[0-9]+$/.test(amount)) {
-            return {err: {test: 'Amount', msg:charErrMsg, amount:amount}};
+            return {err: {test: 'Amount', msg: charErrMsg, amount: amount}};
         }
-        if(Number(amount) < 0){
-            return {err: {test: 'Amount', msg:positiveErrMsg, amount:amount}};
+        if (Number(amount) < 0) {
+            return {err: {test: 'Amount', msg: positiveErrMsg, amount: amount}};
         }
         return {success: {test: 'Amount'}}
     }
 
     this.caseDataCorrect = (data) => {
         if (typeof data === 'object') {
-            return {err: {test: 'Data',msg:'not serialised data'}}
+            return {err: {test: 'Data', msg: 'not serialised data'}}
         }
         return {success: {test: 'Data'}}
     }
 
     this.caseAddressCorrect = (address, type) => {
         if (address === undefined) {
-            return {err: {test: 'Address', type: type,msg:`address ${type} not found`}}
+            return {err: {test: 'Address', type: type, msg: `address ${type} not found`}}
         }
         if (address.length < 66) {
-            return {err: {test: 'Address', type: type,msg:`${type} address is short`}}
+            return {err: {test: 'Address', type: type, msg: `${type} address is short`}}
         }
         if (address.length > 66) {
-            return {err: {test: 'Address', type: type,msg:`${type} address is long`}}
+            return {err: {test: 'Address', type: type, msg: `${type} address is long`}}
         }
         return {success: {test: 'Address', type: type}}
     }

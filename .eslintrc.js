@@ -19,6 +19,6 @@ module.exports = {
         'max-len': 0,
         'react/jsx-indent': 0,
         'no-plusplus': 0,
-        'no-multiple-empty-lines': ['warn', { max: 2 }],
+        'no-multiple-empty-lines': ['warn', {max: 2}],
     },
 }

@@ -19,7 +19,7 @@ module.exports = {
             "buffer": require.resolve("buffer"),
             "stream": require.resolve("stream-browserify"),
             "zlib": require.resolve("browserify-zlib"),
-            fs: false
+            fs: false,
         }
     },
     module: {

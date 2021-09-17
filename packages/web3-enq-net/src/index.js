@@ -202,7 +202,7 @@ const Net = function Net(web) {
                     })
             })
         },
-        get_tickers_all: async function(){
+        get_tickers_all: async function () {
             let api = `get_tickers_all`
             return new Promise((resolve, reject) => {
                 web.Enq.sendAPI(api)
