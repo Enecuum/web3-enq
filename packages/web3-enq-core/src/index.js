@@ -25,22 +25,29 @@ const Enq = function Enq(web) {
             return provider;
         },
         set: function (net) {
-            net = net[net.length-1] === "/" ? net.substr(0,net.length-1):net;
-            if(token[net] !== undefined){
+            net = net[net.length - 1] === '/' ? net.substr(0, net.length - 1) : net;
+            if (token[net] !== undefined) {
                 provider = net
-            }else {
-                fetch(net + "/api/v1/native_token")
+            } else {
+                fetch(net + '/api/v1/native_token')
                     .then(response => response.json())
-                    .then(data=>{
-                        if(data.hash !== undefined){
+                    .then(data => {
+                        if (data.hash !== undefined) {
                             token[net] = data.hash
                             provider = net
-                        }else{
-                            console.warn("Network is not valid")
+                        } else {
+                            console.warn('Native token is not valid for this network')
                         }
                     })
-                    .catch(err=>{
-                        console.error(err)
+                    .catch(e => {
+                        fetch(net + '/api/v1/stats')
+                            .then(response => response.json())
+                            .then(data => {
+                                provider = net
+                            })
+                            .catch(e => {
+                                console.warn('Not valid for this network')
+                            })
                     })
             }
             return provider
@@ -142,7 +149,7 @@ const Enq = function Enq(web) {
 
     this.sendTx = function (tx) {
         return new Promise(function (resolve, reject) {
-            request({url: `${provider}/api/v1/tx`, method: "POST", json: [tx]}, function (err, resp, body) {
+            request({url: `${provider}/api/v1/tx`, method: 'POST', json: [tx]}, function (err, resp, body) {
                 if (err) {
                     console.error(`Failed to send transaction`);
                     console.log(err);
@@ -185,7 +192,7 @@ const Enq = function Enq(web) {
     this.sendRequest = function (url, method, fields) {
         return new Promise((resolve, reject) => {
             // bp.urlencoded();
-            request({url: `${url}`, method: method || "GET", json: [fields]}, (err, resp, body) => {
+            request({url: `${url}`, method: method || 'GET', json: [fields]}, (err, resp, body) => {
                 if (err) {
                     console.warn(err)
                     reject()
