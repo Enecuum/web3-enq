@@ -20,6 +20,14 @@ const Enq = function Enq(web) {
     let ready = [];
     let connect = false
 
+    if (window.location.protocol === "chrome-extension:") {
+        let networks = JSON.parse(localStorage.getItem('networks'))
+        for (let i in networks) {
+            console.log()
+            token[networks[i].host] = networks[i].token
+        }
+    }
+
     Object.defineProperty(this, 'provider', {
         get: function () {
             return provider;
@@ -44,7 +52,8 @@ const Enq = function Enq(web) {
                         }
 
                     })
-                    .catch(() => {})
+                    .catch(() => {
+                    })
             }
             return provider;
         },
