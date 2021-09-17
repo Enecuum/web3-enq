@@ -182,7 +182,7 @@ const Enq = function Enq(web) {
 
     this.sendTx = function (tx) {
         return new Promise(function (resolve, reject) {
-            request({url: `${provider}/api/v1/tx`, method: "POST", json: [tx]}, function (err, resp, body) {
+            request({url: `${provider}/api/v1/tx`, method: 'POST', json: [tx]}, function (err, resp, body) {
                 if (err) {
                     console.error(`Failed to send transaction`);
                     console.log(err);
@@ -225,7 +225,7 @@ const Enq = function Enq(web) {
     this.sendRequest = function (url, method, fields) {
         return new Promise((resolve, reject) => {
             // bp.urlencoded();
-            request({url: `${url}`, method: method || "GET", json: [fields]}, (err, resp, body) => {
+            request({url: `${url}`, method: method || 'GET', json: [fields]}, (err, resp, body) => {
                 if (err) {
                     console.warn(err)
                     reject()
