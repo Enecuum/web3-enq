@@ -28,7 +28,7 @@ const Enq = function Enq(web) {
                 token[networks[i].host] = networks[i].token
             }
         }
-    }catch (e) {
+    } catch (e) {
         console.warn("networks not loaded")
     }
 
