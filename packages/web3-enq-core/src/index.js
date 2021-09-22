@@ -20,12 +20,16 @@ const Enq = function Enq(web) {
     let ready = [];
     let connect = false
 
-    if (window.location.protocol === "chrome-extension:") {
-        let networks = JSON.parse(localStorage.getItem('networks'))
-        for (let i in networks) {
-            console.log()
-            token[networks[i].host] = networks[i].token
+    try {
+        if (window.location.protocol === "chrome-extension:") {
+            let networks = JSON.parse(localStorage.getItem('networks'))
+            for (let i in networks) {
+                console.log()
+                token[networks[i].host] = networks[i].token
+            }
         }
+    }catch (e) {
+        console.warn("networks not loaded")
     }
 
     Object.defineProperty(this, 'provider', {
