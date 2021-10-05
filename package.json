@@ -1,6 +1,6 @@
 {
   "name": "enq-web3",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Web3 for enq-extension",
   "main": "packages/web3-enq/src/index.js",
   "scripts": {
@@ -46,7 +46,7 @@
     "webpack-cli": "^4.3.1"
   },
   "author": "https://github.com/kamighost1",
-  "license": "ISC",
+  "license": "MIT",
   "browser": {
     "fs": false,
     "path": false,
