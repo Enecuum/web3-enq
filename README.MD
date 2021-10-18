@@ -139,7 +139,7 @@ ENQweb3lib.connect().then(()=>{
 ```
 
 ### async serialize (data)
-Данный метод необходим для создания поля дата из объекта. Если вы хотите отправить смарт контракт, тогда воспользуйтесь сериализацией поля дата. на вод метода подается js-объект. пример кода: 
+This method is required to create a date field from an object. If you want to send a smart contract, then use the serialization of the date field. a js object is fed to the method. sample code: 
 ```
 let tx = {
   from:"...",
@@ -157,7 +157,7 @@ tx.data = ENQweb3lib.serialize(tx.data);
 ```
 
 ### async fee_counter (token, amount) 
-Данный метод возвращает комиссию, которую вы заплатите при отравке транзакции. входными данными явялется токен, в котором вы платите и amount. пример кода :
+This method returns the commission that you pay when sending a transaction. the input data is the token in which you work and the amount. sample code :
 
 ```
 let fee = ENQweb3lib.fee_counter("123..890", 1e10); // return fee
