@@ -29,7 +29,7 @@ const Enq = function Enq(web) {
             }
         }
     } catch (e) {
-        console.warn("networks not loaded")
+        // console.warn("networks not loaded")
     }
 
     Object.defineProperty(this, 'provider', {
