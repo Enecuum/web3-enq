@@ -51,7 +51,7 @@ All methods are in `ENQWeb.Net`
 
 - `ENQWeb.Net.post`
     - tx (obj) - object fields: `from:{pubkey : < public key >, prvkey: < private key > }, to, tokenHash, amount, data (optional), nonce (optional)`
-    - tx_fee_off (obj) - object fields: `from, to, tokenHash, amount, data (optional), nonce (optional)`
+    - tx_fee_off (obj) - object fields: `from:{pubkey : < public key >, prvkey: < private key > }, to, tokenHash, amount, data (optional), nonce (optional)`
 ____
 
 - the `from` field is an object with the` pubkey` and `prvkey` fields

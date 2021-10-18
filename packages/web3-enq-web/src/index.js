@@ -212,6 +212,17 @@ const Web = function Web(web) {
                     return tokenInfo[0].fee_min
                 }
             }
+            if (tokenInfo[0].fee_type === 2){
+                try{
+                    return web.Net.get.token_info(web.Enq.ticker)
+                    .then(data=>{
+                        return BigInt(data[0].fee_value)
+                    })
+                }catch{
+                    return false
+                }
+                
+            }
             return false
         }
     }

@@ -155,12 +155,13 @@ const Net = function Net(web) {
     this.post = {
         tx: async function (obj) {
             // from, to, tokenHash, amount, data, nonce
-            let fee = await _this.get.token_info(obj.tokenHash)
+            // let fee = await _this.get.token_info(obj.tokenHash)
             let tx = {
                 to: obj.to,
                 from: obj.from.pubkey,
                 ticker: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: obj.amount + fee[0].fee_value,
+                // amount: obj.amount + fee[0].fee_value,
+                amount: Number(BigInt(obj.amount) + BigInt(await web.Web.fee_counter(obj.tokenHash || web.Enq.token[web.Enq.provider], obj.amount))),
                 nonce: obj.nonce || Math.floor(Math.random() * 1e10)
             };
             if (obj.data) {
@@ -187,7 +188,7 @@ const Net = function Net(web) {
                 to: obj.to,
                 from: obj.from.pubkey,
                 ticker: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: obj.amount,
+                amount: Number(obj.amount),
                 nonce: obj.nonce || Math.floor(Math.random() * 1e10)
             };
             if (obj.data) {
