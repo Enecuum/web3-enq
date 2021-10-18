@@ -80,6 +80,9 @@ It is required to interact with the extension. Working libraries temporarily in 
     - .balanceOf (obj)
     - .sendTransaction (obj)
     - .reconnect ()
+    - .serialize (data)
+    - .fee_counter (token, amount) 
+
 
 # Methods
 
@@ -133,4 +136,34 @@ ENQweb3lib.connect().then(()=>{
             console.log(result)
         })
 })
+```
+
+### async serialize (data)
+Данный метод необходим для создания поля дата из объекта. Если вы хотите отправить смарт контракт, тогда воспользуйтесь сериализацией поля дата. на вод метода подается js-объект. пример кода: 
+```
+let tx = {
+  from:"...",
+  to:"...", 
+  ...
+  data:{
+    type:"example_type",
+    parameters:{
+      a:"123",
+      b:"456"
+    }
+  }
+}
+tx.data = ENQweb3lib.serialize(tx.data);
+```
+
+### async fee_counter (token, amount) 
+Данный метод возвращает комиссию, которую вы заплатите при отравке транзакции. входными данными явялется токен, в котором вы платите и amount. пример кода :
+
+```
+let fee = ENQweb3lib.fee_counter("123..890", 1e10); // return fee
+
+//or 
+
+let amount = BigInt(1e10);
+amount += ENQweb3lib.fee_counter("123..890", amount); // amount = amount + fee 
 ```
