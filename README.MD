@@ -6,9 +6,10 @@ The library is designed to work with Enecuum blockchain
 
 # Beginning of work
 
-You can use the compiled file `enqweb3.*.min.js`
+You can use the compiled file `enqweb3. *. Min.js`
 so that you can use it without resetting by specifying the path to the root of the installed repository, but before
 using it you need to install the dependencies `npm i`
+it is possible to use both source files and assemblies * .min.js. to connect the library you can use `webpack` and `import ENQWeb from "path / to / *. min.js" `. the script will add to the Window of page 2 objects: `ENQWeb`,` ENQweb3lib`. ENQweb3lib === ENQWeb.Web. 
 
 # Important
 
@@ -36,6 +37,21 @@ ____
 - `ENQWeb.Enq.provider` - is responsible for the network to which requests and transactions will be sent
 - `ENQWeb.Enq.token` - maps the network to the token. required in smart contracts `ENQWeb.Net.post`
 
+# Native token
+
+To find out the native token of a network, use the `ENQWeb.Enq.native_token (net)` asynchronous method. If the network has the required api, then the function will return a native token. example of use:
+
+```
+let token = await ENQWeb.Enq.native_token("https://example.com");
+
+//or 
+
+ENQWeb.Enq.native_token("https://example.com")
+  .then(token=>{
+    console.log(token);
+  })
+```
+
 # Methods for working with the Enecuum network
 
 All methods are in `ENQWeb.Net`
@@ -50,8 +66,26 @@ All methods are in `ENQWeb.Net`
     - getOwner (hash) - returns the public key of the token holder based on the token hash
 
 - `ENQWeb.Net.post`
-    - tx (obj) - object fields: `from:{pubkey : < public key >, prvkey: < private key > }, to, tokenHash, amount, data (optional), nonce (optional)`
-    - tx_fee_off (obj) - object fields: `from:{pubkey : < public key >, prvkey: < private key > }, to, tokenHash, amount, data (optional), nonce (optional)`
+    - tx (obj) - sends a transaction with taking the fee. object fields: 
+    ```
+    {
+      from:{pubkey : < public key >, prvkey: < private key > }, 
+      to, tokenHash, 
+      amount, 
+      data (optional), 
+      nonce (optional)
+    }
+    ```
+    - tx_fee_off (obj) - sends a transaction without taking the fee. object fields: 
+    ```
+    {
+      from:{pubkey : < public key >, prvkey: < private key > }, 
+      to, tokenHash, 
+      amount, 
+      data (optional), 
+      nonce (optional)
+    }
+    ```
 ____
 
 - the `from` field is an object with the` pubkey` and `prvkey` fields
@@ -82,6 +116,11 @@ It is required to interact with the extension. Working libraries temporarily in 
     - .reconnect ()
     - .serialize (data)
     - .fee_counter (token, amount) 
+    - .getVersion () 
+    - .typeOfFee ( token ) 
+    - .net.getProvider ( fullurl = false )
+
+
 
 
 # Methods
@@ -167,3 +206,20 @@ let fee = ENQweb3lib.fee_counter("123..890", 1e10); // return fee
 let amount = BigInt(1e10);
 amount += ENQweb3lib.fee_counter("123..890", amount); // amount = amount + fee 
 ```
+
+### async getVersion ()
+refills and returns the version of the extension.
+
+### async typeOfFee (token)
+will return the type of token commission
+
+### async net.getProvider (fullurl = false)
+returns the network on which the extension is running. the `fullurl` flag is responsible for the return value. full url, or short name of the network. e.g. `bit` or `https://bit.enecuum.com`.
+____
+
+# Utils
+all utilities are in `ENQWeb.Utils`. main methods:
+- .Sign.getPublicKey (private key, true) - returns the public key from the private
+- .dfo (obj) - serialization of the data field into the blockchain format.
+- .ofd.parse (string) - deserialization of the date field into an object.
+- .generateKey.getByNumber (number) - returns the number of generated private keys
