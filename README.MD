@@ -9,7 +9,7 @@ The library is designed to work with Enecuum blockchain
 You can use the compiled file `enqweb3. *. Min.js`
 so that you can use it without resetting by specifying the path to the root of the installed repository, but before
 using it you need to install the dependencies `npm i`
-it is possible to use both source files and assemblies * .min.js. to connect the library you can use `webpack` and `import ENQWeb from "path / to / *. min.js" `. the script will add to the Window of page 2 objects: `ENQWeb`,` ENQweb3lib`. ENQweb3lib === ENQWeb.Web. 
+it is possible to use both source files and assemblies * .min.js. to connect the library you can use `webpack` and `import ENQWeb from "path / to / *. min.js" `. the script will add to the Window of page 2 objects: `ENQWeb`,` ENQweb3lib`. ENQweb3lib === ENQWeb.Web.
 
 # Important
 
@@ -21,7 +21,7 @@ it is possible to use both source files and assemblies * .min.js. to connect the
 - Check the hash of the native coin. if you are using a custom network, then install a native network token. this needs to be done every initialization of the library:
 
 `ENQWeb.Enq.token ["https://example.com"] = "0000...0000"` - insert your network address and assign the hash of the native
-token. after which you can repeat the procedure for installing a custom provider. 
+token. after which you can repeat the procedure for installing a custom provider.
 
 example code for changing the provider. It is recommended to use the methods `ENQWeb.Enq.setProvider (net)` if you are sure that the given native token is in the library or the network has the required api:
 ```
@@ -57,16 +57,16 @@ ENQWeb.Enq.native_token("https://example.com")
 All methods are in `ENQWeb.Net`
 
 - `ENQWeb.Net.get`
-    - getBalance (acc, token) - returns the account balance by token
-    - token_info (hash) - returns information about the token
-    - height () - returns the number of the last block
-    - macroblock (hash) - returns information about a macroblock by its hash
-    - macroblockByHeight (height) - returns information about a macroblock by its number
-    - tx (hash) - returns information about a transaction by its hash
-    - getOwner (hash) - returns the public key of the token holder based on the token hash
+  - getBalance (acc, token) - returns the account balance by token
+  - token_info (hash) - returns information about the token
+  - height () - returns the number of the last block
+  - macroblock (hash) - returns information about a macroblock by its hash
+  - macroblockByHeight (height) - returns information about a macroblock by its number
+  - tx (hash) - returns information about a transaction by its hash
+  - getOwner (hash) - returns the public key of the token holder based on the token hash
 
 - `ENQWeb.Net.post`
-    - tx (obj) - sends a transaction with taking the fee. object fields: 
+  - tx (obj) - sends a transaction with taking the fee. object fields:
     ```
     {
       from:{pubkey : < public key >, prvkey: < private key > }, 
@@ -76,7 +76,7 @@ All methods are in `ENQWeb.Net`
       nonce (optional)
     }
     ```
-    - tx_fee_off (obj) - sends a transaction without taking the fee. object fields: 
+  - tx_fee_off (obj) - sends a transaction without taking the fee. object fields:
     ```
     {
       from:{pubkey : < public key >, prvkey: < private key > }, 
@@ -92,12 +92,12 @@ ____
 ____
 
 - `ENQWeb.Net.pos`
-    - get_pos_total_stake ()
-    - get_pos_list_count ()
-    - get_pos_list ()
-    - get_pos_list_all ()
-    - get_delegators_list ()
-    - get_transfer_lock ()
+  - get_pos_total_stake ()
+  - get_pos_list_count ()
+  - get_pos_list ()
+  - get_pos_list_all ()
+  - get_delegators_list ()
+  - get_transfer_lock ()
 
 ____
 
@@ -109,16 +109,16 @@ It is required to interact with the extension. Working libraries temporarily in 
 
 - Connect the library to the page as a script  `cdn`
 - The `enqweb3lib` object with methods will appear in the console:
-    - .connect ()
-    - .enable (obj)
-    - .balanceOf (obj)
-    - .sendTransaction (obj)
-    - .reconnect ()
-    - .serialize (data)
-    - .fee_counter (token, amount) 
-    - .getVersion () 
-    - .typeOfFee ( token ) 
-    - .net.getProvider ( fullurl = false )
+  - .connect ()
+  - .enable (obj)
+  - .balanceOf (obj)
+  - .sendTransaction (obj)
+  - .reconnect ()
+  - .serialize (data)
+  - .fee_counter (token, amount)
+  - .getVersion ()
+  - .typeOfFee ( token )
+  - .net.getProvider ( fullurl = false )
 
 
 
@@ -155,8 +155,8 @@ Send request to send a transaction:
   value: BigInt, - the number of coins
   tokenHash: string, - token of the coin
   nonce: number, - optional (Math.floor (Math.random () * 1e10))
-  data: JSON.stringify (obj), optional. data (you can say hello)
-  net: string - optional, for swap. pass url. without the last slash https://example.com 
+  data: optional. string (you want say 'hello') or serialize, if you send smart contract
+  net: string - optional. pass url. without the last slash https://example.com 
 }
 ```
 
@@ -178,7 +178,7 @@ ENQweb3lib.connect().then(()=>{
 ```
 
 ### async serialize (data)
-This method is required to create a date field from an object. If you want to send a smart contract, then use the serialization of the date field. a js object is fed to the method. sample code: 
+This method is required to create a date field from an object. If you want to send a smart contract, then use the serialization of the date field. a js object is fed to the method. sample code:
 ```
 let tx = {
   from:"...",
@@ -195,7 +195,7 @@ let tx = {
 tx.data = ENQweb3lib.serialize(tx.data);
 ```
 
-### async fee_counter (token, amount) 
+### async fee_counter (token, amount)
 This method returns the commission that you pay when sending a transaction. the input data is the token in which you work and the amount. sample code :
 
 ```
