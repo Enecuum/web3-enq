@@ -160,6 +160,9 @@ Send request to send a transaction:
 }
 ```
 
+#### Important!
+If the field in the "net" transaction object does not match the selected network in the extension, then the extension will return reject, the transaction will not be sent.
+
 ### async reconnect ()
 this function is needed to restore the connection to the site to which the public key was returned.
 the function returns an object containing the `status` field. answer options:
