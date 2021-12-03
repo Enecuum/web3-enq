@@ -206,11 +206,15 @@ const Web = function Web(web) {
             if (tokenInfo[0].fee_type === 1) {
                 let checkAmount = (BigInt(amount) * BigInt(tokenInfo[0].fee_value)) / BigInt(1e4)
                 let fee_min = BigInt(tokenInfo[0].fee_min)
-                if (checkAmount > tokenInfo[0].fee_min) {
+                if (checkAmount > fee_min) {
                     return checkAmount
                 } else {
-                    return tokenInfo[0].fee_min
+                    return fee_min
                 }
+            }
+            if (tokenInfo[0].fee_type === 2){
+                return 0n;
+                
             }
             return false
         }

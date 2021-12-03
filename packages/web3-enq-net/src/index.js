@@ -17,69 +17,6 @@ const Net = function Net(web) {
             return web.Enq.currentProvider
         }
     })
-    Object.defineProperty(this, 'token', {
-        get: function () {
-            return web.Enq.token;
-        },
-        set: function (val) {
-            web.Enq.token = val;
-            return web.Enq.token;
-        },
-        enumerable: true,
-        configurable: true,
-    })
-    Object.defineProperty(this, 'ticker', {
-        get: function () {
-            return web.Enq.ticker;
-        },
-        set: function (val) {
-            web.Enq.ticker = val;
-            return web.Enq.ticker;
-        },
-        enumerable: true,
-        configurable: true,
-    })
-    Object.defineProperty(this, 'owner', {
-        get: function () {
-            return web.Enq.owner;
-        },
-        set: function (val) {
-            web.Enq.owner = val;
-            return web.Enq.owner;
-        },
-        enumerable: true,
-        configurable: true,
-    })
-    Object.defineProperty(this, 'User', {
-        get: function () {
-            return web.Enq.User;
-        },
-        set: function (obj) {
-            web.Enq.User.pubkey = obj.pubkey;
-            web.Enq.User.prvkey = obj.prvkey;
-            return web.Enq.User;
-        },
-        enumerable: true,
-        configurable: true
-    })
-    Object.defineProperty(this, 'userPub', {
-        get: function () {
-            return web.Enq.User.pubkey
-        },
-        set: function (value) {
-            web.Enq.User.pubkey = value
-            return web.Enq.User;
-        }
-    })
-    Object.defineProperty(this, 'userPvt', {
-        get: function () {
-            return web.Enq.User.prvkey
-        },
-        set: function (value) {
-            web.Enq.User.prvkey = value
-            return web.Enq.User;
-        }
-    })
 
 
     this.get = {
@@ -218,12 +155,13 @@ const Net = function Net(web) {
     this.post = {
         tx: async function (obj) {
             // from, to, tokenHash, amount, data, nonce
-            let fee = await _this.get.token_info(obj.tokenHash)
+            // let fee = await _this.get.token_info(obj.tokenHash)
             let tx = {
                 to: obj.to,
                 from: obj.from.pubkey,
                 ticker: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: obj.amount + fee[0].fee_value,
+                // amount: obj.amount + fee[0].fee_value,
+                amount: Number(BigInt(obj.amount) + BigInt(await web.Web.fee_counter(obj.tokenHash || web.Enq.token[web.Enq.provider], obj.amount))),
                 nonce: obj.nonce || Math.floor(Math.random() * 1e10)
             };
             if (obj.data) {
@@ -250,7 +188,7 @@ const Net = function Net(web) {
                 to: obj.to,
                 from: obj.from.pubkey,
                 ticker: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: obj.amount,
+                amount: Number(obj.amount),
                 nonce: obj.nonce || Math.floor(Math.random() * 1e10)
             };
             if (obj.data) {
@@ -270,159 +208,6 @@ const Net = function Net(web) {
                         reject(false)
                     })
             })
-        },
-        delegate: async function (obj) {
-            // from, pos_id, amount
-            const tx_data = {
-                type: 'delegate',
-                parameters: {
-                    pos_id: obj.pos_id,
-                    amount: BigInt(obj.amount)
-                }
-            };
-            let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
-            }
-            return await _this.post.tx(tx);
-        },
-        undelegate: async function (obj) {
-            // from, pos_id, amount
-            let tx_data = {
-                type: 'undelegate',
-                parameters: {
-                    pos_id: obj.pos_id,
-                    amount: BigInt(obj.amount)
-                }
-            }
-            let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
-            }
-            return await _this.post.tx(tx);
-        },
-        create_pos: async function (obj) {
-            // from, fee, name
-            let tx_data = {
-                type: 'create_pos',
-                parameters: {
-                    fee: BigInt(obj.fee),
-                    name: String(obj.name)
-                }
-            }
-            let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
-            }
-            return await _this.post.tx(tx);
-        },
-        pos_reward: async function (obj) {
-            // from, pos_id
-            let tx_data = {
-                type: 'pos_reward',
-                parameters: {
-                    pos_id: obj.pos_id,
-                }
-            }
-            let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
-            }
-            return await _this.post.tx(tx);
-        },
-        create_token: async function (obj) {
-            let tx_data = {
-                type: 'create_token',
-                parameters: {
-                    fee_type: BigInt(obj.fee_type),
-                    fee_value: BigInt(obj.fee_value),
-                    fee_min: BigInt(obj.fee_min),
-                    decimals: BigInt(obj.decimals),
-                    total_supply: BigInt(obj.total_supply),
-                    ticker: String(obj.ticker),
-                    name: String(obj.name),
-                    max_supply: BigInt(obj.max_supply),
-                    block_reward: BigInt(obj.block_reward),
-                    min_stake: BigInt(obj.min_stake),
-                    referrer_stake: BigInt(obj.referrer_stake),
-                    ref_share: BigInt(obj.ref_share),
-                    reissuable: Number(obj.reissuable),
-                    minable: Number(obj.minable)
-                }
-            }
-            let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
-            }
-            return await _this.post.tx(tx);
-        },
-        burn: async function (obj) {
-            // from, token_hash, amount
-            let tx_data = {
-                type: 'burn',
-                parameters: {
-                    tocken_hash: obj.token_hash,
-                    amount: BigInt(obj.amount)
-                }
-            }
-            let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
-            }
-            return await _this.post.tx(tx);
-        },
-        mint: async function (obj) {
-            // from, token_hash, amount
-            let tx_data = {
-                type: 'burn',
-                parameters: {
-                    tocken_hash: obj.token_hash,
-                    amount: BigInt(obj.amount)
-                }
-            }
-            let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
-            }
-            return await _this.post.tx(tx);
-        },
-        transfer: async function (obj) {
-            // from, pos_id
-            let tx_data = {
-                type: 'transfer',
-                parameters: {
-                    undelegate_id: obj.pos_id,
-                }
-            }
-            let tx = {
-                from: obj.from,
-                to: obj.to || web.Enq.owner || await web.Net.get.getOwner(web.Enq.token[web.Enq.provider]),
-                tokenHash: obj.tokenHash || web.Enq.token[web.Enq.provider],
-                amount: 0,
-                data: tx_data
-            }
-            return await _this.post.tx(tx)
         }
     }
     this.pos = {

@@ -29,7 +29,7 @@ const Enq = function Enq(web) {
             }
         }
     } catch (e) {
-        console.warn("networks not loaded")
+        // console.warn("networks not loaded")
     }
 
     Object.defineProperty(this, 'provider', {
@@ -45,7 +45,7 @@ const Enq = function Enq(web) {
             if (token[provider] !== undefined) {
                 ticker = token[provider]
             } else {
-                native_token(net)
+                this.native_token(net)
                     .then(data => {
                         provider = net
                         if (data) {
@@ -56,8 +56,7 @@ const Enq = function Enq(web) {
                         }
 
                     })
-                    .catch(() => {
-                    })
+                    .catch(() => {})
             }
             return provider;
         },
@@ -156,7 +155,7 @@ const Enq = function Enq(web) {
         configurable: true
     })
 
-    let native_token = function (net) {
+    this.native_token = function (net) {
         return new Promise((resolve, reject) => {
             net = net[net.length - 1] === "/" ? net.substr(0, net.length - 1) : net;
             fetch(net + "/api/v1/native_token")
@@ -182,6 +181,36 @@ const Enq = function Enq(web) {
                 })
         })
 
+    }
+
+    this.setProvider = function(net){
+        if (url[net] !== undefined) {
+            provider = url[net]
+        } else {
+            provider = net;
+        }
+        if (token[provider] !== undefined) {
+            ticker = token[provider]
+        } else {
+            this.native_token(net)
+                .then(data => {
+                    provider = net
+                    if (data) {
+                        token[net] = data
+                        ticker = data
+                    } else {
+                        ticker = ""
+                    }
+
+                })
+                .catch(() => {})
+        }
+        return provider;
+    }
+
+    this.setProviderWithToken = function(net, nativeToken){
+        token[net] = nativeToken
+        return this.setProvider(net)
     }
 
     this.sendTx = function (tx) {
