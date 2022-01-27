@@ -170,7 +170,7 @@ const Net = function Net(web) {
                 tx.data = '';
             }
             tx.hash = await web.Utils.Sign.hash_tx_fields(tx)
-            tx.sign = await web.Utils.Sign.ecdsa_sign(obj.from.prvkey, tx.hash);
+            tx.sign = await web.Utils.Sign.ecdsa_sign_rfc(obj.from.prvkey, web.Utils.crypto.sha256(tx.hash));
             // return await web3-enq.Enq.sendTx(tx)
             return new Promise((resolve, reject) => {
                 web.Enq.sendTx(tx)
@@ -197,7 +197,7 @@ const Net = function Net(web) {
                 tx.data = '';
             }
             tx.hash = await web.Utils.Sign.hash_tx_fields(tx)
-            tx.sign = await web.Utils.Sign.ecdsa_sign(obj.from.prvkey, tx.hash);
+            tx.sign = await web.Utils.Sign.ecdsa_sign_rfc(obj.from.prvkey, web.Utils.crypto.sha256(tx.hash));
             // return await web3-enq.Enq.sendTx(tx)
             return new Promise((resolve, reject) => {
                 web.Enq.sendTx(tx)
