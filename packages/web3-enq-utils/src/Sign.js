@@ -33,6 +33,12 @@ let Sign = {
             return null;
         }
     },
+    ecdsa_sign_rfc: function (skey, msg){
+        let ec = new EC('secp256k1')
+        let key = ec.keyFromPrivate(skey)
+        let signature = key.sign(msg)
+        return signature.toDER('hex')
+    },
     ecdsa_verify: function (publicKey, sign, msgHash) {
         let ec = new EC('secp256k1');
         if(publicKey.length === 66)
