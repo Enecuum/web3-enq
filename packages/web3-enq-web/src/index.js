@@ -1,9 +1,11 @@
 const Errors = require('./errorCases')
+const {rejects} = require("assert");
 
 
 const Web = function Web(web) {
     this.errs = Errors;
     let time = 200
+    let dieTime = 5*1000
     let _promise = function (id) {
         return new Promise((resolve) => {
             let a = setInterval(() => {
@@ -125,17 +127,34 @@ const Web = function Web(web) {
     }
 
     this.connect = async function () {
-        let taskId = window.origin + '/connect'
-        let event = new CustomEvent('ENQConnect', {
-            detail: {
-                type: 'connect',
-                data: {
-                    url: window.origin,
-                },
-                cb: {taskId: taskId}
+        return new Promise(async (resolve,reject)=>{
+            let taskId = window.origin + '/connect'
+            let event = new CustomEvent('ENQConnect', {
+                detail: {
+                    type: 'connect',
+                    data: {
+                        url: window.origin,
+                    },
+                    cb: {taskId: taskId}
+                }
+            })
+            if(web.Enq.ready['extConnect']){
+                document.dispatchEvent(event)
+                resolve(true)
+            }else{
+                let timeout = setTimeout(()=>{
+                    reject('time is over')
+                },dieTime)
+                let interval = setInterval(()=>{
+                    if(web.Enq.ready['extConnect']){
+                        document.dispatchEvent(event)
+                        resolve(true)
+                        clearTimeout(timeout)
+                        clearInterval(interval)
+                    }
+                }, time)
             }
         })
-        document.dispatchEvent(event)
     }
 
     this.enable = async function (cb) {
@@ -214,7 +233,7 @@ const Web = function Web(web) {
             }
             if (tokenInfo[0].fee_type === 2){
                 return 0n;
-                
+
             }
             return false
         }
