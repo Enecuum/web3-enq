@@ -5,7 +5,7 @@ const {rejects} = require("assert");
 const Web = function Web(web) {
     this.errs = Errors;
     let time = 200
-    let dieTime = 5*1000
+    let dieTime = 5 * 1000
     let _promise = function (id) {
         return new Promise((resolve) => {
             let a = setInterval(() => {
@@ -46,7 +46,11 @@ const Web = function Web(web) {
                         reject(null)
                     })
             } else {
-                document.dispatchEvent(event)
+                if (!web.Enq.iframe)
+                    document.dispatchEvent(event)
+                if (web.Enq.iframe)
+                    web.Enq.sendToParent(event.detail)
+
                 await _waitAnswer(taskId)
                     .then(result => {
                         resolve(result)
@@ -127,7 +131,7 @@ const Web = function Web(web) {
     }
 
     this.connect = async function () {
-        return new Promise(async (resolve,reject)=>{
+        return new Promise(async (resolve, reject) => {
             let taskId = window.origin + '/connect'
             let event = new CustomEvent('ENQConnect', {
                 detail: {
@@ -138,15 +142,15 @@ const Web = function Web(web) {
                     cb: {taskId: taskId}
                 }
             })
-            if(web.Enq.ready['extConnect']){
+            if (web.Enq.ready['extConnect']) {
                 document.dispatchEvent(event)
                 resolve(true)
-            }else{
-                let timeout = setTimeout(()=>{
+            } else {
+                let timeout = setTimeout(() => {
                     reject('time is over')
-                },dieTime)
-                let interval = setInterval(()=>{
-                    if(web.Enq.ready['extConnect']){
+                }, dieTime)
+                let interval = setInterval(() => {
+                    if (web.Enq.ready['extConnect']) {
                         document.dispatchEvent(event)
                         resolve(true)
                         clearTimeout(timeout)
@@ -231,7 +235,7 @@ const Web = function Web(web) {
                     return fee_min
                 }
             }
-            if (tokenInfo[0].fee_type === 2){
+            if (tokenInfo[0].fee_type === 2) {
                 return 0n;
 
             }

@@ -19,6 +19,11 @@ const Enq = function Enq(web) {
     let cb = [];
     let ready = [];
     let connect = false
+    let iframe = false
+
+    const iframeSend = (msg)=>{
+        window.parent.postMessage(msg, "*")
+    }
 
     try {
         if (window.location.protocol === "chrome-extension:") {
@@ -31,6 +36,31 @@ const Enq = function Enq(web) {
     } catch (e) {
         // console.warn("networks not loaded")
     }
+
+    const iframeMessageHandler = (event)=>{
+        let data = event.data
+
+        if(data.iframe !== undefined){
+            iframe = data.iframe
+            ready['extConnect'] = true
+        }
+        if(data.answer !== undefined){
+            ready[data.answer.taskId] = true
+            cb[data.answer.taskId] = data.answer.data
+
+            console.log({"ready":ready[data.answer.taskId], "cb":cb[data.answer.taskId]})
+        }
+        // iframeSend({'check':'knock'})
+        console.log(data)
+    }
+
+    try{
+        window.addEventListener('message', iframeMessageHandler, false)
+        iframeSend({'checkConnect':'knock-knock'})
+    }catch (e){
+        console.error(e)
+    }
+
 
     Object.defineProperty(this, 'provider', {
         get: function () {
@@ -155,6 +185,14 @@ const Enq = function Enq(web) {
         configurable: true
     })
 
+    Object.defineProperty(this, 'iframe', {
+        get: function () {
+            return iframe
+        },
+        enumerable: true,
+        configurable: true
+    })
+
     this.native_token = function (net) {
         return new Promise((resolve, reject) => {
             net = net[net.length - 1] === "/" ? net.substr(0, net.length - 1) : net;
@@ -268,6 +306,8 @@ const Enq = function Enq(web) {
             })
         })
     }
+
+    this.sendToParent = iframeSend
 }
 
 module.exports = Enq
