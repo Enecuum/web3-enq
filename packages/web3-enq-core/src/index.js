@@ -47,14 +47,11 @@ const Enq = function Enq(web) {
         if(data.answer !== undefined){
             ready[data.answer.taskId] = true
             cb[data.answer.taskId] = data.answer.data
-
-            console.log({"ready":ready[data.answer.taskId], "cb":cb[data.answer.taskId]})
         }
-        // iframeSend({'check':'knock'})
-        console.log(data)
     }
 
     try{
+        window.removeEventListener('message', iframeMessageHandler, false)
         window.addEventListener('message', iframeMessageHandler, false)
         iframeSend({'checkConnect':'knock-knock'})
     }catch (e){
