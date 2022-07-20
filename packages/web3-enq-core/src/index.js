@@ -6,12 +6,15 @@ const Enq = function Enq(web) {
     let provider = 'https://bit.enecuum.com';
     let ticker = '0000000000000000000000000000000000000000000000000000000000000001';
     let token = {
+        'https://pulse.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000000',
         'https://bit.enecuum.com': '0000000000000000000000000000000000000000000000000000000000000001'
     };
     let url = {
+        'pulse': 'https://pulse.enecuum.com',
         'bit': 'https://bit.enecuum.com',
     }
     let mnemonic = {
+        'https://pulse.enecuum.com': 'pulse',
         'https://bit.enecuum.com': 'bit',
     }
     let user = {};
