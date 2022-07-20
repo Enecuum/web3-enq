@@ -3,7 +3,6 @@ const {format} = require('url');
 
 const Enq = function Enq(web) {
     let _this = this;
-    //TODO
     let provider = 'https://bit.enecuum.com';
     let ticker = '0000000000000000000000000000000000000000000000000000000000000001';
     let token = {
