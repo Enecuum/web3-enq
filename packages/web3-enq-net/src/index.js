@@ -150,6 +150,42 @@ const Net = function Net(web) {
                         reject(false)
                     })
             })
+        },
+        get_tickers_all_unfiltered: async ()=>{
+            let api = `get_tickers_all_unfiltered`
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer => {
+                        resolve(answer)
+                    })
+                    .catch(() => {
+                        reject(false)
+                    })
+            })
+        },
+        balance_all_unfiltered: async (publicKey)=>{
+            let api = `balance_all_unfiltered?id=${publicKey}`
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer => {
+                        resolve(answer)
+                    })
+                    .catch(() => {
+                        reject(false)
+                    })
+            })
+        },
+        account_rewards: async (publicKey)=>{
+            let api = 'account_rewards?id=' + publicKey + '&page=0'
+            return new Promise((resolve, reject) => {
+                web.Enq.sendAPI(api)
+                    .then(answer => {
+                        resolve(answer)
+                    })
+                    .catch(() => {
+                        reject(false)
+                    })
+            })
         }
     }
     this.post = {
