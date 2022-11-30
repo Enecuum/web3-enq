@@ -71,26 +71,13 @@ const Web = function Web(web) {
                     cb: {url: window.origin, taskId: taskId, fullUrl: fullUrl}
                 }
             })
-            if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
-                await _waitAnswer(taskId)
-                    .then(result => {
-                        resolve(result)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        reject(null)
-                    })
-            } else {
-                document.dispatchEvent(event)
-                await _waitAnswer(taskId)
-                    .then(result => {
-                        resolve(result)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        reject(null)
-                    })
-            }
+            await waitingFunc(taskId, event)
+                .then(result => {
+                    resolve(result);
+                })
+                .catch(err => {
+                    reject(err);
+                })
         }))
     }
 
@@ -103,26 +90,13 @@ const Web = function Web(web) {
                     cb: {url: window.origin, taskId: taskId}
                 }
             })
-            if (typeof web.Enq.ready === typeof (Boolean) && web.Enq.ready === false) {
-                await _waitAnswer(taskId)
-                    .then(result => {
-                        resolve(result)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        reject(null)
-                    })
-            } else {
-                document.dispatchEvent(event)
-                await _waitAnswer(taskId)
-                    .then(result => {
-                        resolve(result)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        reject(null)
-                    })
-            }
+            await waitingFunc(taskId, event)
+                .then(result => {
+                    resolve(result);
+                })
+                .catch(err => {
+                    reject(err);
+                })
         }))
     }
 
