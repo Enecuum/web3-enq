@@ -33,7 +33,7 @@ let Sign = {
             return null;
         }
     },
-    ecdsa_sign_rfc: function (skey, msg){
+    ecdsa_sign_rfc: function (skey, msg) {
         let ec = new EC('secp256k1')
         let key = ec.keyFromPrivate(skey)
         let signature = key.sign(msg)
@@ -41,25 +41,41 @@ let Sign = {
     },
     ecdsa_verify: function (publicKey, sign, msgHash) {
         let ec = new EC('secp256k1');
-        if(publicKey.length === 66)
+        if (publicKey.length === 66)
             publicKey = this.getDecompressedPublicKey(publicKey)
         let pubkey = ec.keyFromPublic(publicKey, 'hex');
         return pubkey.verify(msgHash, sign)
     },
-    getDecompressedPublicKey: (publicKey)=>{
-        if(publicKey.length !==66){
+    getDecompressedPublicKey: (publicKey) => {
+        if (publicKey.length !== 66) {
             return false
         }
         let p = BigInt('0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F')
         let x = BigInt("0x" + publicKey.substr(2))
-        let prefix = publicKey.substr(0,2)
-
+        let prefix = publicKey.substr(0, 2)
         let a = (libMath.pow_mod(x, 3n, p) + 7n) % p
-        let y = libMath.pow_mod(a, (p+1n)/4n, p)
-        if(parseInt(prefix)%2 === 0){
+        let y = libMath.pow_mod(a, (p + 1n) / 4n, p)
+        let check = y & 1n
+        if ((prefix === "02" && check === 1n) || (prefix === "03" && check !== 1n)) {
             y = libMath.mod(-y, p)
         }
-        return `04${x.toString(16).toLowerCase()}${y.toString(16).toLowerCase()}`
+        if (y.toString(16).toLowerCase().length < 64) {
+            y = y.toString(16).toLowerCase()
+            for (let i = 0; i < 64 - y.toString(16).toLowerCase().length; i++) {
+                y = '0' + y
+            }
+        } else {
+            y = y.toString(16).toLowerCase()
+        }
+        if (x.toString(16).toLowerCase().length < 64) {
+            x = x.toString(16).toLowerCase()
+            for (let i = 0; i < 64 - x.toString(16).toLowerCase().length; i++) {
+                x = '0' + x
+            }
+        } else {
+            x = x.toString(16).toLowerCase()
+        }
+        return `04${x}${y}`
     },
     getPublicKey: function (pvt, compact) {
         let ec = new EC('secp256k1');
