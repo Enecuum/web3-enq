@@ -7,3 +7,4 @@ dist/enqweb3lib.min.js.LICENSE.txt
 dist
 dist/*
 *DS_Store
+**/.DS_Store
