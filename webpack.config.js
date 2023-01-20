@@ -57,5 +57,6 @@ module.exports = {
         library: "Web3",
         libraryTarget: "umd"
     },
-    mode: "production"
+    mode: "production",
+    node: undefined
 }

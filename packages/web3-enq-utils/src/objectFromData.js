@@ -1,4 +1,5 @@
 let schemas = require('./schema')
+const {BrotliDecode: decode} = require("./decode");
 
 let objectFromData = function objectFromData() {
 
@@ -102,6 +103,27 @@ let objectFromData = function objectFromData() {
     }
     this.isContract = function (data) {
         return isContract(data)
+    }
+    this.parseCompressData = function (raw) {
+        let data
+        try {
+            let buffer = Buffer.from(raw, "base64");
+            data = decode(buffer)
+        } catch (e) {
+            console.error(e)
+            return false
+        }
+        let str = ""
+        for (let i = 0; i < data.length; i++) {
+            str += String.fromCharCode(data[i])
+        }
+        try {
+            data = JSON.parse(str)
+        } catch (e) {
+            console.error(e)
+            data = false
+        }
+        return data;
     }
 }
 
