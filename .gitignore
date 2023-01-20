@@ -6,3 +6,4 @@ package-lock.json
 dist/enqweb3lib.min.js.LICENSE.txt
 dist
 dist/*
+*DS_Store
