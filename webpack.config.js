@@ -1,6 +1,5 @@
 const path = require("path")
 const webpack = require("webpack");
-const zlib = require("zlib");
 
 module.exports = {
     entry: {
