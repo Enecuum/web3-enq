@@ -568,7 +568,7 @@ const SC = function SC(web) {
                 throw new Error("wrong token_hash")
             }
 
-            this.type = "farm_add_emission"
+            this.type = "dex_cmd_distribute"
             this.parameters = {
                 token_hash: token_hash
             }
