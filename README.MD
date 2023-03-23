@@ -231,7 +231,10 @@ all utilities are in `ENQWeb.Utils`. main methods:
 to prepare the transaction, use the method as shown in the example
 ```
 let transaction = new ENQWeb.Utils.SmartContractGenerator.TransactionGenerator("https://pulse.enecuum.com")
-
+```
+Paste in parameter url of network explorer. All info takes from API of network
+- Result:
+```
 {
   amount: 1000000000
   data: ""
@@ -241,6 +244,8 @@ let transaction = new ENQWeb.Utils.SmartContractGenerator.TransactionGenerator("
   to: "02833f453fb8bf10cc5e8fd362d563851543559f3ea6e662ef114d8db8f72dda19"
 }
 ```
+
+---
 data field generation is described below
 data field need serialization, use next method:
 ```
