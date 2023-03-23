@@ -226,3 +226,84 @@ all utilities are in `ENQWeb.Utils`. main methods:
 - .dfo (obj) - serialization of the data field into the blockchain format.
 - .ofd.parse (string) - deserialization of the date field into an object.
 - .generateKey.getByNumber (number) - returns the number of generated private keys
+
+# Smart-Contract generator
+to prepare the transaction, use the method as shown in the example
+```
+let transaction = new ENQWeb.Utils.SmartContractGenerator.TransactionGenerator("https://pulse.enecuum.com")
+```
+Paste in parameter url of network explorer. All info takes from API of network
+- Result:
+```
+{
+  amount: 1000000000
+  data: ""
+  from: ""
+  nonce: 260087203
+  ticker: "0000000000000000000000000000000000000000000000000000000000000000"
+  to: "02833f453fb8bf10cc5e8fd362d563851543559f3ea6e662ef114d8db8f72dda19"
+}
+```
+
+---
+data field generation is described below
+data field need serialization, use next method:
+```
+ENQweb3lib.serialize(data)
+
+data - your generated data object
+```
+### pos methods
+these methods are located in the following path
+```
+ENQWeb.Utils.SmartContractGenerator.SCGenerators.pos
+```
+- .SmartContractCreatePos(fee, name)
+- .SmartContractDelegate(pos_id, amount)
+- .SmartContractPosReward(pos_id)
+- .SmartContractTransfer(undelegate_id)
+- .SmartContractUndelegate(pos_id, amount)
+
+### token methods
+
+these methods are located in the following path
+```
+ENQWeb.Utils.SmartContractGenerator.SCGenerators.token
+```
+- .SmartContractCreateToken(fee_type, fee_value, fee_min, ticker, decimals, total_supply, name, minable, reissuable, block_reward, min_stake, ref_share, referrer_stake, max_supply)
+- .SmartContractBurn(token_hash, amount)
+- .SmartContractMint(token_hash, amount)
+
+### pool methods
+these methods are located in the following path
+```
+ENQWeb.Utils.SmartContractGenerator.SCGenerators.pool
+```
+- SmartContractPoolCreate(asset_1, amount_1, asset_2, amount_2)
+- SmartContractPoolLiquidityAdd(asset_1, amount_1, asset_2, amount_2)
+- SmartContractPoolLiquidityRemove(lt, amount)
+- SmartContractPoolLiquiditySellExact(asset_in, amount_in, asset_out, amount_out_min)
+- SmartContractPoolLiquiditySellExactRouted(asset0, amount_in, asset1, amount_out_min, plength, asset2, asset3)
+- SmartContractPoolLiquidityBuyExact(asset_in, amount_in_max, asset_out, amount_out)
+- SmartContractPoolLiquidityBuyExactRouted(asset0, amount_in_max, asset1, amount_out, plength, asset2, asset3)
+
+### farm methods
+these methods are located in the following path
+```
+ENQWeb.Utils.SmartContractGenerator.SCGenerators.farm
+```
+- SmartContractFarmCreate(stake_token, reward_token, block_reward, emission)
+- SmartContractFarmIncreaseStake(farm_id, amount)
+- SmartContractFarmDecreaseStake(farm_id, amount)
+- SmartContractFarmCloseStake(farm_id)
+- SmartContractFarmGetReward(farm_id)
+- SmartContractFarmsAddEmission(farm_id, amount)
+
+
+### dex methods
+these methods are located in the following path
+```
+ENQWeb.Utils.SmartContractGenerator.SCGenerators.dex
+```
+
+- .SmartContractDexCmdDistribute(token_hash)
