@@ -584,37 +584,38 @@ const SC = function SC(web) {
         ticker = ""
 
         constructor(net) {
-            try{
-                fetch(net + "/api/v1/native_token")
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.hash !== undefined) {
-                            // resolve(data.hash)
-                            this.ticker = data.hash
-                            this.to = data.owner
-                            this.amount = data.fee_value
-                            this.nonce = Math.floor(Math.random() * 1e10)
-                            return {
-                                from: this.from,
-                                to: this.to,
-                                amount:this.amount,
-                                ticker: this.ticker,
-                                nonce: this.nonce,
-                                data: this.data
+            return new Promise((resolve, reject)=>{
+                try{
+                    fetch(net + "/api/v1/native_token")
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.hash !== undefined) {
+                                // resolve(data.hash)
+                                this.ticker = data.hash
+                                this.to = data.owner
+                                this.amount = data.fee_value
+                                this.nonce = Math.floor(Math.random() * 1e10)
+                                resolve({
+                                    from: this.from,
+                                    to: this.to,
+                                    amount:this.amount,
+                                    ticker: this.ticker,
+                                    nonce: this.nonce,
+                                    data: this.data
+                                })
+                            } else {
+                                throw new Error("Not valid for this network")
                             }
-                        } else {
-                            throw new Error("Not valid for this network")
-                        }
-                    })
-                    .catch(e => {
-                        throw new Error("something wrong...\n"+e)
-                    })
+                        })
+                        .catch(e => {
+                            throw new Error("something wrong...\n"+e)
+                        })
 
-            }catch (e) {
-                console.error(e)
-                return undefined
-            }
-
+                }catch (e) {
+                    console.error(e)
+                    reject(e)
+                }
+            })
         }
     }
 
