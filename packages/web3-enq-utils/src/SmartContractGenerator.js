@@ -575,7 +575,7 @@ const SC = function SC(web) {
         }
     }
 
-    class TransactionGenerator{
+    class TransactionGenerator {
         from = ""
         to = ""
         amount = 0
@@ -584,8 +584,8 @@ const SC = function SC(web) {
         ticker = ""
 
         constructor(net) {
-            return new Promise((resolve, reject)=>{
-                try{
+            return new Promise((resolve, reject) => {
+                try {
                     fetch(net + "/api/v1/native_token")
                         .then(response => response.json())
                         .then(data => {
@@ -598,7 +598,7 @@ const SC = function SC(web) {
                                 resolve({
                                     from: this.from,
                                     to: this.to,
-                                    amount:this.amount,
+                                    amount: this.amount,
                                     ticker: this.ticker,
                                     nonce: this.nonce,
                                     data: this.data
@@ -608,12 +608,37 @@ const SC = function SC(web) {
                             }
                         })
                         .catch(e => {
-                            throw new Error("something wrong...\n"+e)
+                            throw new Error("something wrong...\n" + e)
                         })
 
-                }catch (e) {
-                    console.error(e)
-                    reject(e)
+                } catch (e) {
+                    try {
+                        web.Enq.sendRequest(net + "/api/v1/native_token", "GET", []).then(data => {
+                            if (data.hash !== undefined) {
+                                this.ticker = data.hash
+                                this.to = data.owner
+                                this.amount = data.fee_value
+                                this.nonce = Math.floor(Math.random() * 1e10)
+                                resolve({
+                                    from: this.from,
+                                    to: this.to,
+                                    amount: this.amount,
+                                    ticker: this.ticker,
+                                    nonce: this.nonce,
+                                    data: this.data
+                                })
+                            } else {
+                                throw new Error("Not valid for this network")
+                            }
+                        }).catch(e => {
+                            throw new Error("something wrong...\n" + e)
+                        })
+
+                    } catch (err) {
+                        console.error(err)
+                        reject(err)
+                    }
+
                 }
             })
         }
