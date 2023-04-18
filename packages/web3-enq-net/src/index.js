@@ -189,6 +189,23 @@ const Net = function Net(web) {
         }
     }
     this.post = {
+        tx_prvkey: async function (tx, prvkey, log=false) {
+            tx.hash = await web.Utils.Sign.hash_tx_fields(tx)
+            tx.sign = await web.Utils.Sign.ecdsa_sign_rfc(prvkey, web.Utils.crypto.sha256(tx.hash));
+            // return await web3-enq.Enq.sendTx(tx)
+            if(log){
+                console.log(tx)
+            }
+            return new Promise((resolve, reject) => {
+                web.Enq.sendTx(tx)
+                    .then(answer => {
+                        resolve(answer)
+                    })
+                    .catch(() => {
+                        reject(false)
+                    })
+            })
+        },
         tx: async function (obj) {
             // from, to, tokenHash, amount, data, nonce
             // let fee = await _this.get.token_info(obj.tokenHash)

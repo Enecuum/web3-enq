@@ -58,7 +58,7 @@ const Enq = function Enq(web) {
         window.addEventListener('message', iframeMessageHandler, false)
         iframeSend({'checkConnect':'knock-knock'})
     }catch (e){
-        console.error(e)
+        //console.error(e)
     }
 
 
