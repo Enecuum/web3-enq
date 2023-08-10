@@ -36,7 +36,13 @@ let schema = {
     "lock" :                    "2300",
     "claim_init" :              "2400",
     "claim_confirm" :           "2500",
-    "claim" :                   "2600",
+    // "claim" :                   "2600",
+    "bridge_set_owner" :        "2700",
+    "bridge_set_threshold" :    "2800",
+    "bridge_add_validator" :    "2900",
+    "bridge_remove_validator" : "2a00",
+    "bridge_add_network" :      "2b00",
+    "bridge_remove_network" :   "2c00"
 };
 
 let contract_pricelist = {
@@ -67,7 +73,13 @@ let contract_pricelist = {
     "lock": 0,
     "claim_init": 0,
     "claim_confirm":0,
-    "claim":0
+    // "claim":0
+    "bridge_set_owner" :        0,
+    "bridge_set_threshold" :    0,
+    "bridge_add_validator" :    0,
+    "bridge_remove_validator" : 0,
+    "bridge_add_network" :      0,
+    "bridge_remove_network" :   0
 }
 
 module.exports = {schema, contract_pricelist}
