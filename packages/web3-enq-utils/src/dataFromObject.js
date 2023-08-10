@@ -61,9 +61,8 @@ function serializeObject(obj) {
     } else {
         for (let key in obj) {
             let code = schema[key];
-            if (code === undefined) {
-                return false //TODO ошибка тут. что возвращать?
-            }
+            if (code === undefined)
+                throw new Error(`Serialize_object error: Key '${key}' has no code in the schema`)
             let res;
             if (typeof obj[key] !== 'undefined')
                 res = serializeObject(obj[key]);
