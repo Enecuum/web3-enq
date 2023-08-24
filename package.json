@@ -42,7 +42,7 @@
     "crypto-browserify": "^3.12.0",
     "https-browserify": "^1.0.0",
     "stream-browserify": "^3.0.0",
-    "webpack": "^5.12.3",
+    "webpack": "^5.88.2",
     "webpack-cli": "^4.3.1"
   },
   "author": "https://github.com/kamighost1",
